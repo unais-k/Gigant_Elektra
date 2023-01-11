@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Mirrored from smartshop.websitelayout.net/login-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:34 GMT -->
+    <head>
+        <!-- metas -->
+        <meta charset="utf-8" />
+        <meta name="author" content="Chitrakoot Web" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="keywords" content="Multipurpose eCommerce Template + Admin" />
+        <meta name="description" content="Smartshop - Multipurpose eCommerce Template + Admin" />
+
+        <!-- title  -->
+        <title>Smartshop - Multipurpose eCommerce Template + Admin</title>
+
+        <!-- google icons -->
+        <script src="https://kit.fontawesome.com/624938e563.js" crossorigin="anonymous"></script>
+
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
+            integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
+            crossorigin="anonymous"
+        />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+            integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <script src="https://unpkg.com/themify@1.0.0/_themify.scss"></script>
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="/images/user/logos/favicon-32x32.png" />
+        <link rel="apple-touch-icon" href="/images/user/logos/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/user/logos/android-chrome-192x192.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/user/logos/android-chrome-512x512.png" />
+
+        <!-- plugins -->
+        <link rel="stylesheet" href="/stylesheet/user/plugins.css" />
+
+        <!-- theme core css -->
+        <link href="/stylesheet/user/styles.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <!-- PAGE LOADING
+    ================================================== -->
+        <div id="preloader"></div>
+
+        <!-- MAIN WRAPPER
+    ================================================== -->
+        <div class="main-wrapper mp-pusher" id="mp-pusher">
+            <!-- HEADER
+        ================================================== -->
+            <header class="fixed header-light-nav">
+                <div id="top-bar">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-3 col-md-6">
+                                <div class="top-bar-info">
+                                    <ul class="ps-0">
+                                        <li>
+                                            <a href="tel:01234567890"
+                                                ><i class="fa-solid fa-mobile-button text-primary"></i> >
+                                                <span class="d-none d-md-inline-block ps-2">(+123) 456 7890</span></a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="mailto:addyour@emailhere"
+                                                ><i class="fa-regular fa-envelope"></i
+                                                ><span class="d-none d-md-inline-block ps-2">addyour@emailhere</span></a
+                                            >
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-9 col-md-6">
+                                <ul class="top-nav ps-0 me-6">
+                                    <li class="nav-item dropdown">
+                                        <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle"
+                                            ><i class="far fa-user"></i
+                                        ></a>
+                                        <ul class="dropdown-menu p-4">
+                                            <li class="mb-2">
+                                                <div class="media align-items-center">
+                                                    <img
+                                                        class="w-40px rounded-circle me-3"
+                                                        src="/images/user/avatar/01.png"
+                                                        alt="..."
+                                                    />
+                                                    <div class="media-body">Nancy Miller</div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">My Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">Order List</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="dropdown-item">Log Out</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"><i class="far fa-heart"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navbar-default">
+                    <!-- top search -->
+                    <div class="top-search bg-primary">
+                        <div class="container-fluid">
+                            <form class="search-form" action="#" method="GET">
+                                <div class="input-group">
+                                    <span class="input-group-addon cursor-pointer">
+                                        <button
+                                            class="search-form_submit fas fa-search display-27 text-white"
+                                            type="submit"
+                                        ></button>
+                                    </span>
+                                    <input
+                                        type="text"
+                                        class="search-form_input form-control"
+                                        name="s"
+                                        autocomplete="off"
+                                        placeholder="Type & hit enter..."
+                                    />
+                                    <span class="input-group-addon close-search"
+                                        ><i class="fas fa-times display-27 mt-2"></i
+                                    ></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- end top search -->
+
+                    <div class="container-fluid p-0">
+                        <div class="row align-items-center g-0">
+                            <div class="col-12 col-lg-12">
+                                <div class="menu_area alt-font">
+                                    <nav class="navbar navbar-expand-lg navbar-light p-0">
+                                        <!-- category toggler -->
+                                        <!-- <a href="#" id="trigger" class="menu-trigger"><i class="fa-solid fa-bars"></i></a> -->
+                                        <!-- end category toggler -->
+
+                                        <div class="navbar-header navbar-header-custom">
+                                            <!-- logo -->
+                                            <a href="index.html" class="navbar-brand logodefault"
+                                                ><img
+                                                    id="logo"
+                                                    class="ps-5"
+                                                    src="/images/user/logos/logo-no-background.png"
+                                                    alt="logo"
+                                            /></a>
+                                            <!-- end logo -->
+                                        </div>
+
+                                        <!-- menu toggler -->
+                                        <div class="navbar-toggler"></div>
+                                        <!-- end menu toggler -->
+
+                                        <!-- menu area -->
+                                        <ul class="navbar-nav mx-auto" id="nav" style="display: none">
+                                            <li>
+                                                <a href="#">Home</a>
+                                                <ul>
+                                                    <li><a href="home-shop-1.html">Home 01</a></li>
+                                                    <li><a href="home-shop-2.html">Home 02</a></li>
+                                                    <li><a href="home-shop-3.html">Home 03</a></li>
+                                                    <li><a href="home-shop-4.html">Home 04</a></li>
+                                                    <li><a href="admin/index.html" target="_blank">Admin Dashboard</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">Account</a>
+                                                <ul>
+                                                    <li><a href="login-register.html">Login / Register</a></li>
+                                                    <li><a href="account-password-recovery.html">Password Recovery</a></li>
+                                                    <li><a href="account-orders.html">Orders List</a></li>
+                                                    <li><a href="account-wishlist.html">Wishlist</a></li>
+                                                    <li><a href="account-profile.html">Profile Page</a></li>
+                                                    <li><a href="account-address.html">Contact / Shipping Address</a></li>
+                                                    <li><a href="account-tickets.html">My Tickets</a></li>
+                                                    <li><a href="account-single-ticket.html">Single Ticket</a></li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="#">Mega Menu</a>
+                                                <ul class="row megamenu">
+                                                    <li class="col-lg-3 col-sm-12">
+                                                        <span
+                                                            class="mb-lg-2 d-block py-2 py-lg-0 px-1-9 px-lg-0 text-uppercase sub-title"
+                                                            >Categories 01</span
+                                                        >
+                                                        <ul>
+                                                            <li><a href="#">Internal SSD</a></li>
+                                                            <li><a href="#">Memory Cards</a></li>
+                                                            <li><a href="#">Home Theatres</a></li>
+                                                            <li><a href="#">Unique Routers</a></li>
+                                                            <li><a href="#">Security cameras</a></li>
+                                                            <li><a href="#">Effective Laptops</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="col-lg-3 col-sm-12">
+                                                        <span
+                                                            class="mb-lg-2 d-block py-2 py-lg-0 px-1-9 px-lg-0 text-uppercase sub-title"
+                                                            >Categories 02</span
+                                                        >
+                                                        <ul>
+                                                            <li><a href="#">Winterwear</a></li>
+                                                            <li><a href="#">Sportswear</a></li>
+                                                            <li><a href="#">Innerwear</a></li>
+                                                            <li><a href="#">Ethnic Wear</a></li>
+                                                            <li><a href="#">Cotton Lounge Wear</a></li>
+                                                            <li><a href="#">Essential Swimwear</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="col-lg-3 col-sm-12">
+                                                        <span
+                                                            class="mb-lg-2 d-block py-2 py-lg-0 px-1-9 px-lg-0 text-uppercase sub-title"
+                                                            >Categories 02</span
+                                                        >
+                                                        <ul>
+                                                            <li><a href="#">Winterwear</a></li>
+                                                            <li><a href="#">Sportswear</a></li>
+                                                            <li><a href="#">Innerwear</a></li>
+                                                            <li><a href="#">Ethnic Wear</a></li>
+                                                            <li><a href="#">Cotton Lounge Wear</a></li>
+                                                            <li><a href="#">Essential Swimwear</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="col-lg-3 col-sm-12">
+                                                        <span
+                                                            class="mb-lg-2 d-block py-2 py-lg-0 px-1-9 px-lg-0 text-uppercase sub-title"
+                                                            >Categories 03</span
+                                                        >
+                                                        <ul>
+                                                            <li><a href="#">Computer Speakers</a></li>
+                                                            <li><a href="#">Compact Headphones</a></li>
+                                                            <li><a href="#">Best Choice Printers</a></li>
+                                                            <li><a href="#">PC Gaming</a></li>
+                                                            <li><a href="#">Power banks</a></li>
+                                                            <li><a href="#">Musical Instruments</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li>
+                                                <a href="#">Shop</a>
+                                                <ul>
+                                                    <li><a href="shop-categories.html">Shop Categories</a></li>
+                                                    <li><a href="shop-product-grid.html">Product Grid</a></li>
+                                                    <li><a href="shop-product-list.html">Product List</a></li>
+                                                    <li>
+                                                        <a href="shop-product-full-three-coulmn.html"
+                                                            >Product Three Coulmns</a
+                                                        >
+                                                    </li>
+                                                    <li>
+                                                        <a href="shop-product-full-four-coulmn.html"
+                                                            >Product Four Coulmns</a
+                                                        >
+                                                    </li>
+                                                    <li><a href="shop-product-detail.html">Product Detail</a></li>
+                                                    <li><a href="shop-cart.html">Shop Cart</a></li>
+                                                    <li>
+                                                        <a href="shop-checkout-address.html">Shop Checkout</a>
+                                                        <ul>
+                                                            <li><a href="shop-checkout-address.html">Address</a></li>
+                                                            <li><a href="shop-checkout-shipping.html">Shipping</a></li>
+                                                            <li><a href="shop-checkout-payment.html">Payment</a></li>
+                                                            <li><a href="shop-checkout-review.html">Review</a></li>
+                                                            <li><a href="checkout-complete.html">Complete</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <!-- end menu area -->
+
+                                        <!-- attribute navigation -->
+                                        <div class="attr-nav">
+                                            <ul>
+                                                <li class="dropdown me-3 me-lg-0">
+                                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                                        <i class="fa-solid fa-bag-shopping"></i>
+                                                        <span class="badge bg-primary">3</span>
+                                                    </a>
+                                                    <ul class="dropdown-menu cart-list">
+                                                        <li>
+                                                            <a href="#" class="photo"
+                                                                ><img
+                                                                    src="/images/user/products/cart-thumbs/cart-thumb-01.jpg"
+                                                                    class="cart-thumb"
+                                                                    alt="..."
+                                                            /></a>
+                                                            <h6><a href="#">Men's Football Boots </a></h6>
+                                                            <p>2x - <span class="price">$30.00</span></p>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="photo"
+                                                                ><img
+                                                                    src="/images/user/products/cart-thumbs/cart-thumb-02.jpg"
+                                                                    class="cart-thumb"
+                                                                    alt="..."
+                                                            /></a>
+                                                            <h6><a href="#">Sun Protection Cap</a></h6>
+                                                            <p>1x - <span class="price">$10.20</span></p>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" class="photo"
+                                                                ><img
+                                                                    src="/images/user/products/cart-thumbs/cart-thumb-03.jpg"
+                                                                    class="cart-thumb"
+                                                                    alt="..."
+                                                            /></a>
+                                                            <h6><a href="#">Heel Character Shoes</a></h6>
+                                                            <p>2x - <span class="price">$39.00</span></p>
+                                                        </li>
+                                                        <li class="total bg-primary">
+                                                            <span class="float-start"><strong>Total</strong>: $79.20</span>
+                                                            <a
+                                                                href="shop-cart.html"
+                                                                class="butn-style2 small white float-end w-auto"
+                                                                ><span>View Cart</span></a
+                                                            >
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="search">
+                                                    <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- end attribute navigation -->
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- PAGE TITLE
+        ================================================== -->
+            <section class="page-title-section bg-img cover-background" data-background="/images/user/bg/page-title.jpg">
+                <div class="container">
+                    <div class="title-info">
+                        <h1>Register</h1>
+                    </div>
+                    <div class="breadcrumbs-info">
+                        <ul class="ps-0">
+                            <li>
+                                <a href="home-shop-1.html">Home</a><i class="fa-sharp fa-solid fa-angle-right ps-2"></i>
+                            </li>
+                            <li><a href="#">Register</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LOGIN REGISTER
+        ================================================== -->
+            <section class="md">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8 col-md-12">
+                            <div class="common-block">
+                                <div class="inner-title">
+                                    <h4 class="mb-0">Register</h4>
+                                    <p class="mb-0">There's lots of fun in Register.</p>
+                                </div>
+
+                                <form method="post" action="/userRegisterPost" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Full Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="name"
+                                                    id="name"
+                                                    autocomplete="off"
+                                                    placeholder="Your fullname "
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>User Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="username"
+                                                    id="email"
+                                                    autocomplete="off"
+                                                    placeholder="Your username "
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Email Address</label>
+                                                <input
+                                                    type="email"
+                                                    class="form-control"
+                                                    name="email"
+                                                    id="email"
+                                                    autocomplete="off"
+                                                    placeholder="Your email address"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Phone</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="phone"
+                                                    id="phone"
+                                                    placeholder="Your Phone "
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input
+                                                    type="password"
+                                                    class="form-control"
+                                                    name="password"
+                                                    id="password"
+                                                    placeholder="Your password "
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Confirm Password</label>
+                                                <input
+                                                    type="password"
+                                                    class="form-control"
+                                                    name="confirmpassword"
+                                                    id="confirmpassword"
+                                                    placeholder=" confirm password "
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 mb-2"></div>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-12 grid-margin">
+                                            <div class="card card-white">
+                                                <div class="card-heading clearfix ps-2 pt-2">
+                                                    <h4 class="card-title">Upload your Profile</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <form class="form-inline">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="customFile" />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <% if (message) { %>
+                                    <h5 style="color: red"><%= message %></h5>
+                                    <% } else { %> <% } %>
+                                    <button type="submit" class="butn-style2 mt-4">Register</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER
+        ================================================== -->
+            <footer class="classic-footer bordered">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-2-3 mb-lg-0">
+                            <h3>Contact Us</h3>
+                            <ul class="list-style mb-2 ps-0">
+                                <li><strong>Address:</strong><span class="ps-1">74 Guild Street 542B, Town MT.</span></li>
+                                <li><strong>Phone: </strong><span class="ps-1">(+44) 123 456 789</span></li>
+                                <li><strong>Email: </strong><span class="ps-1">addyour@emailhere</span></li>
+                            </ul>
+
+                            <ul class="list-style-two mb-0 ps-0">
+                                <li>
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mb-2-3 mb-lg-0">
+                            <div class="row">
+                                <div class="col-md-6 col-6 pe-lg-0">
+                                    <h3>Quick Links</h3>
+                                    <ul class="list-style ps-0">
+                                        <li><a href="#">News</a></li>
+                                        <li><a href="#">History</a></li>
+                                        <li><a href="#">Our shop</a></li>
+                                        <li><a href="#">Secure shopping</a></li>
+                                        <li><a href="#">Privacy policy</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 col-6 pe-lg-0">
+                                    <h3>My Account</h3>
+                                    <ul class="list-style ps-0">
+                                        <li><a href="#">My Account</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="#">Wish List</a></li>
+                                        <li><a href="#">Newsletter</a></li>
+                                        <li><a href="#">Returns</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12">
+                            <div class="ps-lg-1-9">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-6 mb-1-9">
+                                        <h3>News Letter</h3>
+                                        <form method="post">
+                                            <div class="form-group footer-subscribe">
+                                                <input
+                                                    type="email"
+                                                    placeholder="Subscribe with us"
+                                                    id="email"
+                                                    class="form-control"
+                                                />
+                                                <a href="#" class="butn-style2"
+                                                    ><i class="fas fa-paper-plane display-27 mt-1"></i
+                                                ></a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-12 col-md-6">
+                                        <h3>Download Our Mobile Apps</h3>
+                                        <div class="text-start">
+                                            <a
+                                                href="#"
+                                                class="btn bordered text-start ms-1 ms-md-0 mt-1 mt-md-0 mb-0 mb-lg-2 mb-xl-0"
+                                            >
+                                                <span class="media align-items-center">
+                                                    <span class="fab fa-apple display-26 pe-3"></span>
+                                                    <span class="media-body">
+                                                        <span class="d-block display-32">Download on the</span>
+                                                        <strong>App Store</strong>
+                                                    </span>
+                                                </span>
+                                            </a>
+
+                                            <a href="#" class="btn bordered text-start ms-1 ms-lg-0 ms-xl-1 mt-1 mt-md-0">
+                                                <span class="media align-items-center">
+                                                    <span class="fab fa-google-play display-26 pe-3"></span>
+                                                    <span class="media-body">
+                                                        <span class="d-block display-32">Get it on</span>
+                                                        <strong>Google Play</strong>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom py-1-9 mt-6 mt-lg-8">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="text-center text-md-start">
+                                    <p class="mb-0">
+                                        &copy; <span class="current-year"></span> Smartshop is Powered by
+                                        <a href="https://www.chitrakootweb.com/" target="_blank" class="text-dark"
+                                            >Chitrakoot Web</a
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-style-17 text-center text-md-end">
+                                    <li><img src="/images/user/content/payment-options/visa.png" alt="..." /></li>
+                                    <li><img src="/images/user/content/payment-options/mastercard.png" alt="..." /></li>
+                                    <li><img src="/images/user/content/payment-options/paypal.png" alt="..." /></li>
+                                    <li><img src="/images/user/content/payment-options/amex.png" alt="..." /></li>
+                                    <li><img src="/images/user/content/payment-options/discover.png" alt="..." /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- SCROLL TO TOP
+    ================================================== -->
+        <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+
+        <!-- all js include start -->
+
+        <!-- jQuery -->
+        <script src="/js/user/jquery.min.js"></script>
+
+        <!-- popper js -->
+        <script src="/js/user/popper.min.js"></script>
+
+        <!-- bootstrap -->
+        <script src="/js/user/bootstrap.min.js"></script>
+
+        <!-- core.min.js -->
+        <script src="/js/user/core.min.js"></script>
+
+        <!-- custom scripts -->
+        <script src="/js/user/main.js"></script>
+
+        <!-- all js include end -->
+    </body>
+
+    <!-- Mirrored from smartshop.websitelayout.net/login-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:34 GMT -->
+</html>

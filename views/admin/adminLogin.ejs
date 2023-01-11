@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Welcome Admin</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet" />
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+        <link rel="stylesheet" href="/stylesheet/admin/stylelogin.css" />
+    </head>
+    <body class="img js-fullheight" style="background-image: url(/images/admin/bg.jpg)">
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center mb-5">
+                        <h4 class="heading-section">
+                            <h3><b>Work for a cause,</b></h3>
+                            <h5>not for applause</h5>
+                            <h3><b>Live life to express,</b></h3>
+                            <h5>not for impress</h5>
+                        </h4>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="login-wrap p-0">
+                            <form action="/admin/adminLogin" method="post" enctype="application/x-www-form-urlencoded">
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <input
+                                        type="email"
+                                        id="form3Example3"
+                                        name="email"
+                                        class="form-control"
+                                        autocomplete="off"
+                                        placeholder="Enter a valid email address"
+                                        required
+                                    />
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-3">
+                                    <input
+                                        type="password"
+                                        id="form3Example4"
+                                        name="password"
+                                        class="form-control"
+                                        placeholder="Enter password"
+                                        required
+                                    />
+                                </div>
+                                <div class="login_btn">
+                                    <button
+                                        class="btn btn-primary"
+                                        type="submit"
+                                        value="submit"
+                                        style="padding-left: 2.5rem; padding-right: 2.5rem"
+                                    >
+                                        Login
+                                    </button>
+                                </div>
+                                <br />
+                                <% if (message) { %>
+                                <h5 style="color: red"><%= message %></h5>
+                                <% } else { %> <% } %>
+                                <div class="form-group d-md-flex">
+                                    <div class="w-50">
+                                        <label class="checkbox-wrap checkbox-primary"
+                                            >Remember Me
+                                            <input type="checkbox" />
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div class="w-50 text-md-right">
+                                        <a href="#" style="color: #fff">Forgot Password</a>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+                            <div class="social d-flex text-center">
+                                <a href="#" class="px-2 py-2 mr-md-1 rounded"
+                                    ><span class="ion-logo-facebook mr-2"></span> Facebook</a
+                                >
+                                <a href="#" class="px-2 py-2 ml-md-1 rounded"
+                                    ><span class="ion-logo-twitter mr-2"></span> Twitter</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="/js/admin/jquery.min.js"></script>
+        <script src="/js/admin/popper.js"></script>
+        <script src="/js/admin/bootstrap.min.js"></script>
+        <script src="/js/admin/main.js"></script>
+        <!-- <script>
+            const form = document.getElementById("form");
+            form.addEventListener("submit", (e) => {
+                const email = document.getElementById("email");
+                const password = document.getElementById("password");
+
+                const err = document.getElementById("errMsg");
+                const err2 = document.getElementById("errMsg2");
+
+                if (email.value == "" || email.value == null) {
+                    e.preventDefault();
+                    err.innerHTML = "please fill this";
+                    // $('#form').after(`<span class="error text-danger">Please fill this</span>`)
+                    setTimeout(() => {
+                        console.log("hiii");
+                        err.innerHTML = "";
+                    }, 700);
+                } else if (password.value == "" || password.value == null) {
+                    e.preventDefault();
+                    err2.innerHTML = "please fill this";
+                    // $('#form').after(`<span class="error text-danger">Please fill this</span>`)
+                    setTimeout(() => {
+                        console.log("hiii");
+                        err2.innerHTML = "";
+                    }, 700);
+                }
+            });
+        </script> -->
+    </body>
+</html>
