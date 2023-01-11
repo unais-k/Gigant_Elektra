@@ -35,37 +35,38 @@ router.get("/adminHome", (req, res) => {
 });
 
 router.get("/addCategory", (req, res) => {
-    res.render("admin/addCategory");
+    res.render("admin/addCategory", { message: false });
 });
-router.post("/addCategory", (req, res, next) => {
-    if (req.session.admin) {
-        const newCategory = req.body.category;
-
-        categoryModel.find(
-            {
-                category: newCategory,
-            },
-            (err, data) => {
-                if (data.length === 0) {
-                    const category = new categoryModel({
-                        category: newCategory,
+router.post("/addCategory", async (req, res, next) => {
+    try {
+        const categoryname = req.body.category;
+        const categoryDescription = req.body.description;
+        categoryModel.findOne({ categoryname: categoryname }, (err, data) => {
+            console.log("category adding");
+            if (data) {
+                console.log(data);
+                const category = new categoryModel({
+                    categoryname: categoryname,
+                    description: categoryDescription,
+                });
+                category
+                    .save()
+                    .then((answer) => {
+                        res.redirect("/admin/addCategory");
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        next(error);
                     });
-                    category
-                        .save()
-                        .then((result) => {
-                            console.log("category created");
-                            res.redirect("/admin/addCategory");
-                        })
-                        .catch((err) => {
-                            console.log("error while createing new category");
-                            res.redirect("/admin/addCategory");
-                        });
-                } else {
-                    console.log("category already exist");
-                    res.redirect("/admin/addCategory");
-                }
+            } else {
+                message = "This category already exists";
+                res.redirect("/admin/addCategory");
+                console.log("error");
             }
-        );
+        });
+    } catch (error) {
+        console.log(error);
+        next(error);
     }
 });
 

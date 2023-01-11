@@ -315,7 +315,11 @@
                                                     class="form-control"
                                                     id="exampleFormControlTextarea1"
                                                     rows="3"
+                                                    name="description"
                                                 ></textarea>
+                                                <% if (message) { %>
+                                                <h5 style="color: red"><%= message %></h5>
+                                                <% } else { %> <% } %>
                                             </div>
                                             <!-- <div class="form-group mb-4">
                                                 <label for="exampleFormControlSelect1">Parent</label>
@@ -333,6 +337,7 @@
                                                     <option value="6">Furniture</option>
                                                 </select>
                                             </div> -->
+
                                             <div>
                                                 <button type="submit" class="btn btn-primary">Creat Category</button>
                                             </div>
