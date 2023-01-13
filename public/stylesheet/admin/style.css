@@ -3550,7 +3550,7 @@ _:future {
     position: relative;
     min-height: calc(100% - 56px);
     padding: 20px 30px 40px 30px;
-    background: #f3f4f7;
+    /* background: #a4eaff; */
 }
 .page-inner.no-page-title {
     padding-top: 30px;

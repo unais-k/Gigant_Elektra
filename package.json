@@ -14,13 +14,18 @@
         "express": "^4.18.2",
         "express-fileupload": "^1.4.0",
         "express-session": "^1.17.3",
+        "fs": "^0.0.1-security",
         "http-errors": "~1.6.3",
         "mongoose": "^6.8.3",
         "morgan": "^1.3.2",
+        "multer": "^1.4.5-lts.1",
+        "multer-s3": "^3.0.1",
         "nocache": "^3.0.4"
     },
     "devDependencies": {
         "dotenv": "^16.0.3",
+        "ejs-lint": "^2.0.0",
+        "eslint": "^8.31.0",
         "nodemon": "^2.0.20"
     }
 }
