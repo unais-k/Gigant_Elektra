@@ -278,49 +278,25 @@
                                                             </div>
                                                         </th> -->
                                                         <th scope="col">ID</th>
-                                                        <th scope="col">Image</th>
+
                                                         <th scope="col">Name</th>
-                                                        <th scope="col">Slug</th>
-                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Details</th>
+
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <!-- <% for( let i=0; i < products.length; i ++ ) { %> -->
+                                                    <%if(categoryList.length>0){ %> <% categoryList.forEach(
+                                                    (categoryList,index)=>{ %>
                                                     <tr>
-                                                        <!-- <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck1"
-                                                                />
-                                                            </div>
-                                                        </th> -->
-                                                        <td>
-                                                            <!-- <%= i+1 %> -->
-                                                            1
-                                                        </td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category1.jpg" alt="..." />
-                                                            <!-- <img style="width:30px; height: auto;"
-                                        src="<%= locals.products[i].imagesDetails[0].Location %> " alt=""> -->
-                                                        </td>
-                                                        <td>
-                                                            <!-- <%= products[i].productName %> -->
-                                                            Echo Spot
-                                                        </td>
-                                                        <td>
-                                                            <!-- <%= products[i].productPrice %> -->
-                                                            Echo spot
-                                                        </td>
-                                                        <td>
-                                                            <!-- <%= products[i].productCategory %> -->
-                                                            Electronics
-                                                        </td>
+                                                        <td><%=index+1%></td>
+                                                        <td><%=categoryList.categoryname%></td>
+
+                                                        <td><%=categoryList.description%></td>
+
                                                         <td>
                                                             <a
-                                                                href="#"
+                                                                href="/admin/edit_category/<%=categoryList._id%>"
                                                                 class="me-4"
                                                                 data-bs-toggle="tooltip"
                                                                 data-bs-placement="top"
@@ -329,7 +305,7 @@
                                                                 <i class="far fa-edit text-primary"></i>
                                                             </a>
                                                             <a
-                                                                href="#"
+                                                                href="/admin/delete_category/<%=categoryList._id%>"
                                                                 data-bs-toggle="tooltip"
                                                                 data-bs-placement="top"
                                                                 title="Delete"
@@ -338,318 +314,7 @@
                                                             </a>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <!-- <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck2"
-                                                                />
-                                                            </div>
-                                                        </th> -->
-                                                        <td>2</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category2.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Camera Phone</td>
-                                                        <td>camera phone</td>
-                                                        <td>Electronics</td>
-                                                        <td>
-                                                            <a
-                                                                href="#"
-                                                                class="me-4"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Edit"
-                                                            >
-                                                                <i class="far fa-edit text-primary"></i>
-                                                            </a>
-                                                            <a
-                                                                href="#"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Delete"
-                                                            >
-                                                                <i class="far fa-trash-alt text-danger"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <!-- <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck3"
-                                                                />
-                                                            </div>
-                                                        </th> -->
-                                                        <td>3</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category3.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Laptops</td>
-                                                        <td>laptops</td>
-                                                        <td>Electronics</td>
-                                                        <td>
-                                                            <a
-                                                                href="#"
-                                                                class="me-4"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Edit"
-                                                            >
-                                                                <i class="far fa-edit text-primary"></i>
-                                                            </a>
-                                                            <a
-                                                                href="#"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Delete"
-                                                            >
-                                                                <i class="far fa-trash-alt text-danger"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <!-- <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck4"
-                                                                />
-                                                            </div>
-                                                        </th> -->
-                                                        <td>4</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category4.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Security CCTV</td>
-                                                        <td>Security cctv</td>
-                                                        <td>Electronics</td>
-                                                        <td>
-                                                            <a
-                                                                href="#"
-                                                                class="me-4"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Edit"
-                                                            >
-                                                                <i class="far fa-edit text-primary"></i>
-                                                            </a>
-                                                            <a
-                                                                href="#"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Delete"
-                                                            >
-                                                                <i class="far fa-trash-alt text-danger"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <!-- <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck5"
-                                                                />
-                                                            </div>
-                                                        </th> -->
-                                                        <td>5</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category5.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Men's Wear</td>
-                                                        <td>Men's wear</td>
-                                                        <td>Fashion</td>
-                                                        <td>
-                                                            <a
-                                                                href="#"
-                                                                class="me-4"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Edit"
-                                                            >
-                                                                <i class="far fa-edit text-primary"></i>
-                                                            </a>
-                                                            <a
-                                                                href="#"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Delete"
-                                                            >
-                                                                <i class="far fa-trash-alt text-danger"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <!-- <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck6"
-                                                                />
-                                                            </div>
-                                                        </th> -->
-                                                        <td>6</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category6.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Women's Wear</td>
-                                                        <td>Women's wear</td>
-                                                        <td>Fashion</td>
-                                                        <td>
-                                                            <a
-                                                                href="#"
-                                                                class="me-4"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Edit"
-                                                            >
-                                                                <i class="far fa-edit text-primary"></i>
-                                                            </a>
-                                                            <a
-                                                                href="#"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Delete"
-                                                            >
-                                                                <i class="far fa-trash-alt text-danger"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <!-- <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck7"
-                                                                />
-                                                            </div>
-                                                        </th> -->
-                                                        <td>7</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category7.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Accessories</td>
-                                                        <td>accessories</td>
-                                                        <td>Fashion</td>
-                                                        <td>
-                                                            <a
-                                                                href="#"
-                                                                class="me-4"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Edit"
-                                                            >
-                                                                <i class="far fa-edit text-primary"></i>
-                                                            </a>
-                                                            <a
-                                                                href="#"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Delete"
-                                                            >
-                                                                <i class="far fa-trash-alt text-danger"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <!-- <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck8"
-                                                                />
-                                                            </div>
-                                                        </th> -->
-                                                        <td>8</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category8.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Footwear</td>
-                                                        <td>Footwear</td>
-                                                        <td>Fashion</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck9"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>9</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category9.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Tops</td>
-                                                        <td>tops</td>
-                                                        <td>Women's Fashion</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck10"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>10</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category10.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Bottom</td>
-                                                        <td>bottom</td>
-                                                        <td>Women's Fashion</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck11"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>11</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category11.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Jackets</td>
-                                                        <td>jackets</td>
-                                                        <td>Women's Fashion</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck12"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>12</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category12.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Summer Wear</td>
-                                                        <td>summer wear</td>
-                                                        <td>Women's Fashion</td>
-                                                    </tr>
+                                                    <%})%> <% } %>
                                                 </tbody>
                                             </table>
                                         </div>

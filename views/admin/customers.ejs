@@ -230,14 +230,6 @@
                                                         placeholder="search by name"
                                                     />
                                                 </div>
-
-                                                <div class="col-md-4">
-                                                    <select class="form-control form-select">
-                                                        <option>Order Amount</option>
-                                                        <option>Highest To Lowest</option>
-                                                        <option>Lowest To Highest</option>
-                                                    </select>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -265,31 +257,43 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <%for( let i=0; i < userList.length; i ++ ) { %>
+                                                <%if(userList.length>0){ %> <% userList.forEach( (userList,index)=>{ %>
                                                 <tr>
-                                                    <th scope="row"><%= i+1 %></th>
+                                                    <th scope="row"><%=index+1%></th>
                                                     <td>
                                                         <div class="d-flex align-items-center">
                                                             <div class="me-4">
                                                                 <img
                                                                     src="../images/user/profileImages/<%=
-                                                                userList[i].userImage %>"
+                                                                userList.userImage %>"
                                                                     class="rounded-circle"
                                                                     alt="..."
                                                                     style="max-width: 50px; max-height: 50px"
                                                                 />
                                                             </div>
                                                             <div>
-                                                                <h6><%= userList[i].userName %></h6>
-                                                                <span>ID : #SK2540</span>
+                                                                <h6><%= userList.userName %></h6>
+                                                                <!-- <span>ID : #SK2540</span> -->
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td><%= userList[i].phone %></td>
+                                                    <td><%= userList.phone %></td>
                                                     <td>12</td>
-                                                    <td><span class="badge rounded-pill bg-soft-pink">Blocked</span></td>
+                                                    <td>
+                                                        <%if(userList.block) { %>
+                                                        <span class="badge rounded-pill bg-soft-pink"
+                                                            ><a href="/admin/actionFalse/<%=userList._id%>"
+                                                                >Blocked</a
+                                                            ></span
+                                                        >
+                                                        <%} else {%>
+                                                        <span class="badge rounded-pill bg-soft-green"
+                                                            ><a href="/admin/actionTrue/<%=userList._id%>">Active</a></span
+                                                        >
+                                                        <% } %>
+                                                    </td>
                                                     <td>$2563</td>
-                                                    <td><%= userList[i].createdAt.toLocaleDateString() %></td>
+                                                    <td><%= userList.createdAt.toLocaleDateString() %></td>
                                                     <td>
                                                         <a
                                                             href="#"
@@ -310,133 +314,8 @@
                                                         </a>
                                                     </td>
                                                 </tr>
-                                                <!-- <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="me-4">
-                                                                <img
-                                                                    src="/images/admin/avatars/avatar-02.jpg"
-                                                                    class="rounded-circle"
-                                                                    alt="..."
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <h6>Carl M. Gaier</h6>
-                                                                <span>ID : #SK2541</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>123-371-653</td>
-                                                    <td>16</td>
-                                                    <td><span class="badge rounded-pill bg-soft-green">Active</span></td>
-                                                    <td>$3165</td>
-                                                    <td>02 Mar 1998</td>
-                                                    <td>
-                                                        <a
-                                                            href="#"
-                                                            class="me-3"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"
-                                                            title="Edit"
-                                                        >
-                                                            <i class="far fa-edit text-primary"></i>
-                                                        </a>
-                                                        <a
-                                                            href="#"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"
-                                                            title="Delete"
-                                                        >
-                                                            <i class="far fa-trash-alt text-danger"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="me-4">
-                                                                <img
-                                                                    src="/images/admin/avatars/avatar-03.jpg"
-                                                                    class="rounded-circle"
-                                                                    alt="..."
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <h6>Frank Manning</h6>
-                                                                <span>ID : #SK2542</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>642-135-8654</td>
-                                                    <td>10</td>
-                                                    <td><span class="badge rounded-pill bg-soft-green">Active</span></td>
-                                                    <td>$1357</td>
-                                                    <td>01 Apr 1999</td>
-                                                    <td>
-                                                        <a
-                                                            href="#"
-                                                            class="me-3"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"
-                                                            title="Edit"
-                                                        >
-                                                            <i class="far fa-edit text-primary"></i>
-                                                        </a>
-                                                        <a
-                                                            href="#"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"
-                                                            title="Delete"
-                                                        >
-                                                            <i class="far fa-trash-alt text-danger"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">4</th>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="me-4">
-                                                                <img
-                                                                    src="/images/admin/avatars/avatar-04.jpg"
-                                                                    class="rounded-circle"
-                                                                    alt="..."
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <h6>Gary Bradley</h6>
-                                                                <span>ID : #SK2543</span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>234-135-853</td>
-                                                    <td>21</td>
-                                                    <td><span class="badge rounded-pill bg-soft-green">Active</span></td>
-                                                    <td>$3482</td>
-                                                    <td>28 Jan 2002</td>
-                                                    <td>
-                                                        <a
-                                                            href="#"
-                                                            class="me-3"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"
-                                                            title="Edit"
-                                                        >
-                                                            <i class="far fa-edit text-primary"></i>
-                                                        </a>
-                                                        <a
-                                                            href="#"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"
-                                                            title="Delete"
-                                                        >
-                                                            <i class="far fa-trash-alt text-danger"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr> -->
-                                                <% } %>
+
+                                                <%})%> <% } %>
                                             </tbody>
                                         </table>
                                     </div>

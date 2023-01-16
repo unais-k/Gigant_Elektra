@@ -11,6 +11,10 @@ const categorySchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    vendor: {
+        type: Array,
+        ref: "vendor",
+    },
 });
 const categoryModel = mongoose.model("Category", categorySchema);
 module.exports = categoryModel;

@@ -239,39 +239,44 @@
                                                         class="form-control"
                                                         id="validationCustom01"
                                                         placeholder="First name"
-                                                        value="Mark"
+                                                        value="<%=editProduct.productName%>"
                                                         required
                                                     />
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="validationCustom02">SKU</label>
+                                                    <label for="validationCustom02">Price</label>
                                                     <input
                                                         type="text"
                                                         class="form-control"
+                                                        name="price"
                                                         id="validationCustom02"
-                                                        placeholder="124617209"
-                                                        value="124617209"
+                                                        placeholder=""
+                                                        value="<%=editProduct.price%>"
                                                         required
                                                     />
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="validationCustom03">Weight</label>
+                                                    <label for="validationCustom03">Details</label>
                                                     <input
                                                         type="text"
+                                                        name="details"
                                                         class="form-control"
                                                         id="validationCustom03"
+                                                        value="<%=editProduct.details%>"
                                                         required
                                                     />
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="validationCustom04">Color</label>
+                                                    <label for="validationCustom01">Vendor</label>
                                                     <input
                                                         type="text"
                                                         class="form-control"
-                                                        id="validationCustom04"
+                                                        name="vendor"
+                                                        id="validationCustom01"
+                                                        value="<%=editProduct.vendor%>"
                                                         required
                                                     />
                                                     <div class="valid-feedback">Looks good!</div>
@@ -280,21 +285,41 @@
                                                     <label for="validationCustom05">Quantity</label>
                                                     <input
                                                         type="text"
+                                                        name="quantity"
                                                         class="form-control"
                                                         id="validationCustom05"
+                                                        value="<%=editProduct.quantity%>"
                                                         required
                                                     />
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Wysiwyg</label>
-                                                        <div id="editor">
-                                                            <p>Hello World!</p>
-                                                            <p>Some initial <strong>bold</strong> text</p>
-                                                            <p><br /></p>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="validationCustom01">Colour</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="vendor"
+                                                        id="validationCustom01"
+                                                        value="<%=editProduct.color%>"
+                                                        required
+                                                    />
+                                                    <div class="valid-feedback">Looks good!</div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="validationCustom05">Category</label>
+                                                    <select
+                                                        class="form-select form-control"
+                                                        id="validationCustom09"
+                                                        name="category"
+                                                        value=""
+                                                        aria-label="Default select example"
+                                                    >
+                                                        <option selected><%=editProduct.category%></option>
+                                                        <%for( let i=0; i < categoryList.length; i ++ ) { %>
+                                                        <option><%= categoryList[i].categoryname %></option>
+                                                        <% } %>
+                                                    </select>
+                                                    <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                             </div>
                                         </form>
@@ -306,13 +331,19 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row grid-margin gallery">
+                                            <div class="col-sm-2"></div>
                                             <div class="col-sm-6 col-lg-3 mb-4 mb-lg-0">
                                                 <div class="card">
-                                                    <img src="/images/admin/media1.jpg" class="card-img-top" alt="..." />
+                                                    <img
+                                                        src="/images/uploads/<%=editProduct.productImages[0]%>"
+                                                        class="card-img-top"
+                                                        alt="..."
+                                                    />
+
                                                     <div class="card-body row text-center">
                                                         <div class="col border-end">
                                                             <a
-                                                                href="/images/admin/media1.jpg"
+                                                                href="/images/uploads/<%=editProduct.productImages[0]%>"
                                                                 class="popimg"
                                                                 data-bs-toggle="tooltip"
                                                                 data-bs-placement="top"
@@ -336,11 +367,16 @@
                                             </div>
                                             <div class="col-sm-6 col-lg-3 mb-4 mb-lg-0">
                                                 <div class="card">
-                                                    <img src="/images/admin/media2.jpg" class="card-img-top" alt="..." />
+                                                    <img
+                                                        src="/images/uploads/<%=editProduct.productImages[1]%>"
+                                                        class="card-img-top"
+                                                        alt="..."
+                                                    />
+
                                                     <div class="card-body row text-center">
                                                         <div class="col border-end">
                                                             <a
-                                                                href="/images/admin/media2.jpg"
+                                                                href="/images/uploads/<%=editProduct.productImages[1]%>"
                                                                 class="popimg"
                                                                 data-bs-toggle="tooltip"
                                                                 data-bs-placement="top"
@@ -362,41 +398,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-lg-3 mb-4 mb-md-0">
+                                            <div class="col-sm-6 col-lg-3 mb-4 mb-lg-0">
                                                 <div class="card">
-                                                    <img src="/images/admin/media3.jpg" class="card-img-top" alt="..." />
+                                                    <img
+                                                        src="/images/uploads/<%=editProduct.productImages[2]%>"
+                                                        class="card-img-top"
+                                                        alt="..."
+                                                    />
+
                                                     <div class="card-body row text-center">
                                                         <div class="col border-end">
                                                             <a
-                                                                href="/images/admin/media3.jpg"
-                                                                class="popimg"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="View"
-                                                            >
-                                                                <i class="far fa-eye text-primary"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col">
-                                                            <a
-                                                                href="#"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Delete"
-                                                            >
-                                                                <i class="far fa-trash-alt text-danger"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-lg-3">
-                                                <div class="card">
-                                                    <img src="/images/admin/media4.jpg" class="card-img-top" alt="..." />
-                                                    <div class="card-body row text-center">
-                                                        <div class="col border-end">
-                                                            <a
-                                                                href="/images/admin/media4.jpg"
+                                                                href="/images/uploads/<%=editProduct.productImages[2]%>"
                                                                 class="popimg"
                                                                 data-bs-toggle="tooltip"
                                                                 data-bs-placement="top"
@@ -428,6 +441,11 @@
                                                         type="file"
                                                     />
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="m-3">
+                                                <button type="submit" class="btn btn-primary">SUBMIT</button>
                                             </div>
                                         </div>
                                     </div>

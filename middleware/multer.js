@@ -28,7 +28,22 @@ const profileStorage = multer.diskStorage({
     filename: (req, file, cb) => {
         date = Date.now();
         const { name } = req.body;
-        cb(null, name + date + file.originalname);
+        cb(null, name + date + " " + file.originalname);
+    },
+});
+
+const thumbnailImage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const uploadPath = "./public/images/thumbnailImages";
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath);
+        }
+        cb(null, uploadPath);
+    },
+    filename: (req, file, cb) => {
+        date = Date.now();
+        const { name } = req.body;
+        cb(null, name + date + " " + file.originalname);
     },
 });
 
@@ -44,11 +59,12 @@ const maxSize = 52428800;
 
 const productPhoto = multer({
     storage: storage,
-    limits: {
-        fileSize: maxSize,
-    },
-    fileFilter: fileFilter,
-});
+    // limits: {
+    //     fileSize: maxSize,
+    // },
+    // fileFilter: fileFilter,
+}).array("imageName", 3);
+
 const uploadProfile = multer({
     storage: profileStorage,
     limits: {
@@ -57,4 +73,12 @@ const uploadProfile = multer({
     fileFilter: fileFilter,
 }).single("profile");
 
-module.exports = { productPhoto, uploadProfile };
+const thumbnail = multer({
+    storage: thumbnailImage,
+    limits: {
+        fileSize: maxSize,
+    },
+    fileFilter: fileFilter,
+}).single("thumbnail");
+
+module.exports = { productPhoto, uploadProfile, thumbnail };
