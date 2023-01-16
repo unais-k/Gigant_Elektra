@@ -5,7 +5,7 @@ const categoryModel = require("../models/categorySchema");
 const userModel = require("../models/userSchema");
 const productModel = require("../models/productSchema");
 const { productPhoto } = require("../middleware/multer");
-const vendorModel = require("../models/vendorSchema");
+// const vendorModel = require("../models/vendorSchema");
 
 const adminLogin = (req, res) => {
     res.render("admin/adminLogin", { message: false });

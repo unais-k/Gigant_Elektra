@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Mirrored from smartshop.websitelayout.net/account-profile by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:34 GMT -->
+    <head>
+        <!-- metas -->
+        <meta charset="utf-8" />
+        <meta name="author" content="Chitrakoot Web" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="keywords" content="Multipurpose eCommerce Template + Admin" />
+        <meta name="description" content="Smartshop - Multipurpose eCommerce Template + Admin" />
+
+        <!-- title  -->
+        <title>Smartshop - Multipurpose eCommerce Template + Admin</title>
+
+        <!-- google icons -->
+        <script src="https://kit.fontawesome.com/138cb064b7.js" crossorigin="anonymous"></script>
+
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
+            integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
+            crossorigin="anonymous"
+        />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+            integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <script src="https://unpkg.com/themify@1.0.0/_themify.scss"></script>
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="/images/user/logos/favicon-32x32.png" />
+        <link rel="apple-touch-icon" href="/images/user/logos/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/user/logos/android-chrome-192x192.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/user/logos/android-chrome-512x512.png" />
+
+        <!-- plugins -->
+        <link rel="stylesheet" href="/stylesheet/user/plugins.css" />
+
+        <!-- theme core css -->
+        <link href="/stylesheet/user/styles.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <!-- PAGE LOADING
+    ================================================== -->
+        <div id="preloader"></div>
+
+        <!-- MAIN WRAPPER
+    ================================================== -->
+        <div class="main-wrapper mp-pusher" id="mp-pusher">
+            <!-- HEADER
+        ================================================== -->
+            <%- include("../includes/userHeader.ejs") %>
+
+            <!-- CATEGORY MP-MENU
+        ================================================== -->
+
+            <!-- PAGE TITLE
+        ================================================== -->
+            <section class="page-title-section bg-img cover-background" data-background="/images/user/bg/page-title.jpg">
+                <div class="container">
+                    <div class="title-info">
+                        <h1>My Profile</h1>
+                    </div>
+                    <div class="breadcrumbs-info">
+                        <ul class="ps-0">
+                            <li><a href="home-shop-1">Home</a></li>
+                            >
+                            <li><a href="#">My Profile</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ACCOUNT ORDERS
+        ================================================== -->
+            <section class="md">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <!-- left panel -->
+                        <div class="col-lg-4 col-sm-9 mb-2-3 mb-lg-0">
+                            <div class="account-pannel">
+                                <div class="p-4">
+                                    <div class="text-center">
+                                        <div class="pb-3">
+                                            <img
+                                                class="img-fluid rounded-circle img-thumbnail"
+                                                src="/images/user/avatar/t-3.jpg"
+                                                alt="..."
+                                            />
+                                        </div>
+                                        <h6 class="mb-0 display-28"><%=userId.userName%></h6>
+                                        <small>Joined February 06, 2017</small>
+                                        <div class="reward-points">
+                                            <i class="fa-regular fa-star text-primary pe-1"></i> Points: 7386
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="list-group">
+                                    <a class="list-group-items" href="account-#">
+                                        <i class="fa-solid fa-bag-shopping pe-2"></i>Orders<span class="badge badge-pill"
+                                            >6</span
+                                        ></a
+                                    >
+                                    <a class="list-group-items active" href="/profile"
+                                        ><i class="fa-regular fa-user pe-2"></i>Profile</a
+                                    >
+                                    <a class="list-group-items" href="/personal_address"
+                                        ><i class="fa-sharp fa-solid fa-location-dot pe-2"></i>Addresses</a
+                                    >
+                                    <a class="list-group-items" href="/wishlist"
+                                        ><i class="fa-regular fa-heart pe-2"></i>Wishlist<span class="badge badge-pill"
+                                            >3</span
+                                        ></a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end left panel -->
+
+                        <!-- right panel -->
+                        <div class="col-lg-8">
+                            <div class="common-block">
+                                <div class="inner-title">
+                                    <h4 class="mb-0">My Profile</h4>
+                                    <p class="mb-0">Time for a Sharp My profile.</p>
+                                </div>
+
+                                <form method="post">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label><%=userId.userName%></label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="name"
+                                                    placeholder="Your name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Your User Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="username"
+                                                    placeholder="Your user name here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Email Address</label>
+                                                <input
+                                                    type="email"
+                                                    class="form-control"
+                                                    name="email"
+                                                    placeholder="Your email here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Contact Number</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="phone"
+                                                    placeholder="+40-123 456 789"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input
+                                                    type="password"
+                                                    class="form-control"
+                                                    name="password"
+                                                    placeholder="Your password here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Re-Password</label>
+                                                <input
+                                                    type="password"
+                                                    class="form-control"
+                                                    name="re-password"
+                                                    placeholder="Your re-password here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 mb-2"></div>
+                                    </div>
+
+                                    <button type="button" class="butn-style2 mt-4">Update Profile</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- end right panel -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER
+        ================================================== -->
+            <%- include("../includes/user-footer.ejs") %>
+        </div>
+
+        <!-- SCROLL TO TOP
+    ================================================== -->
+        <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+
+        <!-- all js include start -->
+
+        <!-- jQuery -->
+        <script src="/js/user/jquery.min.js"></script>
+
+        <!-- popper js -->
+        <script src="/js/user/popper.min.js"></script>
+
+        <!-- bootstrap -->
+        <script src="/js/user/bootstrap.min.js"></script>
+
+        <!-- core.min.js -->
+        <script src="/js/user/core.min.js"></script>
+
+        <!-- custom scripts -->
+        <script src="/js/user/main.js"></script>
+
+        <!-- all js include end -->
+    </body>
+
+    <!-- Mirrored from smartshop.websitelayout.net/account-profile by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:34 GMT -->
+</html>
