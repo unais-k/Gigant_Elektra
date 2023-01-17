@@ -17,10 +17,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    thumbnail: {
-        type: String,
-        required: true,
-    },
+
     productImages: {
         type: Array,
         required: true,
@@ -33,7 +30,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    vendor: {
+    brand: {
         type: String,
         required: true,
     },

@@ -4,7 +4,7 @@ var router = express.Router();
 const categoryModel = require("../models/categorySchema");
 const userModel = require("../models/userSchema");
 const productModel = require("../models/productSchema");
-const { productPhoto, thumbnail } = require("../middleware/multer");
+const { productPhoto } = require("../middleware/multer");
 
 const {
     adminLogin,
@@ -22,7 +22,10 @@ const {
     actionFalse,
     actionTrue,
     editCategory,
-    edit_prdouct,
+    updateProduct,
+    detail_prdouct,
+    updatedProduct,
+    logout,
 } = require("../controller/adminController");
 
 router.get("/", adminLogin);
@@ -41,7 +44,7 @@ router.get("/products", showProducts);
 
 router.get("/addProducts", addProduct);
 
-router.post("/addProductPost", productPhoto, thumbnail, addProductPost);
+router.post("/addProductPost", productPhoto, addProductPost);
 
 router.get("/productDetails", productDetails);
 
@@ -55,8 +58,16 @@ router.get("/actionFalse/:id", actionFalse);
 
 router.get("/actionTrue/:id", actionTrue);
 
-router.get("/edit_category/:id", editCategory);
+router.get("/detail_category/:id", editCategory);
 
-router.get("/edit_product/:id", edit_prdouct);
+router.get("/delete_category/:id", deleteProduct);
+
+router.get("/detail_product/:id", detail_prdouct);
+
+router.get("/update_product/:id", updateProduct);
+
+router.post("/updated_product/:id", productPhoto, updatedProduct);
+
+router.get("/logout", logout);
 
 module.exports = router;

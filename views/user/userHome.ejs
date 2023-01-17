@@ -148,9 +148,15 @@
                                             <span class="badge bg-primary">3</span>
                                         </a>
                                     </li>
+                                    <%if(user_details){%>
                                     <li>
                                         <a href="/profile"><i class="fa-regular fa-user"></i></a>
                                     </li>
+                                    <%} else {%>
+                                    <li>
+                                        <a href="/login"><i class="fa-regular fa-user"></i></a>
+                                    </li>
+                                    <%}%>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                             <i class="fa-solid fa-bag-shopping"></i>

@@ -11,9 +11,8 @@ const categorySchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    vendor: {
+    Brand: {
         type: Array,
-        ref: "vendor",
     },
 });
 const categoryModel = mongoose.model("Category", categorySchema);

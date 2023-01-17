@@ -17,24 +17,9 @@ const storage = multer.diskStorage({
     },
 });
 
-const profileStorage = multer.diskStorage({
+const editProductStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const uploadPath = "./public/images/user/profileImages";
-        if (!fs.existsSync(uploadPath)) {
-            fs.mkdirSync(uploadPath);
-        }
-        cb(null, uploadPath);
-    },
-    filename: (req, file, cb) => {
-        date = Date.now();
-        const { name } = req.body;
-        cb(null, name + date + " " + file.originalname);
-    },
-});
-
-const thumbnailImage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const uploadPath = "./public/images/thumbnailImages";
+        const uploadPath = "./public/images/uploads";
         if (!fs.existsSync(uploadPath)) {
             fs.mkdirSync(uploadPath);
         }
@@ -65,20 +50,12 @@ const productPhoto = multer({
     // fileFilter: fileFilter,
 }).array("imageName", 3);
 
-const uploadProfile = multer({
-    storage: profileStorage,
+const editPhoto = multer({
+    storage: editProductStorage,
     limits: {
         fileSize: maxSize,
     },
     fileFilter: fileFilter,
-}).single("profile");
+}).single("imageName");
 
-const thumbnail = multer({
-    storage: thumbnailImage,
-    limits: {
-        fileSize: maxSize,
-    },
-    fileFilter: fileFilter,
-}).single("thumbnail");
-
-module.exports = { productPhoto, uploadProfile, thumbnail };
+module.exports = { productPhoto, editPhoto };

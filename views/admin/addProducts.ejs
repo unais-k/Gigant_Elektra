@@ -273,16 +273,17 @@
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="validationCustom01">Vendor</label>
+                                                    <label for="validationCustom01">Brand</label>
                                                     <select
                                                         class="form-select form-control"
                                                         id="validationCustom09"
-                                                        name="category"
+                                                        name="brand"
                                                         aria-label="Default select example"
                                                     >
+                                                        <option selected value="choose one">Choose one</option>
                                                         <%for( let i=0; i < categoryList.length; i ++ ) { %>
-                                                        <%categoryList[i].vendor.forEach(function(element) { %>
-                                                        <option selected><%=element %></option>
+                                                        <%categoryList[i].Brand.forEach(function(element) { %>
+                                                        <option><%=element %></option>
                                                         <%})%> <% } %>
                                                     </select>
                                                     <div class="valid-feedback">Looks good!</div>
@@ -322,13 +323,13 @@
                                                         aria-label="Default select example"
                                                     >
                                                         <option>red</option>
-                                                        <option>green</option>
                                                         <option>white</option>
                                                         <option>blue</option>
                                                         <option>black</option>
+                                                        <option>purple</option>
                                                     </select>
                                                 </div>
-                                                <div class="card-heading clearfix mt-3">
+                                                <!-- <div class="card-heading clearfix mt-3">
                                                     <h4 class="card-title">Thumbnail image</h4>
                                                 </div>
                                                 <div class="col-md-12 mb-5">
@@ -341,7 +342,7 @@
                                                             name="thumbnail"
                                                         />
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                                 <div class="card-heading clearfix">
                                                     <h4 class="card-title">Photos</h4>

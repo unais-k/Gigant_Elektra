@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 var router = express.Router();
 const user_login = require("../middleware/userLogin");
 const userModel = require("../models/userSchema");
-const { uploadProfile } = require("../middleware/multer");
+// const { uploadProfile } = require("../middleware/multer");
 // const { otpCalling, otpVeryfication } = require("../config/otp");
 const {
     userHome,
@@ -19,18 +19,19 @@ const {
     logout,
     otpVerify,
     otpVerifyPost,
+    personalAddress,
 } = require("../controller/userController");
 
 /* GET home page. */
 router.get("/", userHome);
 
-router.get("/userLogin", userLogin);
+router.get("/login", userLogin);
 
 router.post("/userLogin", userLoginPost);
 
 router.get("/userRegister", userRegister);
 
-router.post("/userRegisterPost", uploadProfile, userRegisterPost);
+router.post("/userRegisterPost", userRegisterPost);
 
 router.get("/userProduct", userProduct);
 
@@ -45,6 +46,8 @@ router.get("/wishlist", wishList);
 router.post("/otp_verify", otpVerify);
 
 router.post("/otp_verifyied", otpVerifyPost);
+
+router.get("/personal_address", personalAddress);
 
 router.get("/logout", logout);
 

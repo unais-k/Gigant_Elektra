@@ -56,13 +56,15 @@ const addCategoryPost = async (req, res, next) => {
     let categoryCheck = await categoryModel.findOne({ categoryname: categoryname });
     // let vendorname = await categoryModel.findOne({ vendor: vendor });
     console.log("category adding");
-    if (categoryCheck) {
-        console.log("vendor adding");
-        // await categoryModel.updateOne({ categoryname: categoryname }, { $push: { vendor: { $each: [vendor] } } });
-        await categoryModel.updateOne({ categoryname: categoryname }, { $push: { vendor: vendor } });
-    } else {
-        next();
-    }
+    // if (categoryCheck) {
+    //     console.log("category already exist ");
+    //     // await categoryModel.updateOne({ categoryname: categoryname }, { $push: { vendor: { $each: [vendor] } } });
+    //     // await categoryModel.updateOne({ categoryname: categoryname }, { $push: { Brand: vendor } });
+    //     res.render("admin/addCategory", { message: "category already exist" });
+    // } else {
+    //     next();
+
+    // }
     if (categoryCheck) {
         console.log("2nd if");
         res.render("admin/addCategory", { message: "category already exist" });
@@ -70,10 +72,10 @@ const addCategoryPost = async (req, res, next) => {
         await categoryModel.create({
             categoryname: categoryname,
             description: categoryDescription,
-            vendor: vendor,
+            Brand: vendor,
         });
         console.log("category added");
-        res.redirect("/admin/addCategory");
+        res.render("admin/addCategory", { message: false });
     }
 };
 
@@ -90,29 +92,37 @@ const addProduct = async (req, res) => {
 
 const addProductPost = async (req, res, next) => {
     console.log(req.body);
-    let img = req.file.thumbnail;
-    let imageName = req.files;
-    const productInfo = req.body;
-    Object.assign(productInfo, { productImages: imageName });
-    let done = await productModel.create({
-        thumbnail: img,
-        productImages: imageName,
-        productName: productInfo.productname,
-        price: productInfo.price,
-        vendor: productInfo.vendor,
-        details: productInfo.details,
-        category: productInfo.category,
-        quantity: productInfo.quantity,
-        color: productInfo.color,
-    });
-    if (done) {
-        let categoryList = await categoryModel.find({});
-        res.render("admin/addProducts", { categoryList, message: false });
-    } else {
-        message = "Photo don't added";
-        console.log("product post failed");
-        let categoryList = await categoryModel.find({});
-        res.render("admin/addProducts", { categoryList, message });
+    try {
+        let imageName = req.files;
+        let img = [];
+        for (let i = 0; i < imageName.length; i++) {
+            img[i] = imageName[i].path.substring(6);
+        }
+        console.log(imageName);
+        const productInfo = req.body;
+        // Object.assign(productInfo, { productImages: img });
+
+        let done = await productModel.create({
+            productImages: img,
+            productName: productInfo.productname,
+            price: productInfo.price,
+            brand: productInfo.brand,
+            details: productInfo.details,
+            category: productInfo.category,
+            quantity: productInfo.quantity,
+            color: productInfo.color,
+        });
+        if (done) {
+            let categoryList = await categoryModel.find({});
+            res.render("admin/addProducts", { categoryList, message: false });
+        } else {
+            message = "Photo don't added";
+            console.log("product post failed");
+            let categoryList = await categoryModel.find({});
+            res.render("admin/addProducts", { categoryList, message });
+        }
+    } catch (error) {
+        console.log(error);
     }
 };
 
@@ -128,7 +138,7 @@ const customers = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     let productDelete = req.params.id;
-    let done = await productModel.softDelete({ _id: productDelete });
+    let done = await productModel.findByIdAndDelete({ _id: productDelete });
     if (done) {
         let productList = await productModel.find({});
         let categoryList = await categoryModel.find({});
@@ -161,14 +171,68 @@ const actionTrue = async (req, res) => {
 const editCategory = async (req, res) => {
     let findId = req.params.id;
     let categoryId = await categoryModel.findOne({ _id: findId });
-    res.render("admin/addCategory", { categoryId, message: false });
+    res.render("admin/editCategory", { categoryId, message: false });
 };
 
-const edit_prdouct = async (req, res) => {
+const deleteCategory = async (req, res) => {
+    let categoryinfo = req.params.id;
+    let detail = await categoryModel.findByIdAndDelete({ _id: categoryinfo });
+    res.redirect("/admin/category");
+};
+
+const detail_prdouct = async (req, res) => {
     let findId = req.params.id;
-    let editProduct = await categoryModel.findOnea({ _id: findId });
+    let editProduct = await productModel.findOne({ _id: findId });
     let categoryList = await categoryModel.find({});
+    console.log(25);
     res.render("admin/productDetails", { editProduct, categoryList });
+};
+
+const updateProduct = async (req, res) => {
+    // let body = req.body;
+    // let productId = req.params.id;
+    // let image = req.files;
+    // if (image == 0) {
+    //     Object.assign(body);
+    //     await productModel.findByIdAndUpdate(productId, { $set: body });
+    //     res.redirect("/admin/products");
+    // } else {
+    //     let img = [];
+    //     for (let i = 0; i < image.length; i++) {
+    //         img[i] = image[i].path.substring(6);
+    //     }
+    //     await productModel.findByIdAndUpdate(productId, { $set: body });
+    // }
+    console.log(234567);
+    let ID = req.params.id;
+    console.log(ID);
+    let productID = await productModel.findOne({ _id: ID });
+    console.log(productID);
+    let categoryList = await categoryModel.find({});
+    res.render("admin/productEdit", { productID, categoryList });
+};
+
+const updatedProduct = async (req, res) => {
+    let body = req.body;
+    let productId = req.params.id;
+    let image = req.files;
+    console.log(image);
+    let img = [];
+    for (let i = 0; i < image.length; i++) {
+        img[i] = image[i].path.substring(6);
+    }
+    if (image == 0) {
+        Object.assign(body);
+        await productModel.findByIdAndUpdate(productId, { $set: body });
+        res.redirect("/admin/products");
+    } else {
+        await productModel.findByIdAndUpdate(productId, { $set: body });
+    }
+};
+
+const logout = (req, res) => {
+    req.session.destroy();
+    res.redirect("/admin");
 };
 
 module.exports = {
@@ -187,5 +251,9 @@ module.exports = {
     actionFalse,
     actionTrue,
     editCategory,
-    edit_prdouct,
+    detail_prdouct,
+    deleteCategory,
+    updateProduct,
+    updatedProduct,
+    logout,
 };
