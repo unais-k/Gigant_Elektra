@@ -150,15 +150,16 @@
                                     </li>
                                     <%if(user_details){%>
                                     <li>
-                                        <a href="/profile"><i class="fa-regular fa-user"></i></a>
+                                        <a href="/profile/<%=user_details._id%>"><i class="fa-regular fa-user"></i></a>
                                     </li>
                                     <%} else {%>
                                     <li>
                                         <a href="/login"><i class="fa-regular fa-user"></i></a>
                                     </li>
                                     <%}%>
+                                    <%if(user_details){%>
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                        <a href="/cart/<%=user_details._id%>" class="dropdown-toggle" data-bs-toggle="dropdown">
                                             <i class="fa-solid fa-bag-shopping"></i>
                                             <span class="badge bg-primary">3</span>
                                         </a>
@@ -195,12 +196,59 @@
                                             </li>
                                             <li class="total bg-primary">
                                                 <span class="float-start"><strong>Total</strong>: $79.20</span>
-                                                <a href="shop-cart" class="butn-style2 small white float-end w-auto"
+                                                <a href="/cart" class="butn-style2 small white float-end w-auto"
                                                     ><span>View Cart</span></a
                                                 >
                                             </li>
                                         </ul>
                                     </li>
+                                    <% } else { %>
+                                        <li class="dropdown">
+                                            <a href="/login" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                                <i class="fa-solid fa-bag-shopping"></i>
+                                                <span class="badge bg-primary">3</span>
+                                            </a>
+                                            <ul class="dropdown-menu cart-list">
+                                                <li>
+                                                    <a href="#" class="photo"
+                                                        ><img
+                                                            src="/images/user/products/cart-thumbs/cart-thumb-01.jpg"
+                                                            class="cart-thumb"
+                                                            alt="..."
+                                                    /></a>
+                                                    <h6><a href="#">Men's Football Boots </a></h6>
+                                                    <p>2x - <span class="price">$30.00</span></p>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="photo"
+                                                        ><img
+                                                            src="/images/user/products/cart-thumbs/cart-thumb-02.jpg"
+                                                            class="cart-thumb"
+                                                            alt="..."
+                                                    /></a>
+                                                    <h6><a href="#">Sun Protection Cap</a></h6>
+                                                    <p>1x - <span class="price">$10.20</span></p>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="photo"
+                                                        ><img
+                                                            src="/images/user/products/cart-thumbs/cart-thumb-03.jpg"
+                                                            class="cart-thumb"
+                                                            alt="..."
+                                                    /></a>
+                                                    <h6><a href="#">Heel Character Shoes</a></h6>
+                                                    <p>2x - <span class="price">$39.00</span></p>
+                                                </li>
+                                                <li class="total bg-primary">
+                                                    <span class="float-start"><strong>Total</strong>: $79.20</span>
+                                                    <a href="/login" class="butn-style2 small white float-end w-auto"
+                                                        ><span>View Cart</span></a
+                                                    >
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <%}%>
+                                     
                                 </ul>
                             </div>
                             <!-- end attribute navigation -->
@@ -326,7 +374,7 @@
                                             <!-- <li><a href="shop-product-list">Product List</a></li>
                                             <li><a href="shop-product-full-three-coulmn">Product Three Coulmns</a></li>
                                             <li><a href="shop-product-full-four-coulmn">Product Four Coulmns</a></li>
-                                            <li><a href="shop-product-detail">Product Detail</a></li> -->
+                                            <li><a href="/productDetails/<%=productList._id%>">Product Detail</a></li> -->
                                             <li><a href="shop-cart">Shop Cart</a></li>
                                             <li>
                                                 <a href="shop-checkout-address">Shop Checkout</a>
@@ -812,18 +860,21 @@
                         <div class="resp-tabs-container hor_1">
                             <div>
                                 <div class="product-grid-slide owl-carousel owl-theme">
+                                    <%for(let i = 0; i< productList.length;i++) {%>
+                                    <%for(let j = 0; j<= i;j++) {%>
+                                        <%if(i==j){%>
                                     <div class="product-grid">
                                         <div class="product-img">
-                                            <a href="shop-product-detail">
+                                            <a href="/productDetails/<%=productList[i]._id%>">
                                                 <div class="label-offer bg-red">Sale</div>
-                                                <img src="/images/user/products/product-grid/product-01.jpg" alt="..." />
+                                                <img src="<%=productList[i].productImages[0]%>" alt="..." />
                                             </a>
                                         </div>
                                         <div class="product-description">
-                                            <h3><a href="shop-product-detail">Smart Digital Watch</a></h3>
+                                            <h3><a href="/productDetails/<%=productList._id%>"><%=productList[i].productName%></a></h3>
                                             <h4 class="price">
-                                                <span class="regular-price line-through">$99.00</span>
-                                                <span class="offer-price">$90.00</span>
+                                                <!-- <span class="regular-price line-through">$99.00</span> -->
+                                                <span class="offer-price"><%=productList[i].price%></span>
                                             </h4>
                                         </div>
                                         <div class="product-buttons">
@@ -833,25 +884,24 @@
                                                         ><i class="far fa-heart"></i
                                                     ></a>
                                                 </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
+                                                <li><a href="/add_to_cart" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
+                                                
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
+                                    <% } else { %>
+                                     
                                     <div class="product-grid">
                                         <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-02.jpg" alt="..."
+                                            <a href="/productDetails/<%=productList[j]._id%>"
+                                                ><img src="<%=productList[j].productImages[0]%>" alt="..."
                                             /></a>
                                         </div>
                                         <div class="product-description">
-                                            <h3><a href="shop-product-detail">Desktop Speakers</a></h3>
+                                            <h3><a href="/productDetails/<%=productList._id%>"><%=productList[j].productName%></a></h3>
                                             <h4 class="price">
-                                                <span class="offer-price">$29.00</span>
+                                                <span class="offer-price"><%=productList[j].price%></span>
                                             </h4>
                                         </div>
                                         <div class="product-buttons">
@@ -861,548 +911,20 @@
                                                         ><i class="far fa-heart"></i
                                                     ></a>
                                                 </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
+                                                <li><a href="/add_to_cart" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
+                                                
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail">
-                                                <div class="label-offer left-align bg-primary">New</div>
-                                                <img src="/images/user/products/product-grid/product-03.jpg" alt="..." />
-                                            </a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Wireless Controller</a></h3>
-                                            <h4 class="price">
-                                                <span class="regular-price line-through">$57.00</span>
-                                                <span class="offer-price">$55.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-04.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Wireless Headset</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$28.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-05.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Hp Wireless Printer</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$90.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="product-grid-slide owl-carousel owl-theme">
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail">
-                                                <div class="label-offer bg-red">Sale</div>
-                                                <img src="/images/user/products/product-grid/product-06.jpg" alt="..." />
-                                            </a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Gear 360 Video Editor</a></h3>
-                                            <h4 class="price">
-                                                <span class="regular-price line-through">$99.00</span>
-                                                <span class="offer-price">$88.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-07.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Standalone VR Headset</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$110.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail">
-                                                <div class="label-offer left-align bg-primary">New</div>
-                                                <img src="/images/user/products/product-grid/product-08.jpg" alt="..." />
-                                            </a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">USB Flash Drive</a></h3>
-                                            <h4 class="price">
-                                                <span class="regular-price line-through">$21.00</span>
-                                                <span class="offer-price">$15.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-09.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Mini Bluetooth Speaker</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$29.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-10.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Mobile Earphone</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$31.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="product-grid-slide owl-carousel owl-theme">
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail">
-                                                <div class="label-offer bg-red">Sale</div>
-                                                <img src="/images/user/products/product-grid/product-11.jpg" alt="..." />
-                                            </a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Speech Enabled Device</a></h3>
-                                            <h4 class="price">
-                                                <span class="regular-price line-through">$85.00</span>
-                                                <span class="offer-price">$75.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-12.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Apple iPhone X</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$1214.50</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail">
-                                                <div class="label-offer left-align bg-primary">New</div>
-                                                <img src="/images/user/products/product-grid/product-13.jpg" alt="..." />
-                                            </a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Plugs And Sockets</a></h3>
-                                            <h4 class="price">
-                                                <span class="regular-price line-through">$22.00</span>
-                                                <span class="offer-price">$11.40</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-14.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">cctv camera </a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$68.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-15.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Gray Macbook Pro</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$1357.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="product-grid-slide owl-carousel owl-theme">
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail">
-                                                <div class="label-offer bg-red">Sale</div>
-                                                <img src="/images/user/products/product-grid/product-16.jpg" alt="..." />
-                                            </a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Pen Drive 8gb</a></h3>
-                                            <h4 class="price">
-                                                <span class="regular-price line-through">$10.00</span>
-                                                <span class="offer-price">$09.50</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-17.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Virtual Reality Headset</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$72.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail">
-                                                <div class="label-offer left-align bg-primary">New</div>
-                                                <img src="/images/user/products/product-grid/product-18.jpg" alt="..." />
-                                            </a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Multimedia Speaker</a></h3>
-                                            <h4 class="price">
-                                                <span class="regular-price line-through">$38.00</span>
-                                                <span class="offer-price">$25.70</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-19.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">Phantom Drone</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$857.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="shop-product-detail"
-                                                ><img src="/images/user/products/product-grid/product-20.jpg" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="shop-product-detail">White Apple Watch</a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price">$28.00</span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                    
+                                    <%}%>
+                                    <%}%>
+                                    <%}%>
+
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </section>

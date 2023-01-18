@@ -12,13 +12,14 @@ function sendotp(mobile) {
         .verifications.create({ to: `+91${mobile}`, channel: "sms" })
         .then((verification) => console.log(verification.status));
     console.log("fffffffffffffffffffffffffffff");
+    console.log(mobile);
 }
 
 function verifyotp(mobile, otp) {
     return new Promise((resolve, reject) => {
         client.verify.v2
             .services(ServiceSID)
-            .verificationCheck.create({ to: `+91 ${mobile}`, code: otp })
+            .verificationChecks.create({ to: `+91 ${mobile}`, code: otp })
             .then((verification_check) => {
                 console.log(verification_check.status);
                 resolve(verification_check);

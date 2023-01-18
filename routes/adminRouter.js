@@ -18,6 +18,7 @@ const {
     addProductPost,
     productDetails,
     deleteProduct,
+    activateProduct,
     customers,
     actionFalse,
     actionTrue,
@@ -52,7 +53,9 @@ router.get("/customers", customers);
 
 // router.get("/editProduct/:id", editProduct);
 
-router.get("/deleteProduct/:id", deleteProduct);
+router.get("/delete_product/:id", deleteProduct);
+
+router.get("/activate_product/:id", activateProduct);
 
 router.get("/actionFalse/:id", actionFalse);
 

@@ -240,6 +240,7 @@
                                                         class="form-control"
                                                         id="validationCustom01"
                                                         placeholder="First name"
+                                                        name="productName"
                                                         value="<%=productID.productName%>"
                                                         required
                                                     />
@@ -271,14 +272,18 @@
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="validationCustom01">Brand</label>
-                                                    <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        name="vendor"
-                                                        id="validationCustom01"
-                                                        value="<%=productID.brand%>"
-                                                        required
-                                                    />
+                                                    <select
+                                                        class="form-select form-control"
+                                                        id="validationCustom09"
+                                                        name="brand"
+                                                        aria-label="Default select example"
+                                                    >
+                                                        <option selected >Choose one</option>
+                                                        <%for( let i=0; i < categoryList.length; i ++ ) { %>
+                                                        <%categoryList[i].Brand.forEach(function(element) { %>
+                                                        <option><%=element %></option>
+                                                        <%})%> <% } %>
+                                                    </select>
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
@@ -294,15 +299,20 @@
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="validationCustom01">Colour</label>
-                                                    <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        name="vendor"
-                                                        id="validationCustom01"
-                                                        value="<%=productID.color%>"
-                                                        required
-                                                    />
+                                                    <label for="validationCustom09">Colour</label>
+                                                    <select
+                                                        class="form-select form-control"
+                                                        id="validationCustom09"
+                                                        name="color"
+                                                        aria-label="Default select example"
+                                                    >
+                                                    <option value="" selected>choose one</option>
+                                                        <option>red</option>
+                                                        <option>white</option>
+                                                        <option>blue</option>
+                                                        <option>black</option>
+                                                        <option>purple</option>
+                                                    </select>
                                                     <div class="valid-feedback">Looks good!</div>
                                                 </div>
                                                 <div class="col-md-6 mb-3">

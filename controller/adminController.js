@@ -81,7 +81,8 @@ const addCategoryPost = async (req, res, next) => {
 
 const showProducts = async (req, res) => {
     let productList = await productModel.find({});
-    res.render("admin/showProducts", { productList });
+    let categoryList = await categoryModel.find({});
+    res.render("admin/showProducts", { productList, categoryList });
 };
 
 const addProduct = async (req, res) => {
@@ -99,18 +100,18 @@ const addProductPost = async (req, res, next) => {
             img[i] = imageName[i].path.substring(6);
         }
         console.log(imageName);
-        const productInfo = req.body;
-        // Object.assign(productInfo, { productImages: img });
+        const body = req.body;
+        // Object.assign(body, { productImages: img });
 
         let done = await productModel.create({
             productImages: img,
-            productName: productInfo.productname,
-            price: productInfo.price,
-            brand: productInfo.brand,
-            details: productInfo.details,
-            category: productInfo.category,
-            quantity: productInfo.quantity,
-            color: productInfo.color,
+            productName: body.productname,
+            price: body.price,
+            brand: body.brand,
+            details: body.details,
+            category: body.category,
+            quantity: body.quantity,
+            color: body.color,
         });
         if (done) {
             let categoryList = await categoryModel.find({});
@@ -126,6 +127,13 @@ const addProductPost = async (req, res, next) => {
     }
 };
 
+const showBrand = async (req, res) => {
+    let brand = req.query.brand;
+    let product = await productModel.find({ Brand: brand });
+    let category = await categoryModel.find({});
+    res.render("admin/showBrand", { product, category });
+};
+
 const productDetails = (req, res) => {
     res.render("admin/productDetails");
 };
@@ -138,8 +146,24 @@ const customers = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     let productDelete = req.params.id;
-    let done = await productModel.findByIdAndDelete({ _id: productDelete });
+    let done = await productModel.findById({ _id: productDelete });
+    console.log(done);
     if (done) {
+        let block = await productModel.updateOne({ _id: productDelete }, { $set: { delete: false } });
+        let productList = await productModel.find({});
+        let categoryList = await categoryModel.find({});
+        res.render("admin/showProducts", { productList, categoryList });
+    } else {
+        res.redirect("/admin/products");
+    }
+};
+
+const activateProduct = async (req, res) => {
+    let productDelete = req.params.id;
+    let done = await productModel.findById({ _id: productDelete });
+    console.log(done);
+    if (done) {
+        let block = await productModel.updateOne({ _id: productDelete }, { $set: { delete: true } });
         let productList = await productModel.find({});
         let categoryList = await categoryModel.find({});
         res.render("admin/showProducts", { productList, categoryList });
@@ -184,7 +208,7 @@ const detail_prdouct = async (req, res) => {
     let findId = req.params.id;
     let editProduct = await productModel.findOne({ _id: findId });
     let categoryList = await categoryModel.find({});
-    console.log(25);
+    console.log(editProduct);
     res.render("admin/productDetails", { editProduct, categoryList });
 };
 
@@ -214,19 +238,34 @@ const updateProduct = async (req, res) => {
 
 const updatedProduct = async (req, res) => {
     let body = req.body;
+    console.log(body);
     let productId = req.params.id;
     let image = req.files;
     console.log(image);
-    let img = [];
-    for (let i = 0; i < image.length; i++) {
-        img[i] = image[i].path.substring(6);
-    }
+
     if (image == 0) {
         Object.assign(body);
         await productModel.findByIdAndUpdate(productId, { $set: body });
         res.redirect("/admin/products");
     } else {
-        await productModel.findByIdAndUpdate(productId, { $set: body });
+        let img = [];
+        for (let i = 0; i < image.length; i++) {
+            img[i] = image[i].path.substring(6);
+        }
+        let done = await productModel.updateOne(
+            { _id: productId },
+            {
+                productImages: img,
+                productName: body.productname,
+                price: body.price,
+                brand: body.brand,
+                details: body.details,
+                category: body.category,
+                quantity: body.quantity,
+                color: body.color,
+            }
+        );
+        res.redirect("/admin/products");
     }
 };
 
@@ -247,6 +286,7 @@ module.exports = {
     addProductPost,
     productDetails,
     deleteProduct,
+    activateProduct,
     customers,
     actionFalse,
     actionTrue,

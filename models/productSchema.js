@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const softdelete = require("soft-delete-plugin-mongoose");
 
 const productSchema = new mongoose.Schema({
     productName: {

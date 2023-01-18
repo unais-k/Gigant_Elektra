@@ -55,201 +55,7 @@
         <div class="main-wrapper mp-pusher" id="mp-pusher">
             <!-- HEADER
         ================================================== -->
-            <header class="fixed header-light-nav">
-                <div id="top-bar">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-3 col-md-6">
-                                <div class="top-bar-info">
-                                    <ul class="ps-0">
-                                        <li>
-                                            <a href="tel:01234567890"
-                                                ><i class="ti-mobile"></i
-                                                ><span class="d-none d-md-inline-block ps-2">(+123) 456 7890</span></a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a href="mailto:addyour@emailhere"
-                                                ><i class="ti-email"></i
-                                                ><span class="d-none d-md-inline-block ps-2">addyour@emailhere</span></a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-9 col-md-6">
-                                <ul class="top-nav ps-0">
-                                    <li class="nav-item dropdown">
-                                        <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle"
-                                            ><i class="far fa-user"></i
-                                        ></a>
-                                        <ul class="dropdown-menu p-4">
-                                            <li class="mb-2">
-                                                <div class="media align-items-center">
-                                                    <img
-                                                        class="w-40px rounded-circle me-3"
-                                                        src="/images/user/avatar/01.png"
-                                                        alt="..."
-                                                    />
-                                                    <div class="media-body">Nancy Miller</div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">My Profile</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">Order List</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="dropdown-item">Log Out</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li>
-                                        <a href="#"><i class="far fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <select>
-                                            <option>English</option>
-                                            <option>Deutsch</option>
-                                            <option>Italiano</option>
-                                        </select>
-                                    </li>
-                                    <li>
-                                        <select>
-                                            <option>$ USD</option>
-                                            <option>€ EUR</option>
-                                            <option>£ UKP</option>
-                                            <option>¥ JPY</option>
-                                        </select>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="navbar-default">
-                    <!-- top search -->
-                    <div class="top-search bg-primary">
-                        <div class="container-fluid">
-                            <form class="search-form" action="#" method="GET">
-                                <div class="input-group">
-                                    <span class="input-group-addon cursor-pointer">
-                                        <button
-                                            class="search-form_submit fas fa-search display-27 text-white"
-                                            type="submit"
-                                        ></button>
-                                    </span>
-                                    <input
-                                        type="text"
-                                        class="search-form_input form-control"
-                                        name="s"
-                                        autocomplete="off"
-                                        placeholder="Type & hit enter..."
-                                    />
-                                    <span class="input-group-addon close-search"
-                                        ><i class="fas fa-times display-27 mt-2"></i
-                                    ></span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- end top search -->
-
-                    <div class="container-fluid p-0">
-                        <div class="row align-items-center g-0">
-                            <div class="col-12 col-lg-12">
-                                <div class="menu_area alt-font">
-                                    <nav class="navbar navbar-expand-lg navbar-light p-0">
-                                        <!-- category toggler -->
-                                        <!-- <a href="#" id="trigger" class="menu-trigger"><i class="ti-menu"></i></a> -->
-                                        <!-- end category toggler -->
-
-                                        <div class="navbar-header navbar-header-custom">
-                                            <!-- logo -->
-                                            <a href="/" class="navbar-brand logodefault"
-                                                ><img
-                                                    id="logo"
-                                                    class="ps-5"
-                                                    src="/images/user/logos/logo-no-background.png"
-                                                    alt=""
-                                            /></a>
-                                            <!-- end logo -->
-                                        </div>
-
-                                        <!-- menu toggler -->
-                                        <div class="navbar-toggler"></div>
-                                        <!-- end menu toggler -->
-
-                                        <!-- menu area -->
-
-                                        <%- include("../includes/user-header.ejs") %>
-                                        <!-- end menu area -->
-
-                                        <!-- attribute navigation -->
-                                        <div class="attr-nav">
-                                            <ul>
-                                                <li class="dropdown me-3 me-lg-0">
-                                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-                                                        <i class="fa-solid fa-bag-shopping"></i>
-                                                        <span class="badge bg-primary">3</span>
-                                                    </a>
-                                                    <ul class="dropdown-menu cart-list">
-                                                        <li>
-                                                            <a href="#" class="photo"
-                                                                ><img
-                                                                    src="/images/user/products/cart-thumbs/cart-thumb-01.jpg"
-                                                                    class="cart-thumb"
-                                                                    alt="..."
-                                                            /></a>
-                                                            <h6><a href="#">Men's Football Boots </a></h6>
-                                                            <p>2x - <span class="price">$30.00</span></p>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="photo"
-                                                                ><img
-                                                                    src="/images/user/products/cart-thumbs/cart-thumb-02.jpg"
-                                                                    class="cart-thumb"
-                                                                    alt="..."
-                                                            /></a>
-                                                            <h6><a href="#">Sun Protection Cap</a></h6>
-                                                            <p>1x - <span class="price">$10.20</span></p>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="photo"
-                                                                ><img
-                                                                    src="/images/user/products/cart-thumbs/cart-thumb-03.jpg"
-                                                                    class="cart-thumb"
-                                                                    alt="..."
-                                                            /></a>
-                                                            <h6><a href="#">Heel Character Shoes</a></h6>
-                                                            <p>2x - <span class="price">$39.00</span></p>
-                                                        </li>
-                                                        <li class="total bg-primary">
-                                                            <span class="float-start"><strong>Total</strong>: $79.20</span>
-                                                            <a
-                                                                href="shop-cart.html"
-                                                                class="butn-style2 small white float-end w-auto"
-                                                                ><span>View Cart</span></a
-                                                            >
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="search">
-                                                    <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- end attribute navigation -->
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <%- include("../includes/userHeader.ejs") %>
 
             <!-- CATEGORY MP-MENU
         ================================================== -->
@@ -365,12 +171,13 @@
             <section class="page-title-section bg-img cover-background" data-background="images/user/bg/page-title.jpg">
                 <div class="container">
                     <div class="title-info">
-                        <h1>Shop Product Grid</h1>
+                        <h1>Products</h1>
                     </div>
                     <div class="breadcrumbs-info">
                         <ul class="ps-0">
                             <li><a href="home-shop-1.html">Home</a></li>
-                            <li><a href="#">Shop Product Grid</a></li>
+                            >
+                            <li><a href="#"> Products </a></li>
                         </ul>
                     </div>
                 </div>
@@ -539,15 +346,15 @@
                                 </div>
                             </div>
 
-                            <div class="widget">
+                            <!-- <div class="widget">
                                 <div class="widget-title">
                                     <h5>Price Range</h5>
                                 </div>
                                 <input type="text" class="price-range" name="my_range" value="" />
                                 <a href="#" class="butn-style2 small mt-1-9">Filter</a>
-                            </div>
+                            </div> -->
 
-                            <div class="widget">
+                            <!-- <div class="widget">
                                 <div class="widget-title">
                                     <h5>Popular Products</h5>
                                 </div>
@@ -587,9 +394,9 @@
                                         <span class="d-block">$10.20</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="widget">
+                            <!-- <div class="widget">
                                 <div class="widget-title">
                                     <h5>Select by Discount</h5>
                                 </div>
@@ -615,7 +422,7 @@
                                         <label class="form-check-label" for="fourty_pecentage">40% off or more</label>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- end sidebar panel -->
 
@@ -666,16 +473,14 @@
                                         <div class="product-grid">
                                             <div class="product-img">
                                                 <a href="/productDetails/<%=productList._id%>">
-                                                    <img
-                                                        src="../images/uploads/<%=productList.productImages[0] %>"
-                                                        alt="..."
+                                                    <img src="<%=productList.productImages[0] %>" alt="..."
                                                 /></a>
                                             </div>
                                             <div class="product-description">
                                                 <h3><a href="#"><%=productList.productName%></a></h3>
                                                 <h4 class="price">
-                                                    <span class="regular-price line-through">$99.00</span>
-                                                    <span class="offer-price"><%=productList.price%></span>
+                                                    <!-- <span class="regular-price line-through">50000</span> -->
+                                                    <span class="offer-price">Rs : <%=productList.price%></span>
                                                 </h4>
                                             </div>
                                             <div class="product-buttons">
@@ -686,7 +491,12 @@
                                                         ></a>
                                                     </li>
                                                     <li>
-                                                        <a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a>
+                                                        <a
+                                                            href="/add_to_cart/<%=productList._id%>"
+                                                            class="butn-style2"
+                                                            title="Add to Cart"
+                                                            >Add to Cart</a
+                                                        >
                                                     </li>
                                                     <!-- <li>
                                                     <a href="#" class="btn-link" title="Add To Compare"
