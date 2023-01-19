@@ -196,7 +196,7 @@
                                             </li>
                                             <li class="total bg-primary">
                                                 <span class="float-start"><strong>Total</strong>: $79.20</span>
-                                                <a href="/cart" class="butn-style2 small white float-end w-auto"
+                                                <a href="/cart/<%=user_details._id%>" class="butn-style2 small white float-end w-auto"
                                                     ><span>View Cart</span></a
                                                 >
                                             </li>
@@ -851,27 +851,21 @@
                     </div>
 
                     <div class="horizontaltab tab-style-three">
-                        <ul class="resp-tabs-list hor_1">
-                            <li>Featured</li>
-                            <li>Best Seller</li>
-                            <li>Special</li>
-                            <li>Latest</li>
-                        </ul>
+                       
                         <div class="resp-tabs-container hor_1">
                             <div>
                                 <div class="product-grid-slide owl-carousel owl-theme">
                                     <%for(let i = 0; i< productList.length;i++) {%>
-                                    <%for(let j = 0; j<= i;j++) {%>
-                                        <%if(i==j){%>
+                                   
                                     <div class="product-grid">
                                         <div class="product-img">
                                             <a href="/productDetails/<%=productList[i]._id%>">
-                                                <div class="label-offer bg-red">Sale</div>
+                                              
                                                 <img src="<%=productList[i].productImages[0]%>" alt="..." />
                                             </a>
                                         </div>
                                         <div class="product-description">
-                                            <h3><a href="/productDetails/<%=productList._id%>"><%=productList[i].productName%></a></h3>
+                                            <h3><a href="/productDetails/<%=productList[i]._id%>"><%=productList[i].productName%></a></h3>
                                             <h4 class="price">
                                                 <!-- <span class="regular-price line-through">$99.00</span> -->
                                                 <span class="offer-price"><%=productList[i].price%></span>
@@ -884,44 +878,12 @@
                                                         ><i class="far fa-heart"></i
                                                     ></a>
                                                 </li>
-                                                <li><a href="/add_to_cart" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                
-                                                </li> -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <% } else { %>
-                                     
-                                    <div class="product-grid">
-                                        <div class="product-img">
-                                            <a href="/productDetails/<%=productList[j]._id%>"
-                                                ><img src="<%=productList[j].productImages[0]%>" alt="..."
-                                            /></a>
-                                        </div>
-                                        <div class="product-description">
-                                            <h3><a href="/productDetails/<%=productList._id%>"><%=productList[j].productName%></a></h3>
-                                            <h4 class="price">
-                                                <span class="offer-price"><%=productList[j].price%></span>
-                                            </h4>
-                                        </div>
-                                        <div class="product-buttons">
-                                            <ul class="ps-0">
-                                                <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
-                                                        ><i class="far fa-heart"></i
-                                                    ></a>
-                                                </li>
-                                                <li><a href="/add_to_cart" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                                
+                                                <li><a href="/add_to_cart_home/<%=productList[i]._id%>" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-                                    
                                     <%}%>
-                                    <%}%>
-                                    <%}%>
-
                             </div>
                         </div>
                     </div>

@@ -37,6 +37,10 @@ const productSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     },
+    status: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 // productSchema.plugin(softdelete);

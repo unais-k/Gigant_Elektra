@@ -22,7 +22,8 @@ const {
     otpVerifyPost,
     personalAddress,
     cart,
-    addToCart,
+    addToCartHome,
+    addToCartShop,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -54,7 +55,9 @@ router.get("/personal_address", personalAddress);
 
 router.get("/cart/:id", sessionCheck, cart);
 
-router.get("/add_to_cart:id", sessionCheck, addToCart);
+router.get("/add_to_cart_home/:id", sessionCheck, addToCartHome);
+
+router.get("/add_to_cart_shop/:id", sessionCheck, addToCartShop);
 
 router.get("/logout", logout);
 

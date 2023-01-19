@@ -32,6 +32,18 @@ const userSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        product: [
+            {
+                productId: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "products",
+                },
+                productStatus: {
+                    type: Boolean,
+                    default: false,
+                },
+            },
+        ],
     },
     {
         timestamps: true,

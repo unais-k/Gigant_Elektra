@@ -11,7 +11,7 @@ function sendotp(mobile) {
         .services(ServiceSID)
         .verifications.create({ to: `+91${mobile}`, channel: "sms" })
         .then((verification) => console.log(verification.status));
-    console.log("fffffffffffffffffffffffffffff");
+    console.log("send otp function");
     console.log(mobile);
 }
 

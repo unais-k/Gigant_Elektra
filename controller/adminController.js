@@ -172,7 +172,7 @@ const activateProduct = async (req, res) => {
     }
 };
 
-const actionFalse = async (req, res) => {
+const actionFalse = async (req, res, next) => {
     let action = req.params.id;
     let block = await userModel.updateOne({ _id: action }, { $set: { block: false } });
     if (block) {
@@ -180,6 +180,21 @@ const actionFalse = async (req, res) => {
     } else {
         res.redirect("/admin");
     }
+    // try {
+    //     let id = req.params.id;
+    //     let response;
+    //     let action = await userModel.findById({ _id: id });
+    //     if (action) {
+    //         userModel
+    //             .updateOne({ _id: id }, { $set: { block: false } })
+    //             .then(() => {
+    //                 res.json({ response: true });
+    //             })
+    //             .catch((error) => next(error));
+    //     }
+    // } catch (error) {
+    //     next(error);
+    // }
 };
 
 const actionTrue = async (req, res) => {

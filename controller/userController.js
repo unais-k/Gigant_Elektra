@@ -6,6 +6,7 @@ const userModel = require("../models/userSchema");
 const productModel = require("../models/productSchema");
 const { sendotp, verifyotp } = require("../config/otp");
 const { response } = require("express");
+const cartModel = require("../models/cartSchema");
 
 const userLogin = (req, res) => {
     if (req.session.user_login) {
@@ -109,12 +110,26 @@ const otpVerify = async (req, res, next) => {
                 res.render("user/userRegister", { message: "Phone number already exists" });
             } else {
                 if (req.body.password == req.body.confirmpassword) {
-                    req.session.user_login = req.body;
-                    console.log("post register");
-                    console.log(req.session.user_login);
-                    sendotp(userDetails.phone);
-                    console.log("send otp");
-                    res.render("user/otpverify");
+                    // req.session.user_login = req.body;
+                    // console.log("post register");
+                    // console.log(req.session.user_login);
+                    // sendotp(userDetails.phone);
+                    // console.log("send otp");
+                    // res.render("user/otpverify");
+                    // this was code if otp ready
+                    console.log(req.body);
+                    const hashedpassword = await bcrypt.hash(userDetails.password, 10);
+                    let userData = req.session.user_login;
+                    await userModel.create({
+                        userName: userData.fullname,
+                        userId: userData.username,
+                        userEmail: userData.email,
+                        phone: userData.phone,
+                        password: hashedpassword,
+                    });
+                    console.log("userData saved");
+                    req.session.otpverifyed = true;
+                    res.redirect("/");
                 } else {
                     console.log("error in password hasing");
                     req.session.user_loginError = true;
@@ -217,10 +232,44 @@ const cart = (req, res) => {
     res.render("user/cart");
 };
 
-const addToCart = async (req, res) => {
+const addToCartHome = async (req, res) => {
     let productId = req.params.id;
+    console.log(productId);
     let productInfo = await productModel.findById({ _id: productId });
-    res.render("user/cart", { productInfo });
+    let cartInfo = await cartModel.create({
+        owner: req.session.user_login._id,
+        items: [
+            {
+                product: productId,
+                quantity: productId.quantity,
+                totalPrice: productId.price,
+            },
+        ],
+        cartPrice: productInfo.price,
+    });
+    console.log(cartInfo);
+    // res.render("user/cart", { productInfo });
+    res.redirect("/");
+};
+
+const addToCartShop = async (req, res) => {
+    let productId = req.params.id;
+    console.log(productId);
+    let productInfo = await productModel.findById({ _id: productId });
+    let cartInfo = await cartModel.create({
+        owner: req.session.user_login._id,
+        items: [
+            {
+                product: productId,
+                quantity: productId.quantity,
+                totalPrice: productId.price,
+            },
+        ],
+        cartPrice: productInfo.price,
+    });
+    console.log(cartInfo);
+    // res.render("user/cart", { productInfo });
+    res.redirect("/");
 };
 
 module.exports = {
@@ -239,5 +288,6 @@ module.exports = {
     otpVerifyPost,
     personalAddress,
     cart,
-    addToCart,
+    addToCartHome,
+    addToCartShop,
 };
