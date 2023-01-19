@@ -807,7 +807,7 @@
                                                         ><i class="far fa-heart"></i
                                                     ></a>
                                                 </li>
-                                                <li><a href="/add_to_cart_home/<%=productList[i]._id%>" class="butn-style2" title="Add to Cart">Add to Cart</a></li>     
+                                                <li><a onclick="addtocart('<%=productList[i]._id%>')"  class="butn-style2" title="Add to Cart">Add to Cart</a></li>     
                                                 </li>
                                             </ul>
                                         </div>
@@ -1343,6 +1343,59 @@
         <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
 
         <!-- all js include start -->
+
+        <!-- axios cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <script>
+               async function addtocart(id) {
+                    try {
+                        let response = await axios({
+                            method : 'post',
+                            url    : '/add_to_cart_home',
+                            data   : {
+                                id
+                            }
+                        })
+                        if(response.data.addtocart=true){
+                       Swal.fire('Product is added to cart')
+                        }
+                        else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                            })
+                        }
+                    }catch(error){
+                        console.log("eroor")
+                    }
+                }
+                        // axios.get('/add_to_cart_home' +id  ).then((e)=>{
+                        //     if(e.addtocart==true){
+                        //         location.href = '/'
+                        //         Swal.fire({
+                        //             icon: "success",
+                        //             title: "Product added to cart",
+                        //             showConfirmButton: false,
+                        //             timer: 700,
+                        //         })
+                        //     }else{
+                        //         Swal.fire({
+                        //     icon: "error",
+                        //     title: "Oops...",
+                        //     text: "Sorry, product already added",
+                        // });
+                        //     }
+                        // })
+                        // let response=axios.get('/add_to_cart_home'+id  )
+            </script>
+            
+
+
 
         <!-- jQuery -->
         <script src="/js/user/jquery.min.js"></script>

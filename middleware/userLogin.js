@@ -4,7 +4,8 @@ const sessionCheck = async (req, res, next) => {
     console.log(" session check");
     console.log(req.session.user_login);
     if (req.session.user_login || req.session.otpverifyed) {
-        if (await userId.findOne({ _id: req.session.user_login._id, block: false })) next();
+        if (await userId.findOne({ _id: req.session.user_login._id, block: false })) console.log("session is ready");
+        next();
     } else {
         req.session.user_login = false;
         res.redirect("/login");

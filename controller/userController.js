@@ -2,7 +2,7 @@ var express = require("express");
 const bcrypt = require("bcrypt");
 var router = express.Router();
 const userModel = require("../models/userSchema");
-
+const mongoose = require("mongoose");
 const productModel = require("../models/productSchema");
 const { sendotp, verifyotp } = require("../config/otp");
 const { response } = require("express");
@@ -224,61 +224,52 @@ const personalAddress = (req, res) => {
 };
 
 const cart = async (req, res) => {
-    let userId = req.session.user_login;
-    let fullcart = await cartModel.find({ owner: userId });
-    console.log(fullcart.items);
-    if (fullcart) {
-        let fulldata = await cartModel.find({ owner: userId }).populate("items.product", "productName productImages price");
-        console.log(fulldata);
-        res.render("user/cart", { fulldata });
-    } else {
-        res.redirect("/login");
-    }
+    user_details = req.session.user_login;
+    userId = req.session.user_login._id;
+    console.log(userId);
+    const cartItems = await cartModel.findOne({ owner: mongoose.Types.ObjectId(userId) }).populate("items.productId");
+    console.log(cartItems);
+    res.render("user/cart", { cartItems });
 };
 
-const addToCartHome = async (req, res) => {
+const addToCartHome = async (req, res, next) => {
     let userID = req.session.user_login;
-    let productId = req.params.id;
+    console.log("userID" + userID._id);
+    let response = null;
+    let productId = req.body.id;
     console.log(productId);
     let productInfo = await productModel.findById({ _id: productId });
     let cartInfo = await cartModel.create({
-        owner: req.session.user_login._id,
+        owner: userID._id,
         items: [
             {
-                product: productInfo._id,
+                productId: productInfo._id,
                 totalPrice: productInfo.price,
             },
         ],
         cartPrice: productInfo.price,
     });
-    // let addtoUser = await userModel.updateOne(
-    //     { _id: userID._id },
-    //     { $push: { product: { productId: productInfo._id, productStatus: true } } }
-    // );
+    res.json({ addtocart: true });
     console.log(cartInfo);
     console.log("added to cart from home");
-    // res.render("user/cart", { productInfo });
-    res.redirect("/");
 };
 
 const addToCartShop = async (req, res) => {
-    let productId = req.params.id;
-    console.log(productId);
-    let productInfo = await productModel.findById({ _id: productId });
-    let cartInfo = await cartModel.create({
-        owner: req.session.user_login._id,
+    let response = null;
+    let userId = req.session.user_login;
+    let productId = req.body.id;
+    let productinfo = await productModel.findById({ _id: productId });
+    let cartinfo = await cartModel.create({
+        owner: userId._id,
         items: [
             {
-                product: productId,
-                quantity: productId.quantity,
-                totalPrice: productId.price,
+                productId: productinfo._id,
+                totalPrice: productinfo.price,
             },
         ],
-        cartPrice: productInfo.price,
+        cartPrice: productinfo.price,
     });
-    console.log(cartInfo);
-    // res.render("user/cart", { productInfo });
-    res.redirect("/");
+    res.json({ addtocart: true });
 };
 
 const logout = (req, res) => {

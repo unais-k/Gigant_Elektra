@@ -79,6 +79,7 @@
                     <div class="breadcrumbs-info">
                         <ul class="ps-0">
                             <li><a href="home-shop-1.html">Home</a></li>
+                            >
                             <li><a href="#">Shop Cart</a></li>
                         </ul>
                     </div>
@@ -113,20 +114,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for(let i = 0; i<fulldata.length; i++) { %>
+                                    <% for( let i = 0; i < cartItems.items.length; i++ ) { %> <% for(cart of
+                                    cartItems.items) { %>
                                     <tr>
                                         <td class="product-thumbnail text-start">
-                                            <a href="#"><img src="<%=fulldata.items.productImages[0]%>" alt="..." /></a>
+                                            <a href="#"><img src="<%=cart.productId.productImages[i]%>" alt="..." /></a>
                                         </td>
                                         <td class="text-start">
-                                            <a href="#"><%=fulldata.items.productName%></a>
+                                            <a href="#"><%=cart.productId.productName%></a>
                                             <span class="text-uppercase d-block">SKU: 290397</span>
                                             <a href="#" class="display-31"><i class="fas fa-edit"></i> Edit</a>
                                         </td>
-                                        <td class="text-start"><%=fulldata.items.price%></td>
+                                        <td class="text-start"><%=cart.productId.price[i]%></td>
                                         <td class="product-quantity">
-                                            <!-- <input type="text" name="q1" /> -->
-
                                             <button
                                                 class="btn btn-link px-2"
                                                 onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
@@ -137,7 +137,7 @@
                                             <input
                                                 min="0"
                                                 name="quantity"
-                                                value="<%=fulldata.items.totaPrice%>"
+                                                value="<%=cart.quantity%>"
                                                 type="number"
                                                 style="height: 40px; width: 60px"
                                             />
@@ -149,12 +149,12 @@
                                                 <i class="fas fa-plus"></i>
                                             </button>
                                         </td>
-                                        <td class="product-subtotal text-start"><%=cartPrice%></td>
+                                        <td class="product-subtotal text-start"><%=cartItems.cartPrice%></td>
                                         <td class="product-remove text-center">
                                             <a href="#"><i class="fas fa-times"></i></a>
                                         </td>
                                     </tr>
-                                    <% } %>
+                                    <% } %> <% } %>
                                     <tr>
                                         <td class="product-thumbnail text-start">
                                             <a href="#"

@@ -55,9 +55,9 @@ router.get("/personal_address", personalAddress);
 
 router.get("/cart/:id", sessionCheck, cart);
 
-router.get("/add_to_cart_home/:id", sessionCheck, addToCartHome);
+router.post("/add_to_cart_home", sessionCheck, addToCartHome);
 
-router.get("/add_to_cart_shop/:id", sessionCheck, addToCartShop);
+router.post("/add_to_cart_shop", sessionCheck, addToCartShop);
 
 router.get("/logout", logout);
 
