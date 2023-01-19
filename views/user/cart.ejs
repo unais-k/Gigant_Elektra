@@ -113,18 +113,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <% for(let i = 0; i<fulldata.length; i++) { %>
                                     <tr>
                                         <td class="product-thumbnail text-start">
-                                            <a href="#"
-                                                ><img src="/images/user/products/thumbs/thumb-06.jpg" alt="..."
-                                            /></a>
+                                            <a href="#"><img src="<%=fulldata.items.productImages[0]%>" alt="..." /></a>
                                         </td>
                                         <td class="text-start">
-                                            <a href="#">Men's Football Boots</a>
+                                            <a href="#"><%=fulldata.items.productName%></a>
                                             <span class="text-uppercase d-block">SKU: 290397</span>
                                             <a href="#" class="display-31"><i class="fas fa-edit"></i> Edit</a>
                                         </td>
-                                        <td class="text-start">$15.00</td>
+                                        <td class="text-start"><%=fulldata.items.price%></td>
                                         <td class="product-quantity">
                                             <!-- <input type="text" name="q1" /> -->
 
@@ -138,7 +137,7 @@
                                             <input
                                                 min="0"
                                                 name="quantity"
-                                                value="1"
+                                                value="<%=fulldata.items.totaPrice%>"
                                                 type="number"
                                                 style="height: 40px; width: 60px"
                                             />
@@ -150,11 +149,12 @@
                                                 <i class="fas fa-plus"></i>
                                             </button>
                                         </td>
-                                        <td class="product-subtotal text-start">$15.00</td>
+                                        <td class="product-subtotal text-start"><%=cartPrice%></td>
                                         <td class="product-remove text-center">
                                             <a href="#"><i class="fas fa-times"></i></a>
                                         </td>
                                     </tr>
+                                    <% } %>
                                     <tr>
                                         <td class="product-thumbnail text-start">
                                             <a href="#"
@@ -710,7 +710,7 @@
                                                 href="#"
                                                 class="btn bordered text-start ms-1 ms-md-0 mt-1 mt-md-0 mb-0 mb-lg-2 mb-xl-0"
                                             >
-                                                <span class="media align-items-center">
+                                                <span class="media align-itemss-center">
                                                     <span class="fab fa-apple display-26 pe-3"></span>
                                                     <span class="media-body">
                                                         <span class="d-block display-32">Download on the</span>
@@ -720,7 +720,7 @@
                                             </a>
 
                                             <a href="#" class="btn bordered text-start ms-1 ms-lg-0 ms-xl-1 mt-1 mt-md-0">
-                                                <span class="media align-items-center">
+                                                <span class="media align-itemss-center">
                                                     <span class="fab fa-google-play display-26 pe-3"></span>
                                                     <span class="media-body">
                                                         <span class="d-block display-32">Get it on</span>
@@ -738,7 +738,7 @@
 
                 <div class="footer-bottom py-1-9 mt-6 mt-lg-8">
                     <div class="container">
-                        <div class="row align-items-center">
+                        <div class="row align-itemss-center">
                             <div class="col-md-6 mb-3 mb-md-0">
                                 <div class="text-center text-md-start">
                                     <p class="mb-0">

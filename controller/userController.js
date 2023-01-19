@@ -219,20 +219,25 @@ const wishList = (req, res) => {
     // res.render("user/wishlist");
 };
 
-const logout = (req, res) => {
-    req.session.destroy();
-    res.render("/");
-};
-
 const personalAddress = (req, res) => {
     res.render("user/userAddress");
 };
 
-const cart = (req, res) => {
-    res.render("user/cart");
+const cart = async (req, res) => {
+    let userId = req.session.user_login;
+    let fullcart = await cartModel.find({ owner: userId });
+    console.log(fullcart.items);
+    if (fullcart) {
+        let fulldata = await cartModel.find({ owner: userId }).populate("items.product", "productName productImages price");
+        console.log(fulldata);
+        res.render("user/cart", { fulldata });
+    } else {
+        res.redirect("/login");
+    }
 };
 
 const addToCartHome = async (req, res) => {
+    let userID = req.session.user_login;
     let productId = req.params.id;
     console.log(productId);
     let productInfo = await productModel.findById({ _id: productId });
@@ -240,14 +245,18 @@ const addToCartHome = async (req, res) => {
         owner: req.session.user_login._id,
         items: [
             {
-                product: productId,
-                quantity: productId.quantity,
-                totalPrice: productId.price,
+                product: productInfo._id,
+                totalPrice: productInfo.price,
             },
         ],
         cartPrice: productInfo.price,
     });
+    // let addtoUser = await userModel.updateOne(
+    //     { _id: userID._id },
+    //     { $push: { product: { productId: productInfo._id, productStatus: true } } }
+    // );
     console.log(cartInfo);
+    console.log("added to cart from home");
     // res.render("user/cart", { productInfo });
     res.redirect("/");
 };
@@ -269,6 +278,11 @@ const addToCartShop = async (req, res) => {
     });
     console.log(cartInfo);
     // res.render("user/cart", { productInfo });
+    res.redirect("/");
+};
+
+const logout = (req, res) => {
+    req.session.destroy();
     res.redirect("/");
 };
 
