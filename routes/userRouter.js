@@ -24,6 +24,8 @@ const {
     cart,
     addToCartHome,
     addToCartShop,
+    goToCartHome,
+    quantityChange,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -57,7 +59,11 @@ router.get("/cart/:id", sessionCheck, cart);
 
 router.post("/add_to_cart_home", sessionCheck, addToCartHome);
 
+router.get("/go_to_cart_home", goToCartHome);
+
 router.post("/add_to_cart_shop", sessionCheck, addToCartShop);
+
+router.patch("/quantity_change", sessionCheck, quantityChange);
 
 router.get("/logout", logout);
 

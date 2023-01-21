@@ -797,7 +797,7 @@
                                             <h3><a href="/productDetails/<%=productList[i]._id%>"><%=productList[i].productName%></a></h3>
                                             <h4 class="price">
                                                 <!-- <span class="regular-price line-through">$99.00</span> -->
-                                                <span class="offer-price"><%=productList[i].price%></span>
+                                                <span class="offer-price"><span class="a-price-symbol">$</span><%=productList[i].price%></span>
                                             </h4>
                                         </div>
                                         <div class="product-buttons">
@@ -1353,23 +1353,73 @@
             <script>
                async function addtocart(id) {
                     try {
-                        let response = await axios({
+                        let result = await axios({
                             method : 'post',
                             url    : '/add_to_cart_home',
                             data   : {
                                 id
                             }
                         })
-                        if(response.data.addtocart=true){
-                       Swal.fire('Product is added to cart')
-                        }
-                        else{
-                            Swal.fire({
+                    //     if(result.data.response==true){
+                    //    Swal.fire({
+                    //         icon: 'success',
+                    //         title: 'done',
+                    //         text: 'Product added to cart',
+                    //         showConfirmButton: false,
+                    //         timer: 1500
+                    //    })
+                    //     }
+                    //     else{
+                    //         Swal.fire({
+                    //         icon: 'error',
+                    //         title: 'Oops...',
+                    //         text: 'You have to login first',
+                    //         showConfirmButton: false,
+                    //         timer: 1000
+                    //         })
+                    //         location.href = '/login'
+                    //     }
+                    if(result.data.response == 'productExist'){
+                      await  Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Something went wrong!',
+                            text: 'Product already exist in cart',
+                            showConfirmButton: false,
+                            timer: 1000
                             })
+                    }else{
+                        if(result.data.response == true){
+                         await   Swal.fire({
+                            icon: 'success',
+                            title: 'done',
+                            text: 'Product added to cart',
+                            showConfirmButton: false,
+                            timer: 1500
+                       })
+                    //    location.href = '/'
+                        }else{
+                           if(result.data.response == 'newAdded'){
+                         await   Swal.fire({
+                            icon: 'success',
+                            title: 'done',
+                            text: 'New product added',
+                            showConfirmButton: false,
+                            timer: 1000
+                            })
+                            // location.href = '/'
+                           }
+                           else{
+                           await Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            text: "You have to login first",
+                             });
+                             location.href = '/login'
+                           }
                         }
+                    } 
                     }catch(error){
                         console.log("eroor")
                     }

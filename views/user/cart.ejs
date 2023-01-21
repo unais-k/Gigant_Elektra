@@ -44,15 +44,6 @@
 
         <!-- theme core css -->
         <link href="/stylesheet/user/styles.css" rel="stylesheet" />
-        <style>
-            input[type="number"]::-webkit-inner-spin-button,
-            input[type="number"]::-webkit-outer-spin-button {
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                margin: 0;
-            }
-        </style>
     </head>
 
     <body>
@@ -114,48 +105,66 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% for( let i = 0; i < cartItems.items.length; i++ ) { %> <% for(cart of
-                                    cartItems.items) { %>
+                                    <%for(cart of cartItems.items) {%>
                                     <tr>
                                         <td class="product-thumbnail text-start">
-                                            <a href="#"><img src="<%=cart.productId.productImages[i]%>" alt="..." /></a>
+                                            <a href="#"><img src="<%=cart.productId.productImages[0]%>" alt="..." /></a>
                                         </td>
                                         <td class="text-start">
                                             <a href="#"><%=cart.productId.productName%></a>
-                                            <span class="text-uppercase d-block">SKU: 290397</span>
-                                            <a href="#" class="display-31"><i class="fas fa-edit"></i> Edit</a>
+                                            <!-- <span class="text-uppercase d-block">SKU: 290397</span> -->
+                                            <!-- <a href="#" class="display-31"><i class="fas fa-edit"></i> Edit</a> -->
                                         </td>
-                                        <td class="text-start"><%=cart.productId.price[i]%></td>
+                                        <td class="text-start">
+                                            <span class="a-price-symbol">$</span><%=cart.productId.price%>
+                                        </td>
                                         <td class="product-quantity">
+                                            <% if (cart.productId.quantity === 1) { %>
                                             <button
-                                                class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                                onclick="quantityMin('<%=cart.productId%>','<%=cartItems._id%>',-1)"
+                                                class="btn btn-primary"
+                                                type="button"
+                                                style="visibility: hidden"
+                                                id="quantityminus<%=cart.productId._id%>"
                                             >
-                                                <i class="fas fa-minus"></i>
+                                                -
                                             </button>
-
+                                            <% } else { %>
+                                            <button
+                                                onclick="quantityMin('<%=cart.productId%>','<%=cartItems._id%>',-1)"
+                                                class="btn btn-primary"
+                                                type="button"
+                                                id="quantityminus<%=cart.productId._id%>"
+                                            >
+                                                -
+                                            </button>
+                                            <% } %>
                                             <input
-                                                min="0"
                                                 name="quantity"
                                                 value="<%=cart.quantity%>"
                                                 type="number"
+                                                min="0"
+                                                id="<%=cart.productId._id%>"
                                                 style="height: 40px; width: 60px"
                                             />
-
                                             <button
-                                                class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                                onclick="quantityPlus('<%=cart.productId._id%>' ,'<%=cartItems._id%>',1)"
+                                                class="btn btn-primary"
+                                                type="button"
+                                                id="quantityplus<%=cart.productId._id%>"
                                             >
-                                                <i class="fas fa-plus"></i>
+                                                +
                                             </button>
                                         </td>
-                                        <td class="product-subtotal text-start"><%=cartItems.cartPrice%></td>
+                                        <td class="product-subtotal text-start">
+                                            <span id="totalPrice" class="a-price-symbol">$</span><%=cart.totalPrice%>
+                                        </td>
                                         <td class="product-remove text-center">
                                             <a href="#"><i class="fas fa-times"></i></a>
                                         </td>
                                     </tr>
-                                    <% } %> <% } %>
-                                    <tr>
+                                    <% } %>
+                                    <!-- <tr>
                                         <td class="product-thumbnail text-start">
                                             <a href="#"
                                                 ><img src="/images/user/products/thumbs/thumb-02.jpg" alt="..."
@@ -194,7 +203,7 @@
                                         <td class="product-remove text-center">
                                             <a href="#"><i class="fas fa-times"></i></a>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
@@ -205,9 +214,6 @@
                             <button class="butn-style2 small bg-color mb-2 mb-md-0"><span>Empty Cart</span></button>
                             <button class="butn-style2 small bg-color float-end ms-2 mb-2 mb-md-0">
                                 <span>Continue Shopping</span>
-                            </button>
-                            <button class="butn-style2 small bg-color float-end ms-2">
-                                <span>Update Shopping Cart</span>
                             </button>
                         </div>
                         <!-- end button set -->
@@ -597,7 +603,10 @@
                                         <tbody>
                                             <tr>
                                                 <th class="text-end pe-0 text-uppercase">Cart Subtotal</th>
-                                                <td class="text-uppercase text-end pe-0">$44.70</td>
+                                                <td class="text-uppercase text-end pe-0">
+                                                    <span id="cartPrice" class="a-price-symbol">$</span
+                                                    ><%=cartItems.cartPrice%>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th class="text-end pe-0 text-uppercase">Shipping and Handling</th>
@@ -769,6 +778,55 @@
         <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
 
         <!-- all js include start -->
+
+        <!-- axios cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            function quantityMin(productId, cartId, count) {
+                let result = axios({
+                    method: "patch",
+                    url: "/quantity_change",
+                    data: {
+                        productId,
+                        cartId,
+                        count,
+                    },
+                });
+                if (result.data.response) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "done",
+                        text: "working",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            }
+            function quantityPlus(productId, cartId, count) {
+                let result = axios({
+                    method: "patch",
+                    url: "/quantity_change",
+                    data: {
+                        productId,
+                        cartId,
+                        count,
+                    },
+                });
+                if (result.data.response) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "done",
+                        text: "working",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            }
+        </script>
 
         <!-- jQuery -->
         <script src="/js/user/jquery.min.js"></script>

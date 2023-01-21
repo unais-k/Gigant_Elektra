@@ -172,8 +172,9 @@ const otpVerifyPost = async (req, res) => {
 };
 
 const userProduct = async (req, res) => {
+    user_details = req.session.user_login;
     let productList = await productModel.find({});
-    res.render("user/userProducts", { productList });
+    res.render("user/userProducts", { productList, user_details });
 };
 
 // const userProductDetails = async (req, res) => {
@@ -228,52 +229,190 @@ const cart = async (req, res) => {
     userId = req.session.user_login._id;
     console.log(userId);
     const cartItems = await cartModel.findOne({ owner: mongoose.Types.ObjectId(userId) }).populate("items.productId");
-    console.log(cartItems);
-    res.render("user/cart", { cartItems });
+    console.log("cartItems" + cartItems);
+    res.render("user/cart", { cartItems, user_details });
 };
 
 const addToCartHome = async (req, res, next) => {
-    let userID = req.session.user_login;
-    console.log("userID" + userID._id);
+    // let userID = req.session.user_login;
+    // console.log("userID" + userID._id);
+    // let response = null;
+    // let productId = req.body.id;
+    // console.log(productId);
+    // let productInfo = await productModel.findById({ _id: productId });
+    // let cartInfo = await cartModel.create({
+    //     owner: userID._id,
+    //     items: [
+    //         {
+    //             productId: productInfo._id,
+    //             totalPrice: productInfo.price,
+    //         },
+    //     ],
+    //     cartPrice: productInfo.price,
+    // });
+    let userId = req.session.user_login._id;
     let response = null;
     let productId = req.body.id;
-    console.log(productId);
-    let productInfo = await productModel.findById({ _id: productId });
-    let cartInfo = await cartModel.create({
-        owner: userID._id,
-        items: [
-            {
-                productId: productInfo._id,
-                totalPrice: productInfo.price,
-            },
-        ],
-        cartPrice: productInfo.price,
-    });
-    res.json({ addtocart: true });
-    console.log(cartInfo);
+    const findProduct = await productModel.findOne({ _id: productId });
+    console.log("findproduct" + findProduct);
+    let findUser = await cartModel.findOne({ owner: userId });
+    console.log("find user" + findUser);
+    if (!findUser) {
+        console.log(" creating cart");
+        let addCart = await cartModel.create({
+            owner: userId,
+            items: [
+                {
+                    productId: findProduct._id,
+                    totalPrice: findProduct.price,
+                },
+            ],
+            cartPrice: findProduct.price,
+        });
+        res.json({ response: true });
+        console.log(addCart);
+    } else {
+        if (findUser) {
+            console.log("sdfghjkl");
+            let productExist = await cartModel.findOne({ owner: userId, "items.productId": productId });
+            if (productExist) {
+                console.log("productexiatS");
+                res.json({ response: "productExist" });
+            } else {
+                console.log(1234567);
+                const newProduct = await cartModel.findOneAndUpdate(
+                    { owner: userId },
+                    {
+                        $push: {
+                            items: {
+                                productId: findProduct._id,
+                                totalPrice: findProduct.price,
+                            },
+                        },
+                        $inc: {
+                            cartPrice: findProduct.price,
+                        },
+                    }
+                );
+                console.log(newProduct);
+                res.json({ response: "newAdded" });
+            }
+        } else {
+            console.log("error");
+        }
+    }
+
+    // res.json({ response: true });
+    // console.log(addCart);
     console.log("added to cart from home");
 };
 
+const goToCartHome = (req, res) => {
+    res.redirect("/cart");
+};
+
 const addToCartShop = async (req, res) => {
+    //     let response = null;
+    //     let userId = req.session.user_login;
+    //     let productId = req.body.id;
+    //     let productinfo = await productModel.findById({ _id: productId });
+    //     let cartinfo = await cartModel.create({
+    //         owner: userId._id,
+    //         items: [
+    //             {
+    //                 productId: productinfo._id,
+    //                 totalPrice: productinfo.price,
+    //             },
+    //         ],
+    //         cartPrice: productinfo.price,
+    //     });
+    //     res.json({ addtocart: true });
+    // };
+    let userId = req.session.user_login._id;
     let response = null;
-    let userId = req.session.user_login;
     let productId = req.body.id;
-    let productinfo = await productModel.findById({ _id: productId });
-    let cartinfo = await cartModel.create({
-        owner: userId._id,
-        items: [
+    const findProduct = await productModel.findOne({ _id: productId });
+    console.log("findproduct" + findProduct);
+    let findUser = await cartModel.findOne({ owner: userId });
+    console.log("find user" + findUser);
+    if (!findUser) {
+        console.log(" creating cart");
+        let addCart = await cartModel.create({
+            owner: userId,
+            items: [
+                {
+                    productId: findProduct._id,
+                    totalPrice: findProduct.price,
+                },
+            ],
+            cartPrice: findProduct.price,
+        });
+        res.json({ response: true });
+        console.log(addCart);
+    } else {
+        if (findUser) {
+            console.log("sdfghjkl");
+            let productExist = await cartModel.findOne({ owner: userId, "items.productId": productId });
+            if (productExist) {
+                console.log("productexiatS");
+                res.json({ response: "productExist" });
+            } else {
+                console.log(1234567);
+                const newProduct = await cartModel.findOneAndUpdate(
+                    { owner: userId },
+                    {
+                        $push: {
+                            items: {
+                                productId: findProduct._id,
+                                totalPrice: findProduct.price,
+                            },
+                            $inc: {
+                                cartPrice: findProduct.price,
+                            },
+                        },
+                    }
+                );
+                console.log(newProduct);
+                res.json({ response: "newAdded" });
+            }
+        } else {
+            console.log("error");
+        }
+    }
+
+    // res.json({ response: true });
+    // console.log(addCart);
+    console.log("added to cart from Shop");
+};
+
+const quantityChange = async (req, res, next) => {
+    try {
+        let userId = req.session.user_login._id;
+        let prodctId = req.body.product;
+        productQuantity = await cartdb.aggregate([
             {
-                productId: productinfo._id,
-                totalPrice: productinfo.price,
+                $match: { owner: mongoose.Types.ObjectId(userId) },
             },
-        ],
-        cartPrice: productinfo.price,
-    });
-    res.json({ addtocart: true });
+            {
+                $project: {
+                    items: {
+                        $filter: {
+                            input: "$items",
+                            cond: {
+                                $eq: ["$$this.productId", mongoose.Types.ObjectId(req.body.prodctId)],
+                            },
+                        },
+                    },
+                },
+            },
+        ]);
+        console.log(productQuantity);
+        res.json({ response: true });
+    } catch (error) {}
 };
 
 const logout = (req, res) => {
-    req.session.destroy();
+    // req.session.destroy();
     res.redirect("/");
 };
 
@@ -294,5 +433,7 @@ module.exports = {
     personalAddress,
     cart,
     addToCartHome,
+    goToCartHome,
+    quantityChange,
     addToCartShop,
 };

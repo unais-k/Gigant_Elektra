@@ -183,7 +183,7 @@
                             <div class="attr-nav">
                                 <ul>
                                     <li class="dropdown me-3 me-lg-0">
-                                        <a href="/cart" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                             <i class="fa-solid fa-bag-shopping"></i>
                                             <span class="badge bg-primary">3</span>
                                         </a>
@@ -218,12 +218,23 @@
                                                 <h6><a href="#">Heel Character Shoes</a></h6>
                                                 <p>2x - <span class="price">$39.00</span></p>
                                             </li>
+                                            <% if (user_details) { %>
                                             <li class="total bg-primary">
                                                 <span class="float-start"><strong>Total</strong>: $79.20</span>
-                                                <a href="/cart" class="butn-style2 small white float-end w-auto"
+                                                <a
+                                                    href="/cart/<%=user_details._id%>"
+                                                    class="butn-style2 small white float-end w-auto"
                                                     ><span>View Cart</span></a
                                                 >
                                             </li>
+                                            <% } else { %>
+                                            <li class="total bg-primary">
+                                                <span class="float-start"><strong>Total</strong>: $79.20</span>
+                                                <a href="/login" class="butn-style2 small white float-end w-auto"
+                                                    ><span>View Cart</span></a
+                                                >
+                                            </li>
+                                            <% } %>
                                         </ul>
                                     </li>
                                     <li class="search">
