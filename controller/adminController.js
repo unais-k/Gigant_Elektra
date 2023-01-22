@@ -45,7 +45,7 @@ const category = async (req, res) => {
 
 const addCategory = (req, res) => {
     // const category = categoryModel.find({});
-    res.render("admin/addCategory", { message: false });
+    res.render("admin/addCategory", { message: false, categoryId: false });
 };
 
 const addCategoryPost = async (req, res, next) => {

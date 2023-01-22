@@ -61,7 +61,7 @@ router.get("/actionFalse/:id", actionFalse);
 
 router.get("/actionTrue/:id", actionTrue);
 
-router.get("/detail_category/:id", editCategory);
+router.get("/edit_category/:id", editCategory);
 
 router.get("/delete_category/:id", deleteProduct);
 

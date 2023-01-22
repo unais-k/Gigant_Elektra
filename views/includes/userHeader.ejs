@@ -27,25 +27,31 @@
                         <li class="nav-item dropdown">
                             <a href="#" data-bs-toggle="dropdown" class="dropdown-toggle"><i class="far fa-user"></i></a>
                             <ul class="dropdown-menu p-4">
+                                <% if (user_details) { %>
                                 <li class="mb-2">
                                     <div class="media align-items-center">
-                                        <img
-                                            class="w-40px rounded-circle me-3"
-                                            src="/images/user/avatar/01.png"
-                                            alt="..."
-                                        />
-                                        <div class="media-body">Nancy Miller</div>
+                                        <div class="media-body"><%=user_details.userName%></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="/profile/<%=user_details._id%>" class="dropdown-item">My Profile</a>
+                                </li>
+                                <li>
+                                    <a href="/logout" class="dropdown-item">Log Out</a>
+                                </li>
+                                <% } else { %>
+                                <li class="mb-2">
+                                    <div class="media align-items-center">
+                                        <div class="media-body">User</div>
                                     </div>
                                 </li>
                                 <li>
                                     <a href="#" class="dropdown-item">My Profile</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="dropdown-item">Order List</a>
+                                    <a href="/login" class="dropdown-item">LogIn</a>
                                 </li>
-                                <li>
-                                    <a href="/logout" class="dropdown-item">Log Out</a>
-                                </li>
+                                <% } %>
                             </ul>
                         </li>
 

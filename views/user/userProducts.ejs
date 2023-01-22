@@ -313,7 +313,7 @@
                                                     </li>
                                                     <li>
                                                         <a
-                                                            onclick="addtocart('<%=productList._id%>')"
+                                                            onclick="addtocartShop('<%=productList._id%>')"
                                                             class="butn-style2"
                                                             title="Add to Cart"
                                                             >Add to Cart</a
@@ -505,15 +505,56 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
-            async function addtocart(id) {
+            async function addtocartShop(id) {
                 try {
-                    //         let user = await axios({
-                    //             method: "post",
-                    //             url: "/add_to_cart_shop",
-                    //             data: {
-                    //                 id,
-                    //             },
-                    //         });
+                    let result = await axios({
+                        method: "post",
+                        url: "/add_to_cart_shop",
+                        data: {
+                            id,
+                        },
+                    });
+
+                    if (result.data.response == "productExist") {
+                        await Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Product already exist in cart",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    } else {
+                        if (result.data.response == true) {
+                            await Swal.fire({
+                                icon: "success",
+                                title: "done",
+                                text: "Product added to cart",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else {
+                            if (result.data.response == "newAdded") {
+                                await Swal.fire({
+                                    icon: "success",
+                                    title: "done",
+                                    text: "New product added",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                });
+                            } else {
+                                await Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                    text: "You have to login first",
+                                });
+                                location.href = "/login";
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.log("eroor");
                     //         if (user.data.addtocart == true) {
                     //             Swal.fire({
                     //                 icon: "success",
@@ -536,48 +577,6 @@
                     //         console.log("error");
                     //     }
                     // }
-                    if (result.data.response == "productExist") {
-                        await Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Product already exist in cart",
-                            showConfirmButton: false,
-                            timer: 1000,
-                        });
-                    } else {
-                        if (result.data.response == true) {
-                            await Swal.fire({
-                                icon: "success",
-                                title: "done",
-                                text: "Product added to cart",
-                                showConfirmButton: false,
-                                timer: 1500,
-                            });
-                            // location.href = "/";
-                        } else {
-                            if (result.data.response == "newAdded") {
-                                await Swal.fire({
-                                    icon: "success",
-                                    title: "done",
-                                    text: "New product added",
-                                    showConfirmButton: false,
-                                    timer: 1000,
-                                });
-                                // location.href = "/";
-                            } else {
-                                await Swal.fire({
-                                    icon: "error",
-                                    title: "Oops...",
-                                    showConfirmButton: false,
-                                    timer: 1000,
-                                    text: "You have to login first",
-                                });
-                                location.href = "/login";
-                            }
-                        }
-                    }
-                } catch (error) {
-                    console.log("eroor");
                 }
             }
         </script>
