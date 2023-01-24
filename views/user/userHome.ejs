@@ -159,43 +159,24 @@
                                     <%}%>
                                     <%if(user_details){%>
                                     <li class="dropdown">
-                                        <a href="/cart/<%=user_details._id%>" class="dropdown-toggle" data-bs-toggle="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                             <i class="fa-solid fa-bag-shopping"></i>
-                                            <span class="badge bg-primary">3</span>
+                                            <span class="badge bg-primary"></span>
                                         </a>
                                         <ul class="dropdown-menu cart-list">
+                                            <% for( let i = 0; i < cart.length; i++ ) { %>
                                             <li>
-                                                <a href="#" class="photo"
+                                                <a href="/productDetails/<%=cart[i].productId._id%>" class="photo"
                                                     ><img
-                                                        src="/images/user/products/cart-thumbs/cart-thumb-01.jpg"
+                                                        src="<%=cart[i].productId.productImages[0]%>"
                                                         class="cart-thumb"
                                                         alt="..."
                                                 /></a>
-                                                <h6><a href="#">Men's Football Boots </a></h6>
-                                                <p>2x - <span class="price">$30.00</span></p>
+                                                <h6><a href="#"><%=cart[i].productId.productName%> </a></h6>
+                                                <p><%=cart[i].quantity%>x - <span class="price">$<%=cart[i].productId.price%></span></p>
                                             </li>
-                                            <li>
-                                                <a href="#" class="photo"
-                                                    ><img
-                                                        src="/images/user/products/cart-thumbs/cart-thumb-02.jpg"
-                                                        class="cart-thumb"
-                                                        alt="..."
-                                                /></a>
-                                                <h6><a href="#">Sun Protection Cap</a></h6>
-                                                <p>1x - <span class="price">$10.20</span></p>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="photo"
-                                                    ><img
-                                                        src="/images/user/products/cart-thumbs/cart-thumb-03.jpg"
-                                                        class="cart-thumb"
-                                                        alt="..."
-                                                /></a>
-                                                <h6><a href="#">Heel Character Shoes</a></h6>
-                                                <p>2x - <span class="price">$39.00</span></p>
-                                            </li>
+                                            <% } %>
                                             <li class="total bg-primary">
-                                                <span class="float-start"><strong>Total</strong>: $79.20</span>
                                                 <a href="/cart/<%=user_details._id%>" class="butn-style2 small white float-end w-auto"
                                                     ><span>View Cart</span></a
                                                 >

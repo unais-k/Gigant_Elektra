@@ -21,11 +21,14 @@ const {
     otpVerify,
     otpVerifyPost,
     personalAddress,
+    personalAddressPost,
     cart,
     addToCartHome,
     addToCartShop,
     quantityChange,
     deleteCart,
+    updateAddress,
+    checkout,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -53,7 +56,11 @@ router.post("/otp_verify", otpVerify);
 
 router.post("/otp_verifyied", otpVerifyPost);
 
-router.get("/personal_address", personalAddress);
+router.get("/address", sessionCheck, personalAddress);
+
+router.post("/address_post", personalAddressPost);
+
+router.post("/address_update", updateAddress);
 
 router.get("/cart/:id", sessionCheck, cart);
 
@@ -64,6 +71,8 @@ router.post("/add_to_cart_shop", sessionCheck, addToCartShop);
 router.post("/quantity_change", sessionCheck, quantityChange);
 
 router.delete("/delete_cart", deleteCart);
+
+router.get("/checkout", checkout);
 
 router.get("/logout", logout);
 

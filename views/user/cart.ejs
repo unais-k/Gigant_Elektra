@@ -139,7 +139,7 @@
                                                 value="<%=cartItems.items[i].quantity%>"
                                             />
                                             <button
-                                                onclick="changeQuantity('<%=cartItems.items[i].productId._id%>','<%=cartItems._id%>',1)"
+                                                onclick="changeQuantity('<%=cartItems.items[i].productId._id%>','<%=cartItems._id%>', 1)"
                                                 class="btn btn-primary plusBtn"
                                             >
                                                 +
@@ -167,9 +167,11 @@
                         <!-- button set -->
                         <div class="col-12 border-bottom py-1-9 py-lg-2-3 mb-3 mb-md-4 mb-lg-0">
                             <button class="butn-style2 small bg-color mb-2 mb-md-0"><span>Empty Cart</span></button>
-                            <button class="butn-style2 small bg-color float-end ms-2 mb-2 mb-md-0">
-                                <span>Continue Shopping</span>
-                            </button>
+                            <a href="/userProduct">
+                                <button class="butn-style2 small bg-color float-end ms-2 mb-2 mb-md-0">
+                                    <span>Continue Shopping</span>
+                                </button></a
+                            >
                         </div>
                         <!-- end button set -->
 
@@ -326,9 +328,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <a class="butn-style2 float-end" href="shop-checkout-address"
-                                        ><span>Proceed to Checkout</span></a
-                                    >
+                                    <a class="butn-style2 float-end" href="/checkout"><span>Proceed to Checkout</span></a>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Mirrored from smartshop.websitelayout.net/shop-checkout-address by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
+    <head>
+        <!-- metas -->
+        <meta charset="utf-8" />
+        <meta name="author" content="Chitrakoot Web" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="keywords" content="Multipurpose eCommerce Template + Admin" />
+        <meta name="description" content="Smartshop - Multipurpose eCommerce Template + Admin" />
+
+        <!-- title  -->
+        <title>Gigant Elektra - Elegant smart world</title>
+
+        <!-- google icons -->
+        <script src="https://kit.fontawesome.com/138cb064b7.js" crossorigin="anonymous"></script>
+
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
+            integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
+            crossorigin="anonymous"
+        />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+            integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <script src="https://unpkg.com/themify@1.0.0/_themify.scss"></script>
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="/images/user/logos/favicon-32x32.png" />
+        <link rel="apple-touch-icon" href="/images/user/logos/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/user/logos/android-chrome-192x192.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/user/logos/android-chrome-512x512.png" />
+
+        <!-- plugins -->
+        <link rel="stylesheet" href="/stylesheet/user/plugins.css" />
+
+        <!-- theme core css -->
+        <link href="/stylesheet/user/styles.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <!-- PAGE LOADING
+    ================================================== -->
+        <div id="preloader"></div>
+
+        <!-- MAIN WRAPPER
+    ================================================== -->
+        <div class="main-wrapper mp-pusher" id="mp-pusher">
+            <!-- HEADER
+        ================================================== -->
+
+            <%- include("../includes/userHeader.ejs") %>
+
+            <!-- PAGE TITLE
+        ================================================== -->
+            <section class="page-title-section bg-img cover-background" data-background="/images/user/bg/page-title.jpg">
+                <div class="container">
+                    <div class="title-info">
+                        <h1>Shop Checkout</h1>
+                    </div>
+                    <div class="breadcrumbs-info">
+                        <ul class="ps-0">
+                            <li><a href="/">Home</a></li>
+                            >
+                            <li><a href="#">Shop Checkout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHECKOUT
+        ================================================== -->
+            <section class="md">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="process-steps mb-1-9 mb-lg-6">
+                                <a class="step active" href="/checkout"
+                                    ><i class="fa-sharp fa-solid fa-location-dot pe-2"></i>
+                                    <h4 class="step-title">1. Address</h4></a
+                                >
+                                <a class="step" href="shop-checkout-shipping"
+                                    ><i class="fa-sharp fa-solid fa-truck-fast"></i>
+                                    <h4 class="step-title">2. Shipping</h4></a
+                                >
+                                <a class="step" href="shop-checkout-payment"
+                                    ><i class="fa-sharp fa-solid fa-money-bill"></i>
+                                    <h4 class="step-title">3. Payment</h4></a
+                                >
+                                <a class="step" href="shop-checkout-review"
+                                    ><i class="fa-regular fa-comment"></i>
+                                    <h4 class="step-title">4. Review</h4></a
+                                >
+                            </div>
+                        </div>
+
+                        <!-- left pannel section -->
+                        <div class="col-lg-9 col-12 pe-lg-2-3 mb-1-9 mb-lg-0">
+                            <% if (shipping) { %>
+
+                            <div class="common-block">
+                                <div class="inner-title">
+                                    <h4 class="mb-0">Billing Address</h4>
+                                </div>
+
+                                <form action="/billing_address" method="post">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>First Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=shipping.name%>"
+                                                    name="name"
+                                                    placeholder="Your name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="address"
+                                                    value="<%=shipping.address%>"
+                                                    placeholder="Your address  here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Email Address</label>
+                                                <input
+                                                    type="email"
+                                                    class="form-control"
+                                                    value="<%=shipping.email%>"
+                                                    name="email"
+                                                    placeholder="Your email address here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Phone</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=shipping.phone%>"
+                                                    name="phone"
+                                                    placeholder="Your phone number here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>State</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=shipping.state%>"
+                                                    name="state"
+                                                    placeholder="Your state name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Country</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=shipping.country%>"
+                                                    name="state"
+                                                    placeholder="Your state name here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>City / Town </label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="city"
+                                                    value="<%=shipping.city%>"
+                                                    placeholder="Your city name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Pin Code</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="pincode"
+                                                    value="<%=shipping.pincode%>"
+                                                    placeholder="Your pin code here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="buttons-set">
+                                        <a href="shop-cart" class="butn-style2 wide"
+                                            ><i class="fas fa-arrow-left me-1"></i> Update</a
+                                        >
+                                        <a href="shop-checkout-shipping" class="butn-style2 wide"
+                                            >Continue <i class="fas fa-arrow-right ms-1"></i
+                                        ></a>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <% } else { %>
+
+                            <div class="common-block">
+                                <div class="inner-title">
+                                    <h4 class="mb-0">Billing Address</h4>
+                                </div>
+
+                                <form action="/billing_address" method="post">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>First Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="name"
+                                                    placeholder="Your name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Last Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="lastname"
+                                                    placeholder="Your last name here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Email Address</label>
+                                                <input
+                                                    type="email"
+                                                    class="form-control"
+                                                    name="email"
+                                                    placeholder="Your email address here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Phone</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="phone"
+                                                    placeholder="Your phone number here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Company Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="companyname"
+                                                    placeholder="Your company name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Country</label>
+                                                <select name="country" class="form-control form-select">
+                                                    <option value="" selected="selected">Select a country</option>
+                                                    <option value="IN">India</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>City / Town </label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="city"
+                                                    placeholder="Your city name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Pin Code</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="pincode"
+                                                    placeholder="Your zip code here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="inner-title mt-1-9">
+                                        <h4 class="mb-0">Shipping Address</h4>
+                                    </div>
+
+                                    <div class="buttons-set">
+                                        <a href="shop-checkout-shipping" class="butn-style2 wide"
+                                            >Continue <i class="fas fa-arrow-right ms-1"></i
+                                        ></a>
+                                    </div>
+                                </form>
+                            </div>
+                            <% } %>
+                        </div>
+
+                        <!-- end left pannel section -->
+                        <!-- right pannel section -->
+                        <div class="col-lg-3 col-12 side-bar">
+                            <div class="widget">
+                                <div class="widget-title">
+                                    <h5>Order Summary</h5>
+                                </div>
+                                <table class="table classic">
+                                    <tbody>
+                                        <tr>
+                                            <th>Cart Subtotal:</th>
+                                            <td class="text-gray-dark">$2,548.50</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Shipping:</th>
+                                            <td class="text-gray-dark">$26.50</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Estimated tax:</th>
+                                            <td class="text-gray-dark">$9.72</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td class="text-lg text-gray-dark">$2,584.72</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- end right pannel section -->
+
+                        <div class="col-lg-9 col-12 pe-lg-2-3 mb-1-9 mb-lg-0">
+                            <div class="common-block mt-3">
+                                <div class="inner-title">
+                                    <h4 class="mb-0">Contact Address</h4>
+                                </div>
+                                <% if (contact) { %>
+
+                                <form method="post" action="/address_update?contact=true&id:<%=contact._id%>">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Full Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=contact.name%>"
+                                                    name="name"
+                                                    placeholder="Your full name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=contact.address%>"
+                                                    name="address"
+                                                    placeholder="Your address here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>City</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=contact.city%>"
+                                                    name="city"
+                                                    placeholder="Your city name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>State</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=contact.state%>"
+                                                    name="state"
+                                                    placeholder="Your state name here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Pin Code</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="pin"
+                                                    value="<%=contact.pincode%>"
+                                                    placeholder="Your zip code here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Country</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="pin"
+                                                    value="<%=contact.country%>"
+                                                    placeholder="Your zip code here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="butn-style2 mt-4">Update Address</button>
+                                </form>
+                            </div>
+                            <% } else { %>
+                            <div class="common-block mt-3">
+                                <div class="inner-title">
+                                    <h4 class="mb-0">Contact Address</h4>
+                                </div>
+
+                                <form method="post" action="/address_update?contact=true&id:<%=contact._id%>">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Full Name</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=contact.name%>"
+                                                    name="name"
+                                                    placeholder="Your full name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=contact.address%>"
+                                                    name="address"
+                                                    placeholder="Your address here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>City</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=contact.city%>"
+                                                    name="city"
+                                                    placeholder="Your city name here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>State</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%=contact.state%>"
+                                                    name="state"
+                                                    placeholder="Your state name here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Pin Code</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="pin"
+                                                    value="<%=contact.pincode%>"
+                                                    placeholder="Your zip code here"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Country</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    name="pin"
+                                                    value="<%=contact.country%>"
+                                                    placeholder="Your zip code here"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="butn-style2 mt-4">Update Address</button>
+                                </form>
+                            </div>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER
+        ================================================== -->
+            <footer class="classic-footer bordered">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-2-3 mb-lg-0">
+                            <h3>Contact Us</h3>
+                            <ul class="list-style mb-2 ps-0">
+                                <li><strong>Address:</strong><span class="ps-1">74 Guild Street 542B, Town MT.</span></li>
+                                <li><strong>Phone: </strong><span class="ps-1">(+44) 123 456 789</span></li>
+                                <li><strong>Email: </strong><span class="ps-1">addyour@emailhere</span></li>
+                            </ul>
+
+                            <ul class="list-style-two mb-0 ps-0">
+                                <li>
+                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fab fa-instagram"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mb-2-3 mb-lg-0">
+                            <div class="row">
+                                <div class="col-md-6 col-6 pe-lg-0">
+                                    <h3>Quick Links</h3>
+                                    <ul class="list-style ps-0">
+                                        <li><a href="#">News</a></li>
+                                        <li><a href="#">History</a></li>
+                                        <li><a href="#">Our shop</a></li>
+                                        <li><a href="#">Secure shopping</a></li>
+                                        <li><a href="#">Privacy policy</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6 col-6 pe-lg-0">
+                                    <h3>My Account</h3>
+                                    <ul class="list-style ps-0">
+                                        <li><a href="#">My Account</a></li>
+                                        <li><a href="#">Order History</a></li>
+                                        <li><a href="#">Wish List</a></li>
+                                        <li><a href="#">Newsletter</a></li>
+                                        <li><a href="#">Returns</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12">
+                            <div class="ps-lg-1-9">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-6 mb-1-9">
+                                        <h3>News Letter</h3>
+                                        <form method="post">
+                                            <div class="form-group footer-subscribe">
+                                                <input
+                                                    type="email"
+                                                    placeholder="Subscribe with us"
+                                                    id="email"
+                                                    class="form-control"
+                                                />
+                                                <a href="#" class="butn-style2"
+                                                    ><i class="fas fa-paper-plane display-27 mt-1"></i
+                                                ></a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-12 col-md-6">
+                                        <h3>Download Our Mobile Apps</h3>
+                                        <div class="text-start">
+                                            <a
+                                                href="#"
+                                                class="btn bordered text-start ms-1 ms-md-0 mt-1 mt-md-0 mb-0 mb-lg-2 mb-xl-0"
+                                            >
+                                                <span class="media align-items-center">
+                                                    <span class="fab fa-apple display-26 pe-3"></span>
+                                                    <span class="media-body">
+                                                        <span class="d-block display-32">Download on the</span>
+                                                        <strong>App Store</strong>
+                                                    </span>
+                                                </span>
+                                            </a>
+
+                                            <a href="#" class="btn bordered text-start ms-1 ms-lg-0 ms-xl-1 mt-1 mt-md-0">
+                                                <span class="media align-items-center">
+                                                    <span class="fab fa-google-play display-26 pe-3"></span>
+                                                    <span class="media-body">
+                                                        <span class="d-block display-32">Get it on</span>
+                                                        <strong>Google Play</strong>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom py-1-9 mt-6 mt-lg-8">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="text-center text-md-start">
+                                    <p class="mb-0">
+                                        &copy; <span class="current-year"></span> Smartshop is Powered by
+                                        <a href="https://www.chitrakootweb.com/" target="_blank" class="text-dark"
+                                            >Chitrakoot Web</a
+                                        >
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-style-17 text-center text-md-end">
+                                    <li><img src="/images/user/content/payment-options/visa.png" alt="..." /></li>
+                                    <li><img src="/images/user/content/payment-options/mastercard.png" alt="..." /></li>
+                                    <li><img src="/images/user/content/payment-options/paypal.png" alt="..." /></li>
+                                    <li><img src="/images/user/content/payment-options/amex.png" alt="..." /></li>
+                                    <li><img src="/images/user/content/payment-options/discover.png" alt="..." /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- BUY TEMPLATE
+    ================================================== -->
+        <div class="buy-theme alt-font d-none d-lg-inline-block">
+            <a href="https://wrapbootstrap.com/theme/smartshop-multipurpose-ecommerce-template-WB0N7CT4D" target="_blank"
+                ><i class="fas fa-cart-plus"></i><span>Buy Template</span></a
+            >
+        </div>
+
+        <div class="all-demo alt-font d-none d-lg-inline-block">
+            <a href="https://www.chitrakootweb.com/contact" target="_blank"
+                ><i class="far fa-envelope"></i><span>Quick Question?</span></a
+            >
+        </div>
+
+        <!-- SCROLL TO TOP
+    ================================================== -->
+        <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+
+        <!-- all js include start -->
+
+        <!-- jQuery -->
+        <script src="/js/user/jquery.min.js"></script>
+
+        <!-- popper js -->
+        <script src="/js/user/popper.min.js"></script>
+
+        <!-- bootstrap -->
+        <script src="/js/user/bootstrap.min.js"></script>
+
+        <!-- core.min.js -->
+        <script src="/js/user/core.min.js"></script>
+
+        <!-- custom scripts -->
+        <script src="/js/user/main.js"></script>
+
+        <!-- all js include end -->
+    </body>
+
+    <!-- Mirrored from smartshop.websitelayout.net/shop-checkout-address by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
+</html>
