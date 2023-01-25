@@ -27,8 +27,10 @@ const {
     addToCartShop,
     quantityChange,
     deleteCart,
-    updateAddress,
     checkout,
+    editAddress,
+    deleteAddress,
+    firstAddress,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -58,9 +60,13 @@ router.post("/otp_verifyied", otpVerifyPost);
 
 router.get("/address", sessionCheck, personalAddress);
 
-router.post("/address_post", personalAddressPost);
+router.post("/address_post", sessionCheck, personalAddressPost);
 
-router.post("/address_update", updateAddress);
+router.patch("/edit_address", sessionCheck, editAddress);
+
+router.post("/address_first", sessionCheck, firstAddress);
+
+router.delete("/delete_address/:id", sessionCheck, deleteAddress);
 
 router.get("/cart/:id", sessionCheck, cart);
 
@@ -72,7 +78,7 @@ router.post("/quantity_change", sessionCheck, quantityChange);
 
 router.delete("/delete_cart", deleteCart);
 
-router.get("/checkout", checkout);
+router.get("/checkout", sessionCheck, checkout);
 
 router.get("/logout", logout);
 

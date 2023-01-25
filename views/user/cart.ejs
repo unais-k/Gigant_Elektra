@@ -162,9 +162,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- end product table -->
 
-                        <!-- button set -->
                         <div class="col-12 border-bottom py-1-9 py-lg-2-3 mb-3 mb-md-4 mb-lg-0">
                             <button class="butn-style2 small bg-color mb-2 mb-md-0"><span>Empty Cart</span></button>
                             <a href="/userProduct">
@@ -173,9 +171,7 @@
                                 </button></a
                             >
                         </div>
-                        <!-- end button set -->
 
-                        <!-- total block set -->
                         <div class="col-12 cart-total pt-1-9 pt-lg-2-3">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 mb-1-9 mb-md-0">
@@ -217,77 +213,6 @@
                                                         </div>
 
                                                         <button type="button" class="butn-style2 small">Apply Code</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header" id="headingTwo">
-                                                <h5 class="mb-0">
-                                                    <button
-                                                        class="btn btn-link collapsed"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseTwo"
-                                                        aria-expanded="false"
-                                                        aria-controls="collapseTwo"
-                                                    >
-                                                        Calculate Shipping
-                                                    </button>
-                                                </h5>
-                                            </div>
-                                            <div
-                                                id="collapseTwo"
-                                                class="collapse"
-                                                aria-labelledby="headingTwo"
-                                                data-bs-parent="#accordion"
-                                            >
-                                                <div class="card-body">
-                                                    <form action="#">
-                                                        <div class="row">
-                                                            <div class="col-sm-12 mb-2">
-                                                                <div class="form-group">
-                                                                    <label>Country</label>
-                                                                    <select class="form-control form-select">
-                                                                        <option value="" selected="selected">
-                                                                            Select a country
-                                                                        </option>
-                                                                        <option value="IN">India</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-sm-12 mb-2">
-                                                                <div class="form-group">
-                                                                    <label>City/State</label>
-                                                                    <input
-                                                                        type="text"
-                                                                        class="form-control"
-                                                                        name="city"
-                                                                        placeholder="Your city/state name here"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="col-sm-12 mb-2">
-                                                                <div class="form-group">
-                                                                    <label>Zip Code</label>
-                                                                    <input
-                                                                        type="text"
-                                                                        class="form-control"
-                                                                        name="zip"
-                                                                        placeholder="Your zip code here"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <button type="button" class="butn-style2 small">
-                                                            Update Totals
-                                                        </button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -335,7 +260,6 @@
                         <% } else { %>
                         <div><h1>Your cart is Empty</h1></div>
                         <% } %>
-                        <!-- end total block set -->
                     </div>
                 </div>
             </section>
@@ -403,9 +327,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         axios.delete(`/delete_cart?productId=${productId}`).then((result) => {
-                            Swal.fire("removed!", "item has been deleted.", "success").then((response) => {
-                                location.reload();
-                            });
+                            Swal.fire("removed!", "item has been deleted.", "success").then((response) => {});
                         });
                     }
                 });

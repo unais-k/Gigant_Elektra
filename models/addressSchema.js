@@ -9,8 +9,11 @@ const addressSchema = new mongoose.Schema({
         {
             name: {
                 type: String,
-                defarequiredult: true,
                 trim: true,
+            },
+            lastname: {
+                type: String,
+                required: true,
             },
             address: {
                 type: String,
@@ -30,16 +33,9 @@ const addressSchema = new mongoose.Schema({
                 type: String,
                 required: true,
             },
-            state: {
-                type: String,
-                required: true,
-            },
             country: {
                 type: String,
                 required: true,
-            },
-            contact: {
-                type: Boolean,
             },
         },
     ],

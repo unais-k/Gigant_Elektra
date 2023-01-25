@@ -30,6 +30,12 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
 
         <script src="https://unpkg.com/themify@1.0.0/_themify.scss"></script>
 
@@ -104,145 +110,535 @@
 
                         <!-- left pannel section -->
                         <div class="col-lg-9 col-12 pe-lg-2-3 mb-1-9 mb-lg-0">
-                            <% if (shipping) { %>
+                            <% if (Address) { %>
 
                             <div class="common-block">
-                                <div class="inner-title">
-                                    <h4 class="mb-0">Billing Address</h4>
-                                </div>
-
-                                <form action="/billing_address" method="post">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>First Name</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=shipping.name%>"
-                                                    name="name"
-                                                    placeholder="Your name here"
-                                                />
-                                            </div>
+                                <div id="accordion">
+                                    <div class="card">
+                                        <div class="card-header bg-white" id="headingOne">
+                                            <h5 class="mb-0">
+                                                <button
+                                                    class="butn-style2"
+                                                    data-toggle="collapse"
+                                                    data-target="#<%=Address._id%>"
+                                                    aria-expanded="true"
+                                                    aria-controls="<%=Address._id%>"
+                                                >
+                                                    Choose this Address
+                                                </button>
+                                            </h5>
                                         </div>
 
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="address"
-                                                    value="<%=shipping.address%>"
-                                                    placeholder="Your address  here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Email Address</label>
-                                                <input
-                                                    type="email"
-                                                    class="form-control"
-                                                    value="<%=shipping.email%>"
-                                                    name="email"
-                                                    placeholder="Your email address here"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Phone</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=shipping.phone%>"
-                                                    name="phone"
-                                                    placeholder="Your phone number here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>State</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=shipping.state%>"
-                                                    name="state"
-                                                    placeholder="Your state name here"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Country</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=shipping.country%>"
-                                                    name="state"
-                                                    placeholder="Your state name here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>City / Town </label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="city"
-                                                    value="<%=shipping.city%>"
-                                                    placeholder="Your city name here"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Pin Code</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="pincode"
-                                                    value="<%=shipping.pincode%>"
-                                                    placeholder="Your pin code here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="buttons-set">
-                                        <a href="shop-cart" class="butn-style2 wide"
-                                            ><i class="fas fa-arrow-left me-1"></i> Update</a
+                                        <div
+                                            id="<%=Address._id%>"
+                                            class="collapse show"
+                                            aria-labelledby="headingOne"
+                                            data-parent="#accordion"
                                         >
-                                        <a href="shop-checkout-shipping" class="butn-style2 wide"
-                                            >Continue <i class="fas fa-arrow-right ms-1"></i
-                                        ></a>
+                                            <div class="card-body">
+                                                <%= Address.name %> <%=Address.lastname%> <br /><%= Address.address %>
+                                                <br /><%= Address.city %>, <%=Address.country%>
+                                                <br />
+                                                Pin : <%= Address.pincode %> <br />
+                                                Email : <%= Address.email %> <br />
+                                                Mobile : <%= Address.phone %> <br />
+                                                <div class="d-flex bd-highlight">
+                                                    <div class="me-auto p-2 bd-highlight">
+                                                        <a href="/address_confirm/<%=Address._id%>">
+                                                            <button type="submit" class="butn-style2 mt-2">Submit</button>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2 bd-highlight">
+                                                        <button
+                                                            onclick="deleteAddress('<%=Address._id%>')"
+                                                            class="butn-style2"
+                                                        >
+                                                            <i class="fa-sharp fa-solid fa-trash pe-2"></i>Delete
+                                                        </button>
+                                                        <!-- <button class="butn-style2">
+                                                            <i class="fa-solid fa-pen-to-square pe-2"></i>Edit
+                                                        </button> -->
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3 p-2">
+                                                    <p>
+                                                        <button
+                                                            class="butn-style2"
+                                                            type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#collapseExample1"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseExample1"
+                                                        >
+                                                            <i class="fa-solid fa-pen-to-square pe-2"></i>Edit
+                                                        </button>
+                                                    </p>
+                                                    <div class="collapse" id="collapseExample1">
+                                                        <div class="card card-body">
+                                                            <!-- <form onsubmit="Edit('')" id="formsubmit"> -->
+                                                            <form method="post" id="first-array" novalidate="novalidate">
+                                                                <input
+                                                                    type="text"
+                                                                    value="<%=Address._id %>"
+                                                                    name="id"
+                                                                    hidden
+                                                                />
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>First Name</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="name"
+                                                                                value="<%=Address.name %>"
+                                                                                placeholder="Your name here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Last Name</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="lastname"
+                                                                                value="<%=Address.lastname %>"
+                                                                                placeholder="Your last name here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Email Address</label>
+                                                                            <input
+                                                                                type="email"
+                                                                                class="form-control"
+                                                                                name="email"
+                                                                                value="<%=Address.email %>"
+                                                                                placeholder="Your email address here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Phone</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="phone"
+                                                                                value="<%=Address.phone %>"
+                                                                                placeholder="Your phone number here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Address</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="address"
+                                                                                value="<%=Address.address %>"
+                                                                                placeholder="Your address  here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Country</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="country"
+                                                                                value="<%=Address.country %>"
+                                                                                placeholder="Your address  here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>City / Town </label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="city"
+                                                                                value="<%=Address.city %>"
+                                                                                placeholder="Your city name here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Pin Code</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="pincode"
+                                                                                value="<%=Address.pincode %>"
+                                                                                placeholder="Your pin code here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="">
+                                                                    <button type="submit" class="butn-style2 mt-4">
+                                                                        Submit
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
+                                    <% for( let i = 1; i < Add.address.length; i++ ) { %>
+                                    <div class="card mt-2">
+                                        <div class="card-header bg-white" id="heading<%=[i]%>">
+                                            <h5 class="mb-0">
+                                                <button
+                                                    class="butn-style2 collapsed"
+                                                    data-toggle="collapse"
+                                                    data-target="#collapse<%=[i]%>"
+                                                    aria-expanded="false"
+                                                    aria-controls="collapse<%=[i]%>"
+                                                >
+                                                    Choose this Address
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div
+                                            id="collapse<%=[i]%>"
+                                            class="collapse"
+                                            aria-labelledby="heading<%=[i]%>"
+                                            data-parent="#accordion"
+                                        >
+                                            <div class="card-body">
+                                                <%=Add.address[i].name %> <%=Add.address[i].lastname%><br /><%=
+                                                Add.address[i].address %> <br /><%= Add.address[i].city %>,
+                                                <%=Add.address[i].country%>
+                                                <br />
+                                                Pin : <%= Add.address[i].pincode %> <br />
+                                                Email : <%=Add.address[i].email%> <br />
+                                                Mobile : <%= Add.address[i].phone %> <br />
+                                                <div class="d-flex bd-highlight">
+                                                    <div class="me-auto p-2 bd-highlight">
+                                                        <a href="/address_confirm/<%=Add.address[i]._id%>">
+                                                            <button type="submit" class="butn-style2 mt-2">Submit</button>
+                                                        </a>
+                                                    </div>
+                                                    <div class="p-2 bd-highlight">
+                                                        <button
+                                                            onclick="deleteAddress('<%=Add.address[i]._id%>')"
+                                                            class="butn-style2"
+                                                        >
+                                                            <i class="fa-sharp fa-solid fa-trash pe-2"></i>Delete
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3 p-2">
+                                                    <p>
+                                                        <button
+                                                            class="butn-style2"
+                                                            type="button"
+                                                            data-bs-toggle="collapse"
+                                                            data-bs-target="#collapseExample<%=i%>"
+                                                            aria-expanded="false"
+                                                            aria-controls="collapseExample<%=i%>"
+                                                        >
+                                                            <i class="fa-solid fa-pen-to-square pe-2"></i>Edit
+                                                        </button>
+                                                    </p>
+                                                    <div class="collapse" id="collapseExample<%=i%>">
+                                                        <div class="card card-body">
+                                                            <form method="patch" id="checkout-form" novalidate="novalidate">
+                                                                <input
+                                                                    type="text"
+                                                                    value="<%=Add.address[i]._id %>"
+                                                                    name="id"
+                                                                    hidden
+                                                                />
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>First Name</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="name"
+                                                                                value="<%=Add.address[i].name %>"
+                                                                                placeholder="Your name here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Last Name</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="lastname"
+                                                                                value="<%=Add.address[i].lastname %>"
+                                                                                placeholder="Your last name here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Email Address</label>
+                                                                            <input
+                                                                                type="email"
+                                                                                class="form-control"
+                                                                                name="email"
+                                                                                value="<%=Add.address[i].email %>"
+                                                                                placeholder="Your email address here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Phone</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="phone"
+                                                                                value="<%=Add.address[i].phone %>"
+                                                                                placeholder="Your phone number here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Address</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="address"
+                                                                                value="<%=Add.address[i].address %>"
+                                                                                placeholder="Your address  here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Country</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="country"
+                                                                                value="<%=Add.address[i].country %>"
+                                                                                placeholder="Your address  here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>City / Town </label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="city"
+                                                                                value="<%=Add.address[i].city %>"
+                                                                                placeholder="Your city name here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Pin Code</label>
+                                                                            <input
+                                                                                type="text"
+                                                                                class="form-control"
+                                                                                name="pincode"
+                                                                                value="<%=Add.address[i].pincode %>"
+                                                                                placeholder="Your pin code here"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                -->
+
+                                                                <div class="">
+                                                                    <button type="submit" class="butn-style2 mt-4">
+                                                                        Submit
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                </div>
                             </div>
+                            <div class="common-block mt-3">
+                                <p>
+                                    <button
+                                        class="butn-style2"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseExample"
+                                        aria-expanded="false"
+                                        aria-controls="collapseExample"
+                                    >
+                                        Add new Address
+                                    </button>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <div class="card card-body">
+                                        <form id="postData" method="post" onsubmit="data()">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>First Name</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="name"
+                                                            placeholder="Your name here"
+                                                        />
+                                                    </div>
+                                                </div>
 
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Last Name</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="lastname"
+                                                            placeholder="Your last name here"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Email Address</label>
+                                                        <input
+                                                            type="email"
+                                                            class="form-control"
+                                                            name="email"
+                                                            placeholder="Your email address here"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Phone</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="phone"
+                                                            placeholder="Your phone number here"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Address</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="address"
+                                                            placeholder="Your address  here"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Country</label>
+                                                        <select name="country" class="form-control form-select">
+                                                            <option value="" selected="selected">Select a country</option>
+                                                            <option value="INDIA">India</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>City / Town </label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="city"
+                                                            placeholder="Your city name here"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Pin Code</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="pincode"
+                                                            placeholder="Your pin code here"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- <div>
+                                                <button type="submit" class="butn-style2 mt-4">Submit</button>
+                                            </div> -->
+                                            <div class="modal-footer">
+                                                <button type="submit" class="butn-style2 mt-4" data-bs-dismiss="modal">
+                                                    Submit
+                                                </button>
+                                                <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             <% } else { %>
-
                             <div class="common-block">
                                 <div class="inner-title">
                                     <h4 class="mb-0">Billing Address</h4>
                                 </div>
 
-                                <form action="/billing_address" method="post">
+                                <form id="newAddress" method="post" novalidate="novalidate">
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
@@ -298,12 +694,12 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>Company Name</label>
+                                                <label>Address</label>
                                                 <input
                                                     type="text"
                                                     class="form-control"
-                                                    name="companyname"
-                                                    placeholder="Your company name here"
+                                                    name="address"
+                                                    placeholder="Your address  here"
                                                 />
                                             </div>
                                         </div>
@@ -339,26 +735,19 @@
                                                     type="text"
                                                     class="form-control"
                                                     name="pincode"
-                                                    placeholder="Your zip code here"
+                                                    placeholder="Your pin code here"
                                                 />
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="inner-title mt-1-9">
-                                        <h4 class="mb-0">Shipping Address</h4>
-                                    </div>
-
-                                    <div class="buttons-set">
-                                        <a href="shop-checkout-shipping" class="butn-style2 wide"
-                                            >Continue <i class="fas fa-arrow-right ms-1"></i
-                                        ></a>
+                                    <div>
+                                        <button type="submit" class="butn-style2 mt-4">Submit</button>
                                     </div>
                                 </form>
                             </div>
-                            <% } %>
+                            <%}%>
                         </div>
-
                         <!-- end left pannel section -->
                         <!-- right pannel section -->
                         <div class="col-lg-3 col-12 side-bar">
@@ -370,367 +759,28 @@
                                     <tbody>
                                         <tr>
                                             <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark">$2,548.50</td>
+                                            <td class="text-gray-dark"><%=bill.cartPrice%></td>
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td class="text-gray-dark">$26.50</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Estimated tax:</th>
-                                            <td class="text-gray-dark">$9.72</td>
+                                            <td class="text-gray-dark">Free</td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td class="text-lg text-gray-dark">$2,584.72</td>
+                                            <td class="text-lg text-gray-dark"><%=bill.cartPrice%></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <!-- end right pannel section -->
-
-                        <div class="col-lg-9 col-12 pe-lg-2-3 mb-1-9 mb-lg-0">
-                            <div class="common-block mt-3">
-                                <div class="inner-title">
-                                    <h4 class="mb-0">Contact Address</h4>
-                                </div>
-                                <% if (contact) { %>
-
-                                <form method="post" action="/address_update?contact=true&id:<%=contact._id%>">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Full Name</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=contact.name%>"
-                                                    name="name"
-                                                    placeholder="Your full name here"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=contact.address%>"
-                                                    name="address"
-                                                    placeholder="Your address here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=contact.city%>"
-                                                    name="city"
-                                                    placeholder="Your city name here"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>State</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=contact.state%>"
-                                                    name="state"
-                                                    placeholder="Your state name here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Pin Code</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="pin"
-                                                    value="<%=contact.pincode%>"
-                                                    placeholder="Your zip code here"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Country</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="pin"
-                                                    value="<%=contact.country%>"
-                                                    placeholder="Your zip code here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="butn-style2 mt-4">Update Address</button>
-                                </form>
-                            </div>
-                            <% } else { %>
-                            <div class="common-block mt-3">
-                                <div class="inner-title">
-                                    <h4 class="mb-0">Contact Address</h4>
-                                </div>
-
-                                <form method="post" action="/address_update?contact=true&id:<%=contact._id%>">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Full Name</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=contact.name%>"
-                                                    name="name"
-                                                    placeholder="Your full name here"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=contact.address%>"
-                                                    name="address"
-                                                    placeholder="Your address here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=contact.city%>"
-                                                    name="city"
-                                                    placeholder="Your city name here"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>State</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%=contact.state%>"
-                                                    name="state"
-                                                    placeholder="Your state name here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Pin Code</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="pin"
-                                                    value="<%=contact.pincode%>"
-                                                    placeholder="Your zip code here"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Country</label>
-                                                <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    name="pin"
-                                                    value="<%=contact.country%>"
-                                                    placeholder="Your zip code here"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="butn-style2 mt-4">Update Address</button>
-                                </form>
-                            </div>
-                            <%}%>
-                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- FOOTER
         ================================================== -->
-            <footer class="classic-footer bordered">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 mb-2-3 mb-lg-0">
-                            <h3>Contact Us</h3>
-                            <ul class="list-style mb-2 ps-0">
-                                <li><strong>Address:</strong><span class="ps-1">74 Guild Street 542B, Town MT.</span></li>
-                                <li><strong>Phone: </strong><span class="ps-1">(+44) 123 456 789</span></li>
-                                <li><strong>Email: </strong><span class="ps-1">addyour@emailhere</span></li>
-                            </ul>
-
-                            <ul class="list-style-two mb-0 ps-0">
-                                <li>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 mb-2-3 mb-lg-0">
-                            <div class="row">
-                                <div class="col-md-6 col-6 pe-lg-0">
-                                    <h3>Quick Links</h3>
-                                    <ul class="list-style ps-0">
-                                        <li><a href="#">News</a></li>
-                                        <li><a href="#">History</a></li>
-                                        <li><a href="#">Our shop</a></li>
-                                        <li><a href="#">Secure shopping</a></li>
-                                        <li><a href="#">Privacy policy</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-6 pe-lg-0">
-                                    <h3>My Account</h3>
-                                    <ul class="list-style ps-0">
-                                        <li><a href="#">My Account</a></li>
-                                        <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Wish List</a></li>
-                                        <li><a href="#">Newsletter</a></li>
-                                        <li><a href="#">Returns</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-12">
-                            <div class="ps-lg-1-9">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-6 mb-1-9">
-                                        <h3>News Letter</h3>
-                                        <form method="post">
-                                            <div class="form-group footer-subscribe">
-                                                <input
-                                                    type="email"
-                                                    placeholder="Subscribe with us"
-                                                    id="email"
-                                                    class="form-control"
-                                                />
-                                                <a href="#" class="butn-style2"
-                                                    ><i class="fas fa-paper-plane display-27 mt-1"></i
-                                                ></a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-lg-12 col-md-6">
-                                        <h3>Download Our Mobile Apps</h3>
-                                        <div class="text-start">
-                                            <a
-                                                href="#"
-                                                class="btn bordered text-start ms-1 ms-md-0 mt-1 mt-md-0 mb-0 mb-lg-2 mb-xl-0"
-                                            >
-                                                <span class="media align-items-center">
-                                                    <span class="fab fa-apple display-26 pe-3"></span>
-                                                    <span class="media-body">
-                                                        <span class="d-block display-32">Download on the</span>
-                                                        <strong>App Store</strong>
-                                                    </span>
-                                                </span>
-                                            </a>
-
-                                            <a href="#" class="btn bordered text-start ms-1 ms-lg-0 ms-xl-1 mt-1 mt-md-0">
-                                                <span class="media align-items-center">
-                                                    <span class="fab fa-google-play display-26 pe-3"></span>
-                                                    <span class="media-body">
-                                                        <span class="d-block display-32">Get it on</span>
-                                                        <strong>Google Play</strong>
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-bottom py-1-9 mt-6 mt-lg-8">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-md-6 mb-3 mb-md-0">
-                                <div class="text-center text-md-start">
-                                    <p class="mb-0">
-                                        &copy; <span class="current-year"></span> Smartshop is Powered by
-                                        <a href="https://www.chitrakootweb.com/" target="_blank" class="text-dark"
-                                            >Chitrakoot Web</a
-                                        >
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="list-style-17 text-center text-md-end">
-                                    <li><img src="/images/user/content/payment-options/visa.png" alt="..." /></li>
-                                    <li><img src="/images/user/content/payment-options/mastercard.png" alt="..." /></li>
-                                    <li><img src="/images/user/content/payment-options/paypal.png" alt="..." /></li>
-                                    <li><img src="/images/user/content/payment-options/amex.png" alt="..." /></li>
-                                    <li><img src="/images/user/content/payment-options/discover.png" alt="..." /></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-
-        <!-- BUY TEMPLATE
-    ================================================== -->
-        <div class="buy-theme alt-font d-none d-lg-inline-block">
-            <a href="https://wrapbootstrap.com/theme/smartshop-multipurpose-ecommerce-template-WB0N7CT4D" target="_blank"
-                ><i class="fas fa-cart-plus"></i><span>Buy Template</span></a
-            >
-        </div>
-
-        <div class="all-demo alt-font d-none d-lg-inline-block">
-            <a href="https://www.chitrakootweb.com/contact" target="_blank"
-                ><i class="far fa-envelope"></i><span>Quick Question?</span></a
-            >
+            <%- include("../includes/user-footer.ejs") %>
         </div>
 
         <!-- SCROLL TO TOP
@@ -738,6 +788,159 @@
         <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
 
         <!-- all js include start -->
+
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- axios cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            // import axios from "axios";
+
+            // document.getElementById("newAddress").addEventListener("submit", async (e) => {
+            //     console.log(4567890);
+            //     e.preventDefault();
+            //     const formData = new FormData(e.target);
+            //     const formProps = await Object.fromEntries(formData);
+            //     axios
+            //         .post("/address_post", formProps)
+            //         .then((response) => {
+            //             if (response.status) {
+            //                 console.log(response.status);
+            //                 location.reload();
+            //             }
+            //         })
+            //         .catch((error) => {
+            //             console.log(error);
+            //         });
+            // });
+
+            $("#newAddress").submit((s) => {
+                s.preventDefault();
+                let response = axios({
+                    url: "/address_post",
+                    method: "post",
+                    data: $("#newAddress").serialize(),
+                }).then((response) => {
+                    if (response.status) {
+                        location.reload();
+                    }
+                });
+            });
+
+            $("#first-array").submit((p) => {
+                p.preventDefault();
+                let response = axios({
+                    url: "/edit_address",
+                    method: "patch",
+                    data: $("#first-array").serialize(),
+                }).then((response) => {
+                    if (response.status) {
+                        location.reload();
+                    }
+                });
+            });
+
+            $("#checkout-form").submit((el) => {
+                el.preventDefault();
+                let response = axios({
+                    url: "/edit_address",
+                    method: "patch",
+                    data: $("#checkout-form").serialize(),
+                }).then((response) => {
+                    if (response.status) {
+                        location.reload();
+                    }
+                });
+            });
+
+            async function data() {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const formProps = await Object.fromEntries(formData);
+                axios
+                    .post("/address_post", formProps)
+                    .then((response) => {
+                        if (response.status) {
+                            location.reload();
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+
+            // async function Edit(e) {
+            //     e.preventDefault();
+            //     console.log(1111111);
+            //     const formData = new FormData(e.target);
+            //     const formProps = await Object.fromEntries(formData);
+            // axios
+            //     .patch(`/edit_address/${e}`, formProps)
+            //     .then((response) => {
+            //         if (response.status) {
+            //             location.reload();
+            //         }
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     });
+
+            async function deleteAddress(id) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Are you sure?",
+                    text: "deleting address",
+                    ShowCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "remove",
+                }).then((result) => {
+                    if (result) {
+                        axios.delete(`/delete_address/${id}`).then((result) => {
+                            Swal.fire("removed!", "item has been deleted.", "success").then((response) => {
+                                location.reload();
+                            });
+                        });
+                    }
+                });
+            }
+
+            // async function editAddress(id) {
+            //     document.getElementById("editAdd").addEventListener("submit", async (e) => {
+            //         e.preventDefault();
+            //         const formData = new FormData(e.target);
+            //         const formProps = await Object.fromEntries(formData);
+            //         axios
+            //             .patch("/edit_address/" + id, formProps)
+            //             .then((response) => {
+            //                 if (response.status) {
+            //                     location.reload();
+            //                 }
+            //             })
+            //             .catch((error) => {
+            //                 console.log(error);
+            //             });
+            //     });
+            // }
+        </script>
 
         <!-- jQuery -->
         <script src="/js/user/jquery.min.js"></script>

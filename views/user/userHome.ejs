@@ -157,7 +157,7 @@
                                         <a href="/login"><i class="fa-regular fa-user"></i></a>
                                     </li>
                                     <%}%>
-                                    <%if(user_details){%>
+                                    <%if(user_details && cart){%>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                             <i class="fa-solid fa-bag-shopping"></i>
@@ -187,10 +187,10 @@
                                         <li class="dropdown">
                                             <a href="/login" class="dropdown-toggle" data-bs-toggle="dropdown">
                                                 <i class="fa-solid fa-bag-shopping"></i>
-                                                <span class="badge bg-primary">3</span>
+                                                <span class="badge bg-primary"></span>
                                             </a>
                                             <ul class="dropdown-menu cart-list">
-                                                <li>
+                                                <!-- <li>
                                                     <a href="#" class="photo"
                                                         ><img
                                                             src="/images/user/products/cart-thumbs/cart-thumb-01.jpg"
@@ -209,8 +209,9 @@
                                                     /></a>
                                                     <h6><a href="#">Sun Protection Cap</a></h6>
                                                     <p>1x - <span class="price">$10.20</span></p>
-                                                </li>
-                                                <li>
+                                                </li> -->
+
+                                                <!-- <li>
                                                     <a href="#" class="photo"
                                                         ><img
                                                             src="/images/user/products/cart-thumbs/cart-thumb-03.jpg"
@@ -219,17 +220,19 @@
                                                     /></a>
                                                     <h6><a href="#">Heel Character Shoes</a></h6>
                                                     <p>2x - <span class="price">$39.00</span></p>
+                                                </li> -->
+                                                <li>
+                                                    <h6><a href="#">Please Login to show your cart</a></h6>
                                                 </li>
                                                 <li class="total bg-primary">
-                                                    <span class="float-start"><strong>Total</strong>: $79.20</span>
+                                                    <!-- <span class="float-start"><strong>Total</strong>: $79.20</span> -->
                                                     <a href="/login" class="butn-style2 small white float-end w-auto"
                                                         ><span>View Cart</span></a
                                                     >
-                                                </li>
+                                                </li>                                               
                                             </ul>
                                         </li>
                                         <%}%>
-                                     
                                 </ul>
                             </div>
                             <!-- end attribute navigation -->

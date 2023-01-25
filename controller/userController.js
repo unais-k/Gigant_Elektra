@@ -177,12 +177,12 @@ const otpVerifyPost = async (req, res) => {
 const userProduct = async (req, res) => {
     user_details = req.session.user_login;
     let productList = await productModel.find({});
-    const cartPro = await cartModel
-        .findOne({ owner: mongoose.Types.ObjectId(user_details._id) })
-        .populate("items.productId");
-    let cart = cartPro.items.slice(0, 3);
+    // const cartPro = await cartModel
+    //     .findOne({ owner: mongoose.Types.ObjectId(user_details._id) })
+    //     .populate("items.productId");
+    // let cart = cartPro.items.slice(0, 3);
 
-    res.render("user/userProducts", { productList, user_details, cart });
+    await res.render("user/userProducts", { productList, user_details });
 };
 
 // const userProductDetails = async (req, res) => {
@@ -217,18 +217,22 @@ const showProductDetails = async (req, res) => {
 const userHome = async (req, res, next) => {
     let productList = await productModel.find({});
     user_details = req.session.user_login;
+
     if (user_details) {
         const cartPro = await cartModel
             .findOne({ owner: mongoose.Types.ObjectId(user_details._id) })
             .populate("items.productId");
-        let icon = cartPro.items.reduce((acc, curr) => (acc += curr.quantity), 0);
-        let cart = icon;
-        cart = cartPro.items.slice(0, 3);
-        console.log(cart);
+        if (cartPro) {
+            let icon = cartPro.items.reduce((acc, curr) => (acc += curr.quantity), 0);
+            let cart = icon;
+            cart = cartPro.items.slice(0, 3);
+            console.log(cart);
+            await res.render("user/userHome", { user_details, productList, cart });
+        }
 
-        res.render("user/userHome", { user_details, productList, cart });
+        await res.render("user/userHome", { user_details, productList, cart: false });
     } else {
-        res.render("user/userHome", { user_details, productList });
+        await res.render("user/userHome", { user_details, productList, cart: false });
         console.log("error");
     }
 };
@@ -262,39 +266,34 @@ const personalAddress = async (req, res) => {
     //     { $unwind: "$address" },
     //     { $match: { user: user_details._id, "address.contact": false } },
     // ]);
+
     let shipp = await addressModel.findOne({ user: user_details._id });
-    let contact = shipp.address[0];
-    let shipping = shipp.address[1];
-    console.log(contact.address);
-    // console.log(shipping);
-    // console.log(contact);
-    res.render("user/userAddress", { user_details, contact, shipping });
+    if (shipp) {
+        let contact = shipp.address[0];
+        let shipping = shipp.address[1];
+        console.log(contact.address);
+        console.log(1212121212);
+        console.log(shipping);
+        console.log(8787878);
+        console.log(contact);
+        // console.log(shipping);
+        // console.log(contact);
+        res.render("user/userAddress", { user_details, contact, shipping });
+    } else {
+        res.render("user/userAddress", { user_details, shipping: false, contact: false });
+    }
 };
 
 const personalAddressPost = async (req, res) => {
     let userDetails = req.body;
-    let contact = req.query.contact;
-    console.log(contact);
-    userId = req.session.user_login._id;
-    if (contact === true) {
-        let addContact = await addressModel.create({
-            user: userId,
-            address: [
-                {
-                    name: userDetails.name,
-                    address: userDetails.address,
-                    city: userDetails.city,
-                    pincode: userDetails.pin,
-                    state: userDetails.state,
-                    country: userDetails.country,
-                    contact: req.query.contact,
-                },
-            ],
-        });
-        console.log(addContact);
-        res.redirect("/address");
-    } else {
-        let addShipping = await addressModel.findOneAndUpdate(
+    // let contact = req.query.contact;
+    console.log(userDetails);
+    console.log(111111);
+    // console.log(contact);
+    let userId = req.session.user_login._id;
+    let exist = await addressModel.findOne({ user: userId });
+    if (exist) {
+        let pushAddress = await addressModel.findOneAndUpdate(
             { user: userId },
             {
                 $push: {
@@ -302,31 +301,161 @@ const personalAddressPost = async (req, res) => {
                         {
                             name: userDetails.name,
                             address: userDetails.address,
+                            lastname: userDetails.lastname,
                             city: userDetails.city,
-                            pincode: userDetails.pin,
-                            state: userDetails.state,
+                            pincode: userDetails.pincode,
                             country: userDetails.country,
                             email: userDetails.email,
                             phone: userDetails.phone,
-                            contact: req.query.contact,
                         },
                     ],
                 },
             }
         );
-        console.log("added " + addShipping);
-        res.redirect("/address");
+        res.json({ status: true });
+    } else {
+        let addAddress = await addressModel.create({
+            user: userId,
+            address: [
+                {
+                    name: userDetails.name,
+                    lastname: userDetails.lastname,
+                    address: userDetails.address,
+                    city: userDetails.city,
+                    pincode: userDetails.pincode,
+                    country: userDetails.country,
+                    email: userDetails.email,
+                    phone: userDetails.phone,
+                },
+            ],
+        });
+        res.json({ status: true });
+        console.log(addAddress);
     }
 };
 
-const updateAddress = async (req, res) => {
+const firstAddress = async (req, res) => {
     let userId = req.session.user_login._id;
-    let address = await addressModel.findOne({ user: userId });
-    let contact = address.address[0];
-    let shipping = address.address[1];
+    let find = await addressModel.find({ "address._id": req.body.id });
 
-    res.json({ response: true });
+    let address = await addressModel.updateOne(
+        { "address._id": req.body.id },
+        {
+            $set: {
+                "address.$.name": req.body.name,
+                "address.$.lastname": req.body.lastname,
+                "address.$.address": req.body.address,
+                "address.$.pincode": req.body.pincode,
+                "address.$.city": req.body.city,
+                "address.$.phone": req.body.phone,
+                "address.$.email": req.body.email,
+                "address.$.country": req.body.country,
+            },
+        }
+    );
+    res.json({ status: true });
 };
+
+const editAddress = async (req, res) => {
+    console.log(12345);
+
+    console.log(req.body);
+
+    let userId = req.session.user_login._id;
+
+    let find = await addressModel.find({ "address._id": req.body.id });
+
+    console.log(find, "kjijouihyiuojklp;[[[[[[");
+
+    let address = await addressModel.updateOne(
+        { "address._id": req.body.id },
+        {
+            $set: {
+                "address.$.name": req.body.name,
+                "address.$.lastname": req.body.lastname,
+                "address.$.address": req.body.address,
+                "address.$.pincode": req.body.pincode,
+                "address.$.city": req.body.city,
+                "address.$.phone": req.body.phone,
+                "address.$.email": req.body.email,
+                "address.$.country": req.body.country,
+            },
+        }
+    );
+    console.log(address);
+    res.json({ status: true });
+};
+
+const deleteAddress = async (req, res) => {
+    let userId = req.session.user_login._id;
+    let delelteId = req.params.id;
+    try {
+        let dele = await addressModel.updateOne({ user: userId }, { $pull: { address: { _id: delelteId } } }).then(() => {
+            res.json({});
+        });
+        console.log(dele);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+// const updateAddress = async (req, res) => {
+//     console.log(12345);
+//     let userId = req.session.user_login._id;
+//     // let address = await addressModel.findOne({ user: userId });
+//     // let contact = address.address[0];
+//     // let shipping = address.address[1];
+//     let contactId = req.params.id;
+//     let shippingId = req.params.id;
+//     // let shippingAdd = await addressModel.aggregate([
+//     //     { $unwind: "$address" },
+//     //     { $match: { user: userId, "address.contact": true } },
+//     // ]);
+//     console.log(shippingId);
+//     console.log(contactId);
+//     let shippingAdd = await addressModel.findOne({ "address._id": shippingId });
+//     let contactAdd = await addressModel.findOne({ "address._id": contactId });
+//     console.log(shippingAdd.address[0].contact);
+//     console.log(shippingAdd + "-shipping");
+//     console.log(contactAdd + "contact");
+//     if (shippingAdd.address[0].contact == true) {
+//         console.log(12345678);
+//         let updateCont = await addressModel.updateMany(
+//             { user: userId, "address._id": contactId },
+//             {
+//                 $set: {
+//                     "address.$.name": req.body.name,
+//                     "address.$.address": req.body.address,
+//                     "address.$.pincode": req.body.pincode,
+//                     "address.$.city": req.body.city,
+//                     "address.$.state": req.body.state,
+//                     "address.$.country": req.body.country,
+//                 },
+//             }
+//         );
+//         console.log(updateCont);
+//         res.redirect("/checkout");
+//     } else {
+//         console.log(987654);
+//         let updateShip = await addressModel.updateMany(
+//             { user: userId, "address._id": shippingId },
+//             {
+//                 $set: {
+//                     "address.$.name": req.body.name,
+//                     "address.$.address": req.body.address,
+//                     "address.$.pincode": req.body.pincode,
+//                     "address.$.city": req.body.city,
+//                     "address.$.state": req.body.state,
+//                     "address.$.phone": req.body.phone,
+//                     "address.$.email": req.body.email,
+//                     "address.$.country": req.body.country,
+//                 },
+//             }
+//         );
+//         console.log(updateShip);
+//         res.redirect("/checkout");
+//     }
+// };
 
 const cart = async (req, res) => {
     user_details = req.session.user_login;
@@ -521,13 +650,16 @@ const deleteCart = async (req, res, next) => {
 
 const checkout = async (req, res) => {
     let user_details = req.session.user_login;
-    console.log(user_details._id);
-    let address = await addressModel.findOne({ user: user_details._id });
-    console.log(address);
-    let shipping = address.address[1];
-    let contact = address.address[0];
-    console.log(shipping);
-    res.render("user/billingAddress", { user_details, shipping, contact });
+    let userId = req.session.user_login._id;
+    let Add = await addressModel.findOne({ user: userId });
+    let bill = await cartModel.findOne({ owner: userId });
+    if (Add) {
+        let Address = Add.address[0];
+        console.log(Address);
+        res.render("user/billingAddress", { user_details, Address, Add, bill });
+    } else {
+        res.render("user/billingAddress", { user_details, Address: false, Add: false, bill: false });
+    }
 };
 
 const logout = (req, res) => {
@@ -550,8 +682,10 @@ module.exports = {
     otpVerify,
     otpVerifyPost,
     personalAddress,
+    firstAddress,
     personalAddressPost,
-    updateAddress,
+    editAddress,
+    deleteAddress,
     cart,
     addToCartHome,
     quantityChange,
