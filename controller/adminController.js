@@ -284,6 +284,14 @@ const updatedProduct = async (req, res) => {
     }
 };
 
+const coupon = async (req, res) => {
+    res.render("admin/coupon");
+};
+
+const addCoupon = async (req, res) => {
+    res.render("admin/addCoupon");
+};
+
 const logout = (req, res) => {
     req.session.destroy();
     res.redirect("/admin");
@@ -310,5 +318,7 @@ module.exports = {
     deleteCategory,
     updateProduct,
     updatedProduct,
+    coupon,
+    addCoupon,
     logout,
 };

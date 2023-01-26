@@ -202,12 +202,12 @@ const showProductDetails = async (req, res) => {
             temp = req.session.temp;
             productList = await productModel.findOne({ _id: temp });
         }
-        const cartPro = await cartModel
-            .findOne({ owner: mongoose.Types.ObjectId(user_details._id) })
-            .populate("items.productId");
-        let cart = cartPro.items.slice(0, 3);
+        // const cartPro = await cartModel
+        //     .findOne({ owner: mongoose.Types.ObjectId(user_details._id) })
+        //     .populate("items.productId");
+        // let cart = cartPro.items.slice(0, 3);
 
-        res.render("user/productDetails", { productList, cart });
+        await res.render("user/productDetails", { productList });
     } catch (error) {
         productList = req.session.temp;
         res.redirect("/productDetails/" + productList);
@@ -365,7 +365,7 @@ const editAddress = async (req, res) => {
 
     let find = await addressModel.find({ "address._id": req.body.id });
 
-    console.log(find, "kjijouihyiuojklp;[[[[[[");
+    console.log(find, "kjijou");
 
     let address = await addressModel.updateOne(
         { "address._id": req.body.id },
@@ -662,6 +662,14 @@ const checkout = async (req, res) => {
     }
 };
 
+const shipping = async (req, res) => {
+    res.render("user/shipping");
+};
+
+const payment = async (req, res) => {
+    res.render("user/payment");
+};
+
 const logout = (req, res) => {
     req.session.destroy();
     res.redirect("/");
@@ -692,4 +700,6 @@ module.exports = {
     addToCartShop,
     deleteCart,
     checkout,
+    shipping,
+    payment,
 };

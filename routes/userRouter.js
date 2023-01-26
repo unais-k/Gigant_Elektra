@@ -31,6 +31,8 @@ const {
     editAddress,
     deleteAddress,
     firstAddress,
+    shipping,
+    payment,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -79,6 +81,10 @@ router.post("/quantity_change", sessionCheck, quantityChange);
 router.delete("/delete_cart", deleteCart);
 
 router.get("/checkout", sessionCheck, checkout);
+
+router.get("/address_confirm/:id", sessionCheck, shipping);
+
+router.get("/payment", sessionCheck, payment);
 
 router.get("/logout", logout);
 

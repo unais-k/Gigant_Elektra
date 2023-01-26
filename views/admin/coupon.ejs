@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- Mirrored from smartshop.websitelayout.net/admin/category.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:51 GMT -->
+    <!-- Mirrored from smartshop.websitelayout.net/admin/coupons.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:01:00 GMT -->
     <head>
         <!-- metas -->
         <meta charset="utf-8" />
@@ -14,7 +14,7 @@
         <title>Smartshop - Responsive eCommerce Admin Dashboard</title>
 
         <!-- favicon -->
-        <link rel="shortcut icon" href="/images/admin/logos/favicon.png" />
+        <link rel="shortcut icon" href="/images/admin/logos/favicon-16x16.png" />
         <link rel="apple-touch-icon" href="/images/admin/logos/apple-touch-icon-57x57.png" />
         <link rel="apple-touch-icon" sizes="72x72" href="/images/admin/logos/apple-touch-icon-72x72.png" />
         <link rel="apple-touch-icon" sizes="114x114" href="/images/admin/logos/apple-touch-icon-114x114.png" />
@@ -38,13 +38,7 @@
         <!-- PAGE CONTAINER
     ================================================== -->
         <div class="page-container">
-            <!-- PAGE SIDEBAR
-        ================================================== -->
-
             <%- include("../includes/admin-sidebar.ejs") %>
-
-            <!-- PAGE CONTENT
-        ================================================== -->
             <div class="page-content">
                 <!-- PAGE HEADER
             ================================================== -->
@@ -73,7 +67,7 @@
                                 <div class="logo-sm">
                                     <a href="#" id="sidebar-toggle-button"><i class="fa fa-bars"></i></a>
                                     <a class="logo-box" href="index.html"
-                                        ><img src="/images/admin/logo-no-background.png" class="logo" alt="..."
+                                        ><img src="/images/adminlogos/logo.png" class="logo" alt="..."
                                     /></a>
                                 </div>
                                 <button
@@ -127,7 +121,7 @@
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                             ><img
-                                                src="/images/admin/avatars/user-dropdown.jpg"
+                                                src="images/adminavatars/user-dropdown.jpg"
                                                 alt="..."
                                                 class="rounded-circle"
                                         /></a>
@@ -151,42 +145,37 @@
                             <div class="col-12">
                                 <div class="card card-white">
                                     <div class="card-body row align-items-center">
-                                        <div class="col-12 col-sm">
-                                            <h4 class="mb-4 mb-sm-0 text-center text-sm-start">Category</h4>
+                                        <div class="col-12 col-md-4">
+                                            <h4 class="mb-4 mb-md-0">Coupons</h4>
                                         </div>
 
-                                        <div class="col-12 col-sm-auto">
-                                            <div class="row justify-content-center">
-                                                <div class="col-auto my-1 my-md-0">
-                                                    <label class="m-0">Show:</label>
-                                                    <select class="w-auto d-inline-block form-select">
-                                                        <option value="#?limit=24" selected="selected">24</option>
-                                                        <option value="#?limit=25">25</option>
-                                                        <option value="#?limit=50">50</option>
-                                                        <option value="#?limit=75">75</option>
-                                                        <option value="#?limit=100">100</option>
+                                        <div class="col-12 col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-3 mb-3 mb-md-0">
+                                                    <select class="form-control form-select">
+                                                        <option>Status</option>
+                                                        <option>Active</option>
+                                                        <option>revoked</option>
                                                     </select>
                                                 </div>
 
-                                                <div class="col-auto my-1 my-md-0">
-                                                    <label class="m-0">Sort By:</label>
-                                                    <select class="w-auto d-inline-block form-select">
-                                                        <option value="#?sort=p.sort_order&amp;order=ASC">Default</option>
-                                                        <option value="#?sort=pd.name&amp;order=ASC">Name (A - Z)</option>
-                                                        <option value="#?sort=pd.name&amp;order=DESC">Name (Z - A)</option>
-                                                        <option value="#?sort=p.price&amp;order=ASC" selected="">
-                                                            Price (Low &gt; High)
-                                                        </option>
-                                                        <option value="#?sort=p.price&amp;order=DESC">
-                                                            Price (High &gt; Low)
-                                                        </option>
-                                                        <option value="#?sort=rating&amp;order=DESC">
-                                                            Rating (Highest)
-                                                        </option>
-                                                        <option value="#?sort=rating&amp;order=ASC">Rating (Lowest)</option>
-                                                        <option value="#?sort=p.model&amp;order=ASC">Model (A - Z)</option>
-                                                        <option value="#?sort=p.model&amp;order=DESC">Model (Z - A)</option>
+                                                <div class="col-md-3 mb-3 mb-md-0">
+                                                    <select class="form-control form-select">
+                                                        <option>Order Limits</option>
+                                                        <option>Last 7 Orders</option>
+                                                        <option>Last 15 Orders</option>
+                                                        <option>Last 30 Orders</option>
                                                     </select>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="exampleInputEmail1"
+                                                        aria-describedby="exampleInputEmail1"
+                                                        placeholder="search by name"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -200,10 +189,10 @@
                         <div class="row">
                             <div class="col-12 grid-margin">
                                 <div class="card card-white">
-                                    <div class="card-body slimscroll">
+                                    <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="bg-light">
+                                            <table class="table table-order">
+                                                <thead>
                                                     <tr>
                                                         <th scope="col">
                                                             <div class="custom-control custom-checkbox mb-0">
@@ -215,10 +204,12 @@
                                                             </div>
                                                         </th>
                                                         <th scope="col">ID</th>
-                                                        <th scope="col">Image</th>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Slug</th>
-                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Campaigns Name</th>
+                                                        <th scope="col">Code</th>
+                                                        <th scope="col">Remaining coupon</th>
+                                                        <th scope="col">Expiration Date</th>
+                                                        <th scope="col">Creation Date</th>
+                                                        <th scope="col">Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -233,12 +224,28 @@
                                                             </div>
                                                         </th>
                                                         <td>1</td>
+                                                        <td>Summer Sale</td>
+                                                        <td>SUMMER01</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category1.jpg" alt="..." />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 20%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
+                                                            </div>
+                                                            <div class="progress-text">
+                                                                <div>05 of 10 codes remaining</div>
+                                                            </div>
                                                         </td>
-                                                        <td>Echo Spot</td>
-                                                        <td>Echo spot</td>
-                                                        <td>Electronics</td>
+                                                        <td>28th May 2022</td>
+                                                        <td>10th Apr 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-danger me-2 f-s-10"></i>Revoked
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
@@ -251,12 +258,28 @@
                                                             </div>
                                                         </th>
                                                         <td>2</td>
+                                                        <td>Winter Sale</td>
+                                                        <td>WINTER20</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category2.jpg" alt="..." />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 30%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
+                                                            </div>
+                                                            <div class="progress-text">
+                                                                <div>10 of 20 codes remaining</div>
+                                                            </div>
                                                         </td>
-                                                        <td>Camera Phone</td>
-                                                        <td>camera phone</td>
-                                                        <td>Electronics</td>
+                                                        <td>20th Feb 2022</td>
+                                                        <td>01st Dec 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
@@ -269,12 +292,28 @@
                                                             </div>
                                                         </th>
                                                         <td>3</td>
+                                                        <td>Spring Sale</td>
+                                                        <td>SPRING30</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category3.jpg" alt="..." />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 10%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
+                                                            </div>
+                                                            <div class="progress-text">
+                                                                <div>01 of 05 codes remaining</div>
+                                                            </div>
                                                         </td>
-                                                        <td>Laptops</td>
-                                                        <td>laptops</td>
-                                                        <td>Electronics</td>
+                                                        <td>07th Sep 2022</td>
+                                                        <td>28th Aug 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
@@ -287,12 +326,28 @@
                                                             </div>
                                                         </th>
                                                         <td>4</td>
+                                                        <td>Women Day Sale</td>
+                                                        <td>WOMEN08</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category4.jpg" alt="..." />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 45%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
+                                                            </div>
+                                                            <div class="progress-text">
+                                                                <div>13 of 30 codes remaining</div>
+                                                            </div>
                                                         </td>
-                                                        <td>Security CCTV</td>
-                                                        <td>Security cctv</td>
-                                                        <td>Electronics</td>
+                                                        <td>08th Mar 2022</td>
+                                                        <td>06th Mar 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
@@ -305,12 +360,28 @@
                                                             </div>
                                                         </th>
                                                         <td>5</td>
+                                                        <td>Christmas Sale</td>
+                                                        <td>CHRISTMAS25</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category5.jpg" alt="..." />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 3%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
+                                                            </div>
+                                                            <div class="progress-text">
+                                                                <div>02 of 07 codes remaining</div>
+                                                            </div>
                                                         </td>
-                                                        <td>Men's Wear</td>
-                                                        <td>Men's wear</td>
-                                                        <td>Fashion</td>
+                                                        <td>30th Dec 2022</td>
+                                                        <td>24th Dec 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-danger me-2 f-s-10"></i>Revoked
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
@@ -323,12 +394,28 @@
                                                             </div>
                                                         </th>
                                                         <td>6</td>
+                                                        <td>Stock Ending Sale</td>
+                                                        <td>STOCKEND</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category6.jpg" alt="..." />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 20%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
+                                                            </div>
+                                                            <div class="progress-text">
+                                                                <div>10 of 15 codes remaining</div>
+                                                            </div>
                                                         </td>
-                                                        <td>Women's Wear</td>
-                                                        <td>Women's wear</td>
-                                                        <td>Fashion</td>
+                                                        <td>19th Jul 2022</td>
+                                                        <td>01sth Jun 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
@@ -341,12 +428,28 @@
                                                             </div>
                                                         </th>
                                                         <td>7</td>
+                                                        <td>Republic Day Sale</td>
+                                                        <td>REPUBLIC26</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category7.jpg" alt="..." />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 50%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
+                                                            </div>
+                                                            <div class="progress-text">
+                                                                <div>20 of 30 codes remaining</div>
+                                                            </div>
                                                         </td>
-                                                        <td>Accessories</td>
-                                                        <td>accessories</td>
-                                                        <td>Fashion</td>
+                                                        <td>26th Jan 2022</td>
+                                                        <td>24th Jan 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
@@ -359,12 +462,28 @@
                                                             </div>
                                                         </th>
                                                         <td>8</td>
+                                                        <td>Diwali Sale</td>
+                                                        <td>DIWALIUSER</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category8.jpg" alt="..." />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 45%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
+                                                            </div>
+                                                            <div class="progress-text">
+                                                                <div>14 of 25 codes remaining</div>
+                                                            </div>
                                                         </td>
-                                                        <td>Footwear</td>
-                                                        <td>Footwear</td>
-                                                        <td>Fashion</td>
+                                                        <td>07th Nov 2022</td>
+                                                        <td>01th Nov 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-danger me-2 f-s-10"></i>Revoked
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
@@ -377,12 +496,28 @@
                                                             </div>
                                                         </th>
                                                         <td>9</td>
+                                                        <td>Halloween Sale</td>
+                                                        <td>HALLOWEEN31</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category9.jpg" alt="..." />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 15%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
+                                                            </div>
+                                                            <div class="progress-text">
+                                                                <div>04 of 15 codes remaining</div>
+                                                            </div>
                                                         </td>
-                                                        <td>Tops</td>
-                                                        <td>tops</td>
-                                                        <td>Women's Fashion</td>
+                                                        <td>31st Dec 2022</td>
+                                                        <td>27th Dec 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">
@@ -395,48 +530,28 @@
                                                             </div>
                                                         </th>
                                                         <td>10</td>
+                                                        <td>Autumn Discount</td>
+                                                        <td>AUTUMNUSER</td>
                                                         <td>
-                                                            <img src="/images/admin/category/category10.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Bottom</td>
-                                                        <td>bottom</td>
-                                                        <td>Women's Fashion</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck11"
-                                                                />
+                                                            <div class="custom-progress bg-blue progress mb-2">
+                                                                <div
+                                                                    class="animated custom-bar progress-bar slideInLeft"
+                                                                    style="width: 60%"
+                                                                    aria-valuemax="100"
+                                                                    aria-valuemin="0"
+                                                                    aria-valuenow="10"
+                                                                    role="progressbar"
+                                                                ></div>
                                                             </div>
-                                                        </th>
-                                                        <td>11</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category11.jpg" alt="..." />
-                                                        </td>
-                                                        <td>Jackets</td>
-                                                        <td>jackets</td>
-                                                        <td>Women's Fashion</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck12"
-                                                                />
+                                                            <div class="progress-text">
+                                                                <div>20 of 35 codes remaining</div>
                                                             </div>
-                                                        </th>
-                                                        <td>12</td>
-                                                        <td>
-                                                            <img src="/images/admin/category/category12.jpg" alt="..." />
                                                         </td>
-                                                        <td>Summer Wear</td>
-                                                        <td>summer wear</td>
-                                                        <td>Women's Fashion</td>
+                                                        <td>20th May 2022</td>
+                                                        <td>10th May 2022</td>
+                                                        <td>
+                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -445,6 +560,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- end row -->
                     </div>
                 </div>
             </div>
@@ -481,5 +597,5 @@
         <!-- all js include end -->
     </body>
 
-    <!-- Mirrored from smartshop.websitelayout.net/admin/category.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:54 GMT -->
+    <!-- Mirrored from smartshop.websitelayout.net/admin/coupons.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:01:00 GMT -->
 </html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Mirrored from smartshop.websitelayout.net/shop-checkout-shipping by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
+    <head>
+        <!-- metas -->
+        <meta charset="utf-8" />
+        <meta name="author" content="Chitrakoot Web" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="keywords" content="Multipurpose eCommerce Template + Admin" />
+        <meta name="description" content="Smartshop - Multipurpose eCommerce Template + Admin" />
+
+        <!-- title  -->
+        <title>Gigant Elektra - Elegant smart world</title>
+
+        <!-- google icons -->
+        <script src="https://kit.fontawesome.com/138cb064b7.js" crossorigin="anonymous"></script>
+
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
+            integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
+            crossorigin="anonymous"
+        />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+            integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <script src="https://unpkg.com/themify@1.0.0/_themify.scss"></script>
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="/images/user/logos/favicon-32x32.png" />
+        <link rel="apple-touch-icon" href="/images/user/logos/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/user/logos/android-chrome-192x192.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/user/logos/android-chrome-512x512.png" />
+
+        <!-- plugins -->
+        <link rel="stylesheet" href="/stylesheet/user/plugins.css" />
+
+        <!-- theme core css -->
+        <link href="/stylesheet/user/styles.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <!-- PAGE LOADING
+    ================================================== -->
+        <div id="preloader"></div>
+
+        <!-- MAIN WRAPPER
+    ================================================== -->
+        <div class="main-wrapper mp-pusher" id="mp-pusher">
+            <!-- HEADER
+        ================================================== -->
+
+            <%- include("../includes/userHeader.ejs") %>
+
+            <!-- PAGE TITLE
+        ================================================== -->
+            <section class="page-title-section bg-img cover-background" data-background="/images/user/bg/page-title.jpg">
+                <div class="container">
+                    <div class="title-info">
+                        <h1>Checkout</h1>
+                    </div>
+                    <div class="breadcrumbs-info">
+                        <ul class="ps-0">
+                            <li><a href="/">Home</a></li>
+                            >
+                            <li><a href="#"> Checkout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHECKOUT
+        ================================================== -->
+            <section class="md">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="process-steps mb-1-9 mb-lg-6">
+                                <a class="step" href="shop-checkout-address"
+                                    ><i class="fa-sharp fa-solid fa-location-dot pe-2"></i>
+                                    <h4 class="step-title">1. Address</h4></a
+                                >
+                                <a class="step active" href="shop-checkout-shipping"
+                                    ><i class="fa-sharp fa-solid fa-truck-fast"></i>
+                                    <h4 class="step-title">2. Shipping</h4></a
+                                >
+                                <a class="step" href="shop-checkout-payment"
+                                    ><i class="fa-sharp fa-solid fa-money-bill"></i>
+                                    <h4 class="step-title">3. Payment</h4></a
+                                >
+                                <a class="step" href="shop-checkout-review"
+                                    ><i class="fa-regular fa-comment"></i>
+                                    <h4 class="step-title">4. Review</h4></a
+                                >
+                            </div>
+                        </div>
+
+                        <!-- left pannel section -->
+                        <div class="col-lg-9 col-md-12 ps-2-3 mb-1-9 mb-lg-0">
+                            <div class="common-block">
+                                <div class="inner-title">
+                                    <h4 class="mb-0">Choose Shipping Method</h4>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th class="text-start">Shipping method</th>
+                                                <th>Delivery time</th>
+                                                <th>Handling fee</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            value=""
+                                                            name="shipping-method"
+                                                            id="shipping-method"
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td class="text-start"><span class="text-gray-dark">Fixed</span></td>
+                                                <td>3 - 5 days</td>
+                                                <td>$20.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <input
+                                                            class="form-check-input"
+                                                            type="radio"
+                                                            value=""
+                                                            name="shipping-method"
+                                                            id="shipping-method2"
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td class="text-start"><span class="text-gray-dark">Table Rate</span></td>
+                                                <td>up to one week</td>
+                                                <td>$15.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="buttons-set">
+                                    <a href="shop-checkout-address" class="butn-style2 wide"
+                                        ><i class="fas fa-arrow-left me-1"></i> Back</a
+                                    >
+                                    <a href="shop-checkout-payment" class="butn-style2 wide"
+                                        >Continue <i class="fas fa-arrow-right ms-1"></i
+                                    ></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end left pannel section -->
+
+                        <!-- right pannel section -->
+                        <div class="col-lg-3 col-12 side-bar">
+                            <div class="widget">
+                                <div class="widget-title">
+                                    <h5>Order Summary</h5>
+                                </div>
+
+                                <table class="table classic">
+                                    <tbody>
+                                        <tr>
+                                            <th>Cart Subtotal:</th>
+                                            <td class="text-gray-dark">$2,548.50</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Shipping:</th>
+                                            <td class="text-gray-dark">$26.50</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Estimated tax:</th>
+                                            <td class="text-gray-dark">$9.72</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td class="text-lg text-gray-dark">$2,584.72</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- end right pannel section -->
+                    </div>
+                </div>
+            </section>
+
+            <%- include("../includes/user-footer.ejs") %>
+        </div>
+
+        <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+
+        <!-- all js include start -->
+
+        <!-- jQuery -->
+        <script src="/js/user/jquery.min.js"></script>
+
+        <!-- popper js -->
+        <script src="/js/user/popper.min.js"></script>
+
+        <!-- bootstrap -->
+        <script src="/js/user/bootstrap.min.js"></script>
+
+        <!-- core.min.js -->
+        <script src="/js/user/core.min.js"></script>
+
+        <!-- custom scripts -->
+        <script src="/js/user/main.js"></script>
+
+        <!-- all js include end -->
+    </body>
+
+    <!-- Mirrored from smartshop.websitelayout.net/shop-checkout-shipping by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
+</html>

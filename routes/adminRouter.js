@@ -27,6 +27,8 @@ const {
     detail_prdouct,
     updatedProduct,
     logout,
+    addCoupon,
+    coupon,
 } = require("../controller/adminController");
 
 router.get("/", adminLogin);
@@ -70,6 +72,10 @@ router.get("/detail_product/:id", detail_prdouct);
 router.get("/update_product/:id", updateProduct);
 
 router.post("/updated_product/:id", productPhoto, updatedProduct);
+
+router.get("/coupon", coupon);
+
+router.get("/createCoupons", addCoupon);
 
 router.get("/logout", logout);
 
