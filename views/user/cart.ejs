@@ -253,7 +253,9 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <a class="butn-style2 float-end" href="/checkout"><span>Proceed to Checkout</span></a>
+                                    <a class="butn-style2 float-end" href="/checkout/<%=cartItems._id%>"
+                                        ><span>Proceed to Checkout</span></a
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -327,7 +329,9 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         axios.delete(`/delete_cart?productId=${productId}`).then((result) => {
-                            Swal.fire("removed!", "item has been deleted.", "success").then((response) => {});
+                            Swal.fire("removed!", "item has been deleted.", "success").then((response) => {
+                                location.reload();
+                            });
                         });
                     }
                 });

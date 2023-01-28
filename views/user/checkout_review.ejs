@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- Mirrored from smartshop.websitelayout.net/shop-checkout-shipping by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
+    <!-- Mirrored from smartshop.websitelayout.net/shop-checkout-review by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
     <head>
         <!-- metas -->
         <meta charset="utf-8" />
@@ -56,7 +56,6 @@
         <div class="main-wrapper mp-pusher" id="mp-pusher">
             <!-- HEADER
         ================================================== -->
-
             <%- include("../includes/userHeader.ejs") %>
 
             <!-- PAGE TITLE
@@ -64,13 +63,13 @@
             <section class="page-title-section bg-img cover-background" data-background="/images/user/bg/page-title.jpg">
                 <div class="container">
                     <div class="title-info">
-                        <h1>Checkout</h1>
+                        <h1>Shop Checkout</h1>
                     </div>
                     <div class="breadcrumbs-info">
                         <ul class="ps-0">
-                            <li><a href="/">Home</a></li>
+                            <li><a href="home-shop-1">Home</a></li>
                             >
-                            <li><a href="#"> Checkout</a></li>
+                            <li><a href="#">Shop Checkout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -87,7 +86,7 @@
                                     ><i class="fa-sharp fa-solid fa-location-dot pe-2"></i>
                                     <h4 class="step-title">1. Address</h4></a
                                 >
-                                <a class="step active" href="shop-checkout-shipping"
+                                <a class="step" href="shop-checkout-shipping"
                                     ><i class="fa-sharp fa-solid fa-truck-fast"></i>
                                     <h4 class="step-title">2. Shipping</h4></a
                                 >
@@ -95,7 +94,7 @@
                                     ><i class="fa-sharp fa-solid fa-money-bill"></i>
                                     <h4 class="step-title">3. Payment</h4></a
                                 >
-                                <a class="step" href="shop-checkout-review"
+                                <a class="step active" href="shop-checkout-review"
                                     ><i class="fa-regular fa-comment"></i>
                                     <h4 class="step-title">4. Review</h4></a
                                 >
@@ -106,83 +105,85 @@
                         <div class="col-lg-9 col-md-12 ps-2-3 mb-1-9 mb-lg-0">
                             <div class="common-block">
                                 <div class="inner-title">
-                                    <h4 class="mb-0">Choose Shipping Method</h4>
+                                    <h4 class="mb-0">Review Your Order</h4>
                                 </div>
 
-                                <div class="table-responsive">
-                                    <table class="table">
+                                <div class="shop-cart-table">
+                                    <table class="table shop-cart text-center mb-0">
+                                        <colgroup>
+                                            <col width="100" />
+                                            <col />
+                                            <col width="1" />
+                                            <col />
+                                        </colgroup>
+
                                         <thead>
                                             <tr>
-                                                <th></th>
-                                                <th class="text-start">Shipping method</th>
-                                                <th>Delivery time</th>
-                                                <th>Handling fee</th>
+                                                <th class="first"></th>
+                                                <th class="text-start text-uppercase font-weight-500">Product</th>
+                                                <th class="text-start text-uppercase font-weight-500">Sub Total</th>
+                                                <!-- <th class="text-center text-uppercase font-weight-500">Edit</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input
-                                                            class="form-check-input"
-                                                            onclick="charge(20)"
-                                                            type="radio"
-                                                            value="20"
-                                                            name="shipping-method"
-                                                            id="twenty"
-                                                        />
-                                                    </div>
-                                                </td>
-                                                <td class="text-start"><span class="text-gray-dark">Fixed</span></td>
-                                                <td>3 - 5 days</td>
-                                                <td>$20.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input
-                                                            class="form-check-input"
-                                                            type="radio"
-                                                            onclick="charge(10)"
-                                                            value="10"
-                                                            name="shipping-method"
-                                                            id="ten"
-                                                        />
-                                                    </div>
-                                                </td>
-                                                <td class="text-start"><span class="text-gray-dark">Table Rate</span></td>
-                                                <td>up to one week</td>
-                                                <td>$10.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check">
-                                                        <input
-                                                            class="form-check-input"
-                                                            onclick="charge(0)"
-                                                            type="radio"
-                                                            value="0"
-                                                            name="shipping-method"
-                                                            id="zero"
-                                                        />
-                                                    </div>
+                                                <% cart.items.forEach(element => { %>
+                                                <td class="product-thumbnail text-start">
+                                                    <a href="#"><img src="<%=element.productImages[0]%>" alt="..." /></a>
                                                 </td>
                                                 <td class="text-start">
-                                                    <span class="text-gray-dark">Free Delivery</span>
+                                                    <a href="#"><%=element.productName%></a>
+                                                    <!-- <span class="text-uppercase d-block">SKU: 290397</span> -->
+                                                    <!-- <a href="#" class="display-32"><i class="fas fa-edit"></i> Edit</a> -->
                                                 </td>
-                                                <td>up to two week</td>
-                                                <td>$0.00</td>
+                                                <td class="product-subtotal text-start"><%=element.price%></td>
+                                                <!-- <td class="product-remove text-center">
+                                                    <a href="#"><i class="far fa-edit"></i></a>
+                                                </td> -->
+                                                <% }) %>
+                                            </tr>
+                                            <tr>
+                                                <td class="product-thumbnail text-start">
+                                                    <a href="#"
+                                                        ><img src="/images/user/products/thumbs/thumb-02.jpg" alt="..."
+                                                    /></a>
+                                                </td>
+                                                <td class="text-start">
+                                                    <a href="#">Sun Protection Cap </a>
+                                                    <span class="text-uppercase d-block">SKU: 290397</span>
+                                                    <a href="#" class="display-32"><i class="fas fa-edit"></i> Edit</a>
+                                                </td>
+                                                <td class="product-subtotal text-start">$10.20</td>
+                                                <td class="product-remove text-center">
+                                                    <a href="#"><i class="far fa-edit"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="product-thumbnail text-start">
+                                                    <a href="#"
+                                                        ><img src="/images/user/products/thumbs/thumb-05.jpg" alt="..."
+                                                    /></a>
+                                                </td>
+                                                <td class="text-start">
+                                                    <a href="#">Heel Character Shoes</a>
+                                                    <span class="text-uppercase d-block">SKU: 290397</span>
+                                                    <a href="#" class="display-32"><i class="fas fa-edit"></i> Edit</a>
+                                                </td>
+                                                <td class="product-subtotal text-start">$19.50</td>
+                                                <td class="product-remove text-center">
+                                                    <a href="#"><i class="far fa-edit"></i></a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
                                 <div class="buttons-set">
-                                    <a href="/checkout" class="butn-style2 wide"
+                                    <a href="/payment" class="butn-style2 wide"
                                         ><i class="fas fa-arrow-left me-1"></i> Back</a
                                     >
-                                    <a onclick="submit()" href="/payment" class="butn-style2 wide"
-                                        >Continue <i class="fas fa-arrow-right ms-1"></i
+                                    <a href="/success" class="butn-style2 wide"
+                                        >Complete <i class="fas fa-arrow-right ms-1"></i
                                     ></a>
                                 </div>
                             </div>
@@ -204,13 +205,11 @@
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td id="ship" class="text-gray-dark">$0.00</td>
+                                            <td class="text-gray-dark"><span>$</span><%=charge.charge%>.00</td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td id="total" class="text-lg text-gray-dark">
-                                                <span>$</span><%=cart.cartPrice%>.00
-                                            </td>
+                                            <td class="text-lg text-gray-dark"><span>$</span><%=charge.adding%>.00</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -220,68 +219,19 @@
                     </div>
                 </div>
             </section>
+            <!-- end checkout section -->
 
+            <!-- FOOTER
+        ================================================== -->
             <%- include("../includes/user-footer.ejs") %>
         </div>
 
+        <!-- SCROLL TO TOP
+    ================================================== -->
         <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
 
         <!-- all js include start -->
 
-        <!-- axios cdn -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
-
-        <!-- sweet alert cdn -->
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-        <script
-            src="https://code.jquery.com/jquery-3.6.3.js"
-            integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-            crossorigin="anonymous"
-        ></script>
-
-        <script>
-            let ten = document.getElementById("ten");
-            let zero = document.getElementById("zero");
-            let twenty = document.getElementById("twenty");
-            function charge(id) {
-                let change = axios({
-                    method: "post",
-                    url: "/shipping_charge",
-                    data: {
-                        id,
-                    },
-                }).then((data) => {
-                    console.log(data);
-                    document.getElementById("ship").innerHTML = `$${data.data.charge}.00`;
-                    document.getElementById("total").innerHTML = `$${data.data.adding}.00`;
-                });
-            }
-
-            function submit() {
-                if (!ten.checked && !twenty.checked && !zero.checked) {
-                    event.preventDefault();
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Please select one option",
-                        showConfirmButton: false,
-                        timer: 2000,
-                    });
-                }
-
-                // if (ten != 10 && zero != 0 && twenty != 20) {
-                //     alert("hi");
-                //     Swal.fire({
-                //         icon: "error",
-                //         title: "Oops...",
-                //         text: "Please select one option",
-                //         showConfirmButton: false,
-                //         timer: 2000,
-                //     });
-                // }
-            }
-        </script>
         <!-- jQuery -->
         <script src="/js/user/jquery.min.js"></script>
 
@@ -300,5 +250,5 @@
         <!-- all js include end -->
     </body>
 
-    <!-- Mirrored from smartshop.websitelayout.net/shop-checkout-shipping by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
+    <!-- Mirrored from smartshop.websitelayout.net/shop-checkout-review by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:39 GMT -->
 </html>

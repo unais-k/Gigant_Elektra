@@ -16,7 +16,7 @@ const {
     // userProductDetails,
     showProductDetails,
     profile,
-    wishList,
+    wishlist,
     logout,
     otpVerify,
     otpVerifyPost,
@@ -33,6 +33,13 @@ const {
     firstAddress,
     shipping,
     payment,
+    shippingCharge,
+    checkoutReview,
+    deleteWishlist,
+    addToWishlist,
+    editingAddress,
+    paymentPost,
+    success,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -54,7 +61,11 @@ router.get("/productDetails/:id", showProductDetails);
 
 router.get("/profile/:id", sessionCheck, profile);
 
-router.get("/wishlist", sessionCheck, wishList);
+router.get("/wishlist", sessionCheck, wishlist);
+
+router.post("/add_to_wishlist", sessionCheck, addToWishlist);
+
+router.delete("/delete_wishlist", deleteWishlist);
 
 router.post("/otp_verify", otpVerify);
 
@@ -64,7 +75,9 @@ router.get("/address", sessionCheck, personalAddress);
 
 router.post("/address_post", sessionCheck, personalAddressPost);
 
-router.patch("/edit_address", sessionCheck, editAddress);
+router.post("/edit_address", sessionCheck, editAddress);
+
+router.post("/editing_address/:id", sessionCheck, editingAddress);
 
 router.post("/address_first", sessionCheck, firstAddress);
 
@@ -80,11 +93,19 @@ router.post("/quantity_change", sessionCheck, quantityChange);
 
 router.delete("/delete_cart", deleteCart);
 
-router.get("/checkout", sessionCheck, checkout);
+router.get("/checkout/:id", sessionCheck, checkout);
 
 router.get("/address_confirm/:id", sessionCheck, shipping);
 
+router.post("/shipping_charge", shippingCharge);
+
 router.get("/payment", sessionCheck, payment);
+
+router.post("/order_post", sessionCheck, paymentPost);
+
+router.get("/order_review", sessionCheck, checkoutReview);
+
+router.get("/success", sessionCheck, success);
 
 router.get("/logout", logout);
 

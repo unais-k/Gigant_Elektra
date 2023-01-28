@@ -117,7 +117,7 @@
                                                     class="btn btn-link"
                                                     data-bs-toggle="collapse"
                                                     data-bs-target="#collapseOne"
-                                                    aria-expanded="true"
+                                                    aria-expanded="false"
                                                     aria-controls="collapseOne"
                                                 >
                                                     <i class="far fa-credit-card pe-2 display-29"></i>Pay with Credit Card
@@ -126,10 +126,9 @@
                                         </div>
                                         <div
                                             id="collapseOne"
-                                            class="collapse show"
+                                            class="collapse"
                                             aria-labelledby="headingOne"
                                             data-bs-parent="#accordion"
-                                            style=""
                                         >
                                             <div class="card-body">
                                                 <h6 class="display-30 font-weight-600 mb-2">
@@ -324,13 +323,53 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="card">
+                                        <div class="card-header" id="headingfour">
+                                            <h5 class="mb-0">
+                                                <button
+                                                    class="btn btn-link collapsed"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapsefour"
+                                                    aria-expanded="true"
+                                                    aria-controls="collapsefour"
+                                                >
+                                                    <i class="fa-solid fa-hand-holding-dollar pe-2 display-29"></i>Cash on
+                                                    Delivery
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div
+                                            id="collapsefour"
+                                            class="collapse show"
+                                            aria-labelledby="headingfour"
+                                            data-bs-parent="#accordion"
+                                        >
+                                            <div class="card-body">
+                                                <h6 class="display-30 font-weight-600 mb-2">Payment on delivery</h6>
+
+                                                <div class="form-check">
+                                                    <input
+                                                        class="form-check-input"
+                                                        type="radio"
+                                                        name="cod"
+                                                        checked
+                                                        value="cod"
+                                                        id="reward_points"
+                                                    />
+                                                    <label class="form-check-label" for="reward_points"
+                                                        >Use my reward points to pay for this order.</label
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="buttons-set">
-                                    <a href="shop-checkout-shipping" class="butn-style2 wide"
+                                    <a href="/address_confirm" class="butn-style2 wide"
                                         ><i class="fas fa-arrow-left me-1"></i> Back</a
                                     >
-                                    <a href="shop-checkout-review" class="butn-style2 wide"
+                                    <a onclick="confirm()" class="butn-style2 wide"
                                         >Continue <i class="fas fa-arrow-right ms-1"></i
                                     ></a>
                                 </div>
@@ -349,19 +388,17 @@
                                     <tbody>
                                         <tr>
                                             <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark">$2,548.50</td>
+                                            <td class="text-gray-dark"><span>$</span><%=cart.cartPrice%>.00</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td class="text-gray-dark">$26.50</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Estimated tax:</th>
-                                            <td class="text-gray-dark">$9.72</td>
+                                            <td class="text-gray-dark"><span>$</span><%=charge.charge%>.00</td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td class="text-lg text-gray-dark">$2,584.72</td>
+                                            <td id="total" class="text-lg text-gray-dark">
+                                                <span>$</span><%=charge.adding%>.00
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -416,7 +453,45 @@
         ================================================== -->
         <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
 
+        <!-- axios cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <!-- all js include start -->
+        <script>
+            function confirm() {
+                const index = $('input[type="radio"][name="cod"]:checked').val();
+                // const total = document.getElementById("total").innerHTML;
+                // console.log(index, total);
+                console.log(44444);
+                console.log(index);
+
+                axios({
+                    method: "post",
+                    url: "/order_post",
+                    data: {
+                        index,
+                    },
+                }).then((result) => {
+                    console.log(11111);
+                    if (result.data.cod) {
+                        Swal.fire({
+                            title: "Order Placed Successfully",
+                            icon: "success",
+                            showDenyButton: false,
+                            confirmButtonText: "OK",
+                            toast: true,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = "/order_review";
+                            }
+                        });
+                    }
+                });
+            }
+        </script>
 
         <!-- jQuery -->
         <script src="/js/user/jquery.min.js"></script>

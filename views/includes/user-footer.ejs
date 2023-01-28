@@ -152,7 +152,7 @@
                         timer: 1500,
                     });
                 } else {
-                    if (result.data.response == "newAdded") {
+                    if (result.data.status == true) {
                         await Swal.fire({
                             icon: "success",
                             title: "done",
@@ -196,6 +196,58 @@
             //         console.log("error");
             //     }
             // }
+        }
+    }
+
+    async function addtowishlist(id) {
+        try {
+            let result = await axios({
+                method: "post",
+                url: "/add_to_wishlist",
+                data: {
+                    id,
+                },
+            });
+            if (result.data.response == "productExist") {
+                await Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Product already exist in wishlist",
+                    showConfirmButton: false,
+                    timer: 1000,
+                });
+            } else {
+                if (result.data.response == true) {
+                    await Swal.fire({
+                        icon: "success",
+                        title: "done",
+                        text: "Product added to wishlist",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                } else {
+                    if (result.data.status == true) {
+                        await Swal.fire({
+                            icon: "success",
+                            title: "done",
+                            text: "New product added",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    } else {
+                        await Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            showConfirmButton: false,
+                            timer: 1000,
+                            text: "You have to login first",
+                        });
+                        location.href = "/login";
+                    }
+                }
+            }
+        } catch (error) {
+            console.log("eroor");
         }
     }
 </script>

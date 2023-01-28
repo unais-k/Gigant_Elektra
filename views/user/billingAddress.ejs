@@ -50,6 +50,24 @@
 
         <!-- theme core css -->
         <link href="/stylesheet/user/styles.css" rel="stylesheet" />
+        <style>
+            .my-actions {
+                margin: 0 2em;
+            }
+            .order-1 {
+                order: 1;
+            }
+            .order-2 {
+                order: 2;
+            }
+            .order-3 {
+                order: 3;
+            }
+
+            .right-gap {
+                margin-right: auto;
+            }
+        </style>
     </head>
 
     <body>
@@ -369,7 +387,7 @@
                                                             <form method="patch" id="checkout-form" novalidate="novalidate">
                                                                 <input
                                                                     type="text"
-                                                                    value="<%=Add.address[i]._id %>"
+                                                                    value="<%=Add.address[i]._id%>"
                                                                     name="id"
                                                                     hidden
                                                                 />
@@ -381,7 +399,7 @@
                                                                                 type="text"
                                                                                 class="form-control"
                                                                                 name="name"
-                                                                                value="<%=Add.address[i].name %>"
+                                                                                value="<%=Add.address[i].name%>"
                                                                                 placeholder="Your name here"
                                                                             />
                                                                         </div>
@@ -484,8 +502,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                -->
-
                                                                 <div class="">
                                                                     <button type="submit" class="butn-style2 mt-4">
                                                                         Update
@@ -759,15 +775,15 @@
                                     <tbody>
                                         <tr>
                                             <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark"><%=bill.cartPrice%></td>
+                                            <td class="text-gray-dark"><span>$</span><%=bill.cartPrice%>.00</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td class="text-gray-dark">Free</td>
+                                            <td class="text-gray-dark">$0.00</td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td class="text-lg text-gray-dark"><%=bill.cartPrice%></td>
+                                            <td class="text-lg text-gray-dark"><span>$</span><%=bill.cartPrice%>.00</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -849,7 +865,7 @@
                 p.preventDefault();
                 let response = axios({
                     url: "/edit_address",
-                    method: "patch",
+                    method: "post",
                     data: $("#first-array").serialize(),
                 }).then((response) => {
                     if (response.status) {
@@ -862,7 +878,7 @@
                 el.preventDefault();
                 let response = axios({
                     url: "/edit_address",
-                    method: "patch",
+                    method: "post",
                     data: $("#checkout-form").serialize(),
                 }).then((response) => {
                     if (response.status) {
@@ -905,23 +921,42 @@
 
             async function deleteAddress(id) {
                 Swal.fire({
-                    icon: "warning",
-                    title: "Are you sure?",
-                    text: "deleting address",
-                    ShowCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "remove",
+                    title: "Do you want to save the changes?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Yes",
+                    denyButtonText: "No",
+                    customClass: {
+                        actions: "my-actions",
+                        cancelButton: "order-1 right-gap",
+                        confirmButton: "order-2",
+                        denyButton: "order-3",
+                    },
                 }).then((result) => {
-                    if (result) {
+                    if (result.isConfirmed) {
+                        Swal.fire("Saved!", "", "success");
                         axios.delete(`/delete_address/${id}`).then((result) => {
                             Swal.fire("removed!", "item has been deleted.", "success").then((response) => {
                                 location.reload();
                             });
                         });
+                    } else if (result.isDenied) {
+                        Swal.fire("Changes are not saved", "", "info");
                     }
                 });
             }
+            // Swal.fire({
+            //     icon: "warning",
+            //     title: "Are you sure?",
+            //     text: "deleting address",
+            //     ShowCancelButton: true,
+            //     confirmButtonColor: "#3085d6",
+            //     cancelButtonColor: "#d33",
+            //     confirmButtonText: "remove",
+            // }).then((result) => {
+            //     if (result) {
+            //     }
+            // });
 
             // async function editAddress(id) {
             //     document.getElementById("editAdd").addEventListener("submit", async (e) => {

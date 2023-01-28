@@ -150,6 +150,7 @@
                                     </li>
                                     <%if(user_details){%>
                                     <li>
+                                        <!-- <p><%= user_details._id %>hi</p> -->
                                         <a href="/profile/<%=user_details._id%>"><i class="fa-regular fa-user"></i></a>
                                     </li>
                                     <%} else {%>
@@ -764,7 +765,10 @@
                                         <div class="product-buttons">
                                             <ul class="ps-0">
                                                 <li>
-                                                    <a href="#" class="btn-link" title="Add To Wishlist"
+                                                    <a
+                                                        onclick="addtowishlist('<%=productList[i]._id%>')"
+                                                        class="btn-link"
+                                                        title="Add To Wishlist"
                                                         ><i class="far fa-heart"></i
                                                     ></a>
                                                 </li>
@@ -1318,6 +1322,58 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
+            async function addtowishlist(id) {
+                try {
+                    let result = await axios({
+                        method: "post",
+                        url: "/add_to_wishlist",
+                        data: {
+                            id,
+                        },
+                    });
+                    if (result.data.response == "productExist") {
+                        await Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Product already exist in wishlist",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    } else {
+                        if (result.data.response == true) {
+                            await Swal.fire({
+                                icon: "success",
+                                title: "done",
+                                text: "Product added to wishlist",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else {
+                            if (result.data.status == true) {
+                                await Swal.fire({
+                                    icon: "success",
+                                    title: "done",
+                                    text: "New product added",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                });
+                            } else {
+                                await Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    showConfirmButton: false,
+                                    timer: 1000,
+                                    text: "You have to login first",
+                                });
+                                location.href = "/login";
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.log("eroor");
+                }
+            }
+
             async function addtocart(id) {
                 try {
                     let result = await axios({
@@ -1345,7 +1401,7 @@
                                 timer: 1500,
                             });
                         } else {
-                            if (result.data.response == "newAdded") {
+                            if (result.data.status == true) {
                                 await Swal.fire({
                                     icon: "success",
                                     title: "done",

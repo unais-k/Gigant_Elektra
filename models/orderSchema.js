@@ -1,0 +1,61 @@
+const mongoose = require("mongoose");
+
+const orderSchema = new mongoose.Schema(
+    {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user",
+            required: true,
+        },
+        address: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "address",
+            required: true,
+        },
+        cart: {
+            items: [
+                {
+                    productId: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "products",
+                        required: true,
+                    },
+                    quantity: {
+                        type: Number,
+                        default: 1,
+                    },
+                },
+            ],
+            totalPrice: {
+                default: 0,
+                type: Number,
+            },
+        },
+        total: {
+            type: Number,
+        },
+        delivery: {
+            type: Number,
+            default: 0,
+        },
+        order_status: {
+            type: String,
+        },
+        payment_status: {
+            type: String,
+        },
+        payment_method: {
+            type: String,
+        },
+        order_date: {
+            type: Date,
+            default: Date.now,
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
+const orderModel = new mongoose.model("order", orderSchema);
+
+module.exports = orderModel;
