@@ -214,7 +214,7 @@ const showProductDetails = async (req, res) => {
         }
     } catch (error) {
         productList = req.session.temp;
-        res.redirect("/productDetails?id=productList._id");
+        res.redirect("/productDetails?id=req.query.id");
     }
 };
 
