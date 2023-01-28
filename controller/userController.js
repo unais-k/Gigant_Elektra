@@ -830,8 +830,9 @@ const payment = async (req, res) => {
 const checkoutReview = async (req, res) => {
     let userId = req.session.user_login._id;
     let cart = await cartModel.findOne({ owner: userId });
+    console.log(cart, "cart1111111111111111111111");
     let charge = req.session.amount;
-    let order = await orderModel.findOne({ user: userId }).populate("cart.items.productId");
+    let order = await orderModel.findOne({ _id: req.session.orderId }).populate("items.productId");
     console.log(order);
     const addressId = order.address;
     const address = await addressModel.findOne({ user: order.user });
@@ -841,23 +842,25 @@ const checkoutReview = async (req, res) => {
     const finalAddress = address.address[index];
     console.log(address);
 
-    res.render("user/checkout_review", { charge, cart, finalAddress });
+    res.render("user/checkout_review", { charge, cart, finalAddress, order });
 };
 
 const paymentPost = async (req, res) => {
     console.log(12122);
-    let paymode = req.index;
-    console.log(paymode);
+    // let paymode = req.index;
+    // console.log(paymode); no value
 
     let userId = req.session.user_login._id;
+    let cartId = req.session.cartId;
+    let cart = await cartModel.findOne({ _id: cartId }).populate("items.productId");
+    console.log(cart);
     console.log(741);
-
     console.log(77777);
     let process = await orderModel
         .create({
             user: userId,
             address: req.session.address,
-            cart: req.session.cartId,
+            items: cart.items,
             total: req.session.amount.adding,
             delivery: req.session.amount.charge,
             order_status: "pending",
@@ -866,6 +869,7 @@ const paymentPost = async (req, res) => {
             order_date: new Date(),
         })
         .then((result) => {
+            req.session.orderId = result._id;
             res.json({ cod: true });
         });
 
