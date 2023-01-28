@@ -195,32 +195,26 @@ const userProduct = async (req, res) => {
 
 const showProductDetails = async (req, res) => {
     let productList;
-    let cart;
-    let wishlist;
-    try {
-        user_details = req.session.user_login;
-        productList = await productModel.findOne({ _id: req.params.id });
-        cart = await cartModel.findOne({ owner: user_details._id, "items.productId": productList });
-        a;
-        wishlist = await wishlistModel.findOne({ user: user_details._id });
-        console.log(cart);
 
-        console.log(productList);
+    try {
+        productList = await productModel.findOne({ _id: req.query.id });
+
         if (productList) {
             req.session.temp = productList._id;
         } else {
             temp = req.session.temp;
             productList = await productModel.findOne({ _id: temp });
         }
-        // const cartPro = await cartModel
-        //     .findOne({ owner: mongoose.Types.ObjectId(user_details._id) })
-        //     .populate("items.productId");
-        // let cart = cartPro.items.slice(0, 3);
 
-        await res.render("user/productDetails", { productList, cart, user_details, wishlist });
+        await res.render("user/productDetails", { productList });
+        if (req.session.user_login) {
+            let cart = await cartModel.findOne({ owner: user_details._id, "items.productId": productList._id });
+            let wishlist = await wishlistModel.findOne({ user: user_details._id });
+            await res.render("user/productDetails", { productList, cart, user_details, wishlist });
+        }
     } catch (error) {
         productList = req.session.temp;
-        res.redirect("/productDetails/" + productList);
+        res.redirect("/productDetails?id=productList._id");
     }
 };
 
@@ -833,14 +827,15 @@ const checkoutReview = async (req, res) => {
     console.log(cart, "cart1111111111111111111111");
     let charge = req.session.amount;
     let order = await orderModel.findOne({ _id: req.session.orderId }).populate("items.productId");
-    console.log(order);
-    const addressId = order.address;
-    const address = await addressModel.findOne({ user: order.user });
-    const index = await address.address.findIndex((obj) => {
-        obj._id == addressId;
-    });
+    console.log(order + "order");
+    const addressId = order.address._id;
+    console.log(req.session.address);
+    console.log(addressId);
+    const address = await addressModel.findOne({ "address._id": req.session.address });
+    const index = await address.address.findIndex((obj) => obj._id == req.session.address);
+    console.log(index);
     const finalAddress = address.address[index];
-    console.log(address);
+    console.log(finalAddress);
 
     res.render("user/checkout_review", { charge, cart, finalAddress, order });
 };
@@ -850,6 +845,7 @@ const paymentPost = async (req, res) => {
     // let paymode = req.index;
     // console.log(paymode); no value
 
+    const address = await addressModel.findOne({ "address._id": req.session.address });
     let userId = req.session.user_login._id;
     let cartId = req.session.cartId;
     let cart = await cartModel.findOne({ _id: cartId }).populate("items.productId");

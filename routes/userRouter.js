@@ -57,7 +57,7 @@ router.get("/userProduct", userProduct);
 
 // router.get("/productDetails", userProductDetails);
 
-router.get("/productDetails/:id", showProductDetails);
+router.get("/productDetails", showProductDetails);
 
 router.get("/profile/:id", sessionCheck, profile);
 

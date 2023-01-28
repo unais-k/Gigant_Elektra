@@ -143,7 +143,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="d-inline-block">
+                                        <a href="/wishlist" class="d-inline-block">
                                             <i class="fa-regular fa-heart"></i>
                                             <span class="badge bg-primary">3</span>
                                         </a>
@@ -235,8 +235,8 @@
                                             <li><a href="account-wishlist">Wishlist</a></li>
                                             <li><a href="account-profile">Profile Page</a></li>
                                             <li><a href="account-address">Contact / Shipping Address</a></li>
-                                            <li><a href="account-tickets">My Tickets</a></li>
-                                            <li><a href="account-single-ticket">Single Ticket</a></li>
+                                            <!-- <li><a href="account-tickets">My Tickets</a></li>
+                                            <li><a href="account-single-ticket">Single Ticket</a></li> -->
                                         </ul>
                                     </li>
                                     <li>
@@ -245,11 +245,11 @@
                                             <li><a href="login-register">Login / Register</a></li>
                                             <li><a href="account-password-recovery">Password Recovery</a></li>
                                             <li><a href="account-orders">Orders List</a></li>
-                                            <li><a href="account-wishlist">Wishlist</a></li>
+                                            <li><a href="/wishlist">Wishlist</a></li>
                                             <li><a href="account-profile">Profile Page</a></li>
                                             <li><a href="account-address">Contact / Shipping Address</a></li>
-                                            <li><a href="account-tickets">My Tickets</a></li>
-                                            <li><a href="account-single-ticket">Single Ticket</a></li>
+                                            <!-- <li><a href="account-tickets">My Tickets</a></li>
+                                            <li><a href="account-single-ticket">Single Ticket</a></li> -->
                                         </ul>
                                     </li>
 
@@ -745,13 +745,13 @@
 
                                     <div class="product-grid">
                                         <div class="product-img">
-                                            <a href="/productDetails/<%=productList[i]._id%>">
+                                            <a href="/productDetails?id=<%=productList[i]._id%>">
                                                 <img src="<%=productList[i].productImages[0]%>" alt="..." />
                                             </a>
                                         </div>
                                         <div class="product-description">
                                             <h3>
-                                                <a href="/productDetails/<%=productList[i]._id%>"
+                                                <a href="/productDetails?id=<%=productList[i]._id%>"
                                                     ><%=productList[i].productName%></a
                                                 >
                                             </h3>

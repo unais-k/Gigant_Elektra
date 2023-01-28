@@ -13,6 +13,10 @@ const couponSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    status: {
+        type: String,
+        default: "Active",
+    },
     couponName: {
         type: String,
         required: true,
@@ -21,11 +25,11 @@ const couponSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    quantity: {
+    discount: {
         type: Number,
         required: true,
     },
-    minumumSpend: {
+    minimumSpend: {
         type: Number,
         required: true,
     },
@@ -38,3 +42,6 @@ const couponSchema = new mongoose.Schema({
         required: true,
     },
 });
+
+const couponModel = new mongoose.model("coupon", couponSchema);
+module.exports = couponModel;

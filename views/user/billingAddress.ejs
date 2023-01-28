@@ -142,7 +142,7 @@
                                                     aria-expanded="true"
                                                     aria-controls="<%=Address._id%>"
                                                 >
-                                                    Choose this Address
+                                                    Choose an Address
                                                 </button>
                                             </h5>
                                         </div>
@@ -162,17 +162,18 @@
                                                 Mobile : <%= Address.phone %> <br />
                                                 <div class="d-flex bd-highlight">
                                                     <div class="me-auto p-2 bd-highlight">
-                                                        <a href="/address_confirm/<%=Address._id%>">
-                                                            <button type="submit" class="butn-style2 mt-2">Submit</button>
-                                                        </a>
-                                                    </div>
-                                                    <div class="p-2 bd-highlight">
                                                         <button
                                                             onclick="deleteAddress('<%=Address._id%>')"
                                                             class="butn-style2"
                                                         >
                                                             <i class="fa-sharp fa-solid fa-trash pe-2"></i>Delete
                                                         </button>
+                                                    </div>
+                                                    <div class="p-2 bd-highlight">
+                                                        <a href="/address_confirm/<%=Address._id%>">
+                                                            <button type="submit" class="butn-style2 mt-2">Proceed</button>
+                                                        </a>
+
                                                         <!-- <button class="butn-style2">
                                                             <i class="fa-solid fa-pen-to-square pe-2"></i>Edit
                                                         </button> -->
@@ -336,7 +337,7 @@
                                                     aria-expanded="false"
                                                     aria-controls="collapse<%=[i]%>"
                                                 >
-                                                    Choose this Address
+                                                    Choose an Address
                                                 </button>
                                             </h5>
                                         </div>
@@ -356,17 +357,17 @@
                                                 Mobile : <%= Add.address[i].phone %> <br />
                                                 <div class="d-flex bd-highlight">
                                                     <div class="me-auto p-2 bd-highlight">
-                                                        <a href="/address_confirm/<%=Add.address[i]._id%>">
-                                                            <button type="submit" class="butn-style2 mt-2">Submit</button>
-                                                        </a>
-                                                    </div>
-                                                    <div class="p-2 bd-highlight">
                                                         <button
                                                             onclick="deleteAddress('<%=Add.address[i]._id%>')"
                                                             class="butn-style2"
                                                         >
                                                             <i class="fa-sharp fa-solid fa-trash pe-2"></i>Delete
                                                         </button>
+                                                    </div>
+                                                    <div class="p-2 bd-highlight">
+                                                        <a href="/address_confirm/<%=Add.address[i]._id%>">
+                                                            <button type="submit" class="butn-style2 mt-2">Proceed</button>
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="mt-3 p-2">

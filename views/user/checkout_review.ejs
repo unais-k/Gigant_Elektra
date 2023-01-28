@@ -141,48 +141,30 @@
                                                     <!-- <span class="text-uppercase d-block">SKU: 290397</span>
                                                     <a href="#" class="display-32"><i class="fas fa-edit"></i> Edit</a> -->
                                                 </td>
-                                                <td class="product-subtotal text-start">
-                                                    $<%=order.items[i].productId.price%>
-                                                </td>
-                                                <td class="product-remove text-center">
-                                                    <%=order.items[i].productId.quantity%>
-                                                </td>
+                                                <td class="product-subtotal text-start">$<%=order.items[i].totalPrice%></td>
+                                                <td class="product-remove text-center"><%=order.items[i].quantity%></td>
                                             </tr>
                                             <% } %>
-                                            <tr>
-                                                <td class="product-thumbnail text-start">
-                                                    <a href="#"
-                                                        ><img src="/images/user/products/thumbs/thumb-02.jpg" alt="..."
-                                                    /></a>
-                                                </td>
-                                                <td class="text-start">
-                                                    <a href="#">Sun Protection Cap </a>
-                                                    <span class="text-uppercase d-block">SKU: 290397</span>
-                                                    <a href="#" class="display-32"><i class="fas fa-edit"></i> Edit</a>
-                                                </td>
-                                                <td class="product-subtotal text-start">$10.20</td>
-                                                <td class="product-remove text-center">
-                                                    <a href="#"><i class="far fa-edit"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="product-thumbnail text-start">
-                                                    <a href="#"
-                                                        ><img src="/images/user/products/thumbs/thumb-05.jpg" alt="..."
-                                                    /></a>
-                                                </td>
-                                                <td class="text-start">
-                                                    <a href="#">Heel Character Shoes</a>
-                                                    <span class="text-uppercase d-block">SKU: 290397</span>
-                                                    <a href="#" class="display-32"><i class="fas fa-edit"></i> Edit</a>
-                                                </td>
-                                                <td class="product-subtotal text-start">$19.50</td>
-                                                <td class="product-remove text-center">
-                                                    <a href="#"><i class="far fa-edit"></i></a>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div>
+                                    <div class="card mt-4">
+                                        <h5 class="card-header">Address</h5>
+                                        <div class="card-body">
+                                            <!-- <h5 class="card-title">Special title treatment</h5> -->
+                                            <p class="card-text">
+                                                <%=finalAddress.name%> <%=finalAddress.lastname%> <br /><%=
+                                                finalAddress.address%> <br /><%=finalAddress.city%>,
+                                                <%=finalAddress.country%>
+                                                <br />
+                                                Pin : <%=finalAddress.pincode%> <br />
+                                                Email : <%=finalAddress.email%> <br />
+                                                Mobile : <%=finalAddress.phone%> <br />
+                                            </p>
+                                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="buttons-set">

@@ -169,7 +169,7 @@
 
                                 <div class="row mb-4">
                                     <div class="col-lg-12">
-                                        <% if (cart) { %>
+                                        <% if (user_details) { %> <% if (cart) { %>
                                         <a href="/cart/<%=user_details._id%>">
                                             <button class="butn-style2 me-3 mb-2 mb-md-0">
                                                 <span><i class="fas fa-shopping-cart me-1"></i> Go to Cart</span>
@@ -193,6 +193,14 @@
                                         <button onclick="addtowishlist('<%=productList._id%>')" class="butn-style2 dark">
                                             <span><i class="fas fa-heart me-1"></i> Add to wishlist</span>
                                         </button>
+                                        <% } else { %>
+                                        <button class="butn-style2 me-3 mb-2 mb-md-0">
+                                            <span><i class="fas fa-shopping-cart me-1"></i> Add to Cart</span>
+                                        </button>
+                                        <button class="butn-style2 dark">
+                                            <span><i class="fas fa-heart me-1"></i> Add to wishlist</span>
+                                        </button>
+                                        <% } %>
                                     </div>
                                 </div>
 

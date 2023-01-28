@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- Mirrored from smartshop.websitelayout.net/admin/create-coupons.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:01:00 GMT -->
+    <!-- Mirrored from smartshop.websitelayout.net/admin/create-coupons by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:01:00 GMT -->
     <head>
         <!-- metas -->
         <meta charset="utf-8" />
@@ -52,7 +52,7 @@
             <%- include("../includes/admin-sidebar.ejs") %>
             <div class="page-content">
                 <!-- PAGE HEADER
-            ================================================== -->
+              ================================================== -->
                 <div class="page-header">
                     <div class="search-form">
                         <form action="#" method="GET">
@@ -77,8 +77,8 @@
                             <div class="navbar-header">
                                 <div class="logo-sm">
                                     <a href="#" id="sidebar-toggle-button"><i class="fa fa-bars"></i></a>
-                                    <a class="logo-box" href="index.html"
-                                        ><img src="..//images/admin/logos/logo.png" class="logo" alt="..."
+                                    <a class="logo-box" href="index"
+                                        ><img src="/images/admin/logo-no-background.png" class="logo" alt="..."
                                     /></a>
                                 </div>
                                 <button
@@ -151,122 +151,106 @@
                     <!-- PAGE MAIN WRAPPER
                 ================================================== -->
                     <div id="main-wrapper">
-                        <!-- row -->
-                        <div class="row">
-                            <div class="col-md-12 grid-margin">
-                                <div class="card card-white">
-                                    <div class="card-heading clearfix">
-                                        <h4 class="card-title">General</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <form>
+                        <form method="post" action="/admin/addCoupon_post">
+                            <!-- row -->
+                            <div class="row">
+                                <div class="col-md-12 grid-margin">
+                                    <div class="card card-white">
+                                        <div class="card-heading clearfix">
+                                            <h4 class="card-title">General</h4>
+                                        </div>
+                                        <div class="card-body">
                                             <div class="form-group">
                                                 <label for="exampleInput1">Coupan Title</label>
-                                                <input type="text" class="form-control" id="exampleInput1" />
+                                                <input
+                                                    type="text"
+                                                    name="couponName"
+                                                    class="form-control"
+                                                    id="exampleInput1"
+                                                />
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInput2">Coupan Code</label>
-                                                <input type="text" class="form-control" id="exampleInput2" />
+                                                <input
+                                                    type="text"
+                                                    name="couponCode"
+                                                    class="form-control"
+                                                    id="exampleInput2"
+                                                />
                                             </div>
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="text" class="form-control date-picker" />
+                                                <input type="date" name="startDate" class="form-control" />
                                             </div>
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="text" class="form-control date-picker" />
+                                                <input type="date" name="endDate" class="form-control" />
                                             </div>
-                                            <div class="custom-control custom-checkbox my-4">
-                                                <input
-                                                    class="form-check-input"
-                                                    type="checkbox"
-                                                    value=""
-                                                    id="flexCheckChecked"
-                                                />
-                                                <label class="form-check-label" for="flexCheckChecked">
-                                                    Allow Free Shipping
-                                                </label>
-                                            </div>
+
                                             <div class="form-group">
-                                                <label for="exampleInput3">Quantity</label>
-                                                <input type="number" class="form-control" id="exampleInput3" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="validationCustom02">Discount Type</label>
-                                                <select
-                                                    class="form-select form-control"
-                                                    id="validationCustom02"
-                                                    aria-label="Default select example"
-                                                >
-                                                    <option selected>--Select--</option>
-                                                    <option value="1">Percent</option>
-                                                    <option value="2">Fixed</option>
-                                                </select>
-                                            </div>
-                                            <div class="custom-control custom-checkbox mt-4">
+                                                <label for="exampleInput3">Discount</label>
                                                 <input
-                                                    class="form-check-input"
-                                                    type="checkbox"
-                                                    value=""
-                                                    id="flexCheckChecked2"
+                                                    type="number"
+                                                    name="discount"
+                                                    class="form-control"
+                                                    id="exampleInput3"
                                                 />
-                                                <label class="form-check-label" for="flexCheckChecked2">
-                                                    Enable the coupon
-                                                </label>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- end row -->
 
-                        <!-- row -->
-                        <div class="row">
-                            <div class="col-md-6 grid-margin">
-                                <div class="card card-white h-100">
-                                    <div class="card-heading clearfix">
-                                        <h4 class="card-title">Restriction</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <form>
+                            <div class="row">
+                                <div class="col-md-6 grid-margin">
+                                    <div class="card card-white h-100">
+                                        <div class="card-heading clearfix">
+                                            <h4 class="card-title">Restriction</h4>
+                                        </div>
+                                        <div class="card-body">
                                             <div class="form-group">
                                                 <label for="exampleInput5">Minimum Spend</label>
-                                                <input type="number" class="form-control" id="exampleInput5" />
+                                                <input
+                                                    type="number"
+                                                    name="minimumSpend"
+                                                    class="form-control"
+                                                    id="exampleInput5"
+                                                />
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInput6">Maximum Spend</label>
-                                                <input type="number" class="form-control" id="exampleInput6" />
+                                                <input
+                                                    type="number"
+                                                    name="maxSpend"
+                                                    class="form-control"
+                                                    id="exampleInput6"
+                                                />
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 grid-margin">
-                                <div class="card card-white h-100">
-                                    <div class="card-heading clearfix">
-                                        <h4 class="card-title">Usage Limits</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <form>
-                                            <div class="form-group">
+                                <div class="col-md-6 grid-margin">
+                                    <div class="card card-white h-100">
+                                        <div class="card-heading clearfix">
+                                            <h4 class="card-title">Usage Limits</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- <div class="form-group">
                                                 <label for="exampleInput7">Per Limit</label>
-                                                <input type="number" class="form-control" id="exampleInput7" />
-                                            </div>
+                                                <input type="number"  class="form-control" id="exampleInput7" />
+                                            </div> -->
                                             <div class="form-group">
                                                 <label for="exampleInput8">Per Customer</label>
-                                                <input type="number" class="form-control" id="exampleInput8" />
+                                                <input type="number" name="limit" class="form-control" id="exampleInput8" />
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- end row -->
-                    </div>
-
-                    <div class="page-footer">
-                        <p>Copyright &copy; <span class="current-year"></span> Smartshop All rights reserved.</p>
+                            <div class="">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -276,6 +260,41 @@
 
         <!-- ALL JS INCLUDE
     ================================================== -->
+
+        <!-- axios cdn  -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- <script>
+            addCoupon = async () => {
+                const formData = new FormData(event.target);
+                const formProps = await Object.fromEntries(formData);
+                axios.post("/admin/addCoupon_post", formProps).then(async (e) => {
+                    console.log(11111);
+                    if (e.data.error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: e.data.error,
+                        });
+                    } else if (e.data.succ) {
+                        await Swal.fire({
+                            icon: "success",
+                            title: "Coupen added successfully",
+                        });
+                        location.reload();
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong",
+                        });
+                    }
+                });
+            };
+        </script> -->
 
         <!-- jQuery -->
         <script src="/plugins/admin/jquery/jquery.min.js"></script>
@@ -296,7 +315,7 @@
         <script src="/plugins/admin/switchery/switchery.min.js"></script>
 
         <!-- datepicker -->
-        <script src="/plugins/admin/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <!-- <script src="/plugins/admin/bootstrap-datepicker/js/bootstrap-datepicker.js"></script> -->
 
         <!-- form elements -->
         <script src="/js/admin/pages/form-elements.js"></script>
@@ -307,5 +326,5 @@
         <!-- all js include end -->
     </body>
 
-    <!-- Mirrored from smartshop.websitelayout.net/admin/create-coupons.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:01:00 GMT -->
+    <!-- Mirrored from smartshop.websitelayout.net/admin/create-coupons by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:01:00 GMT -->
 </html>
