@@ -4,8 +4,8 @@ var router = express.Router();
 const categoryModel = require("../models/categorySchema");
 const userModel = require("../models/userSchema");
 const productModel = require("../models/productSchema");
-const couponModel = require("../models/couponSchema");
 const { productPhoto } = require("../middleware/multer");
+const couponModel = require("../models/couponSchema");
 // const vendorModel = require("../models/vendorSchema");
 
 const adminLogin = (req, res) => {
@@ -295,32 +295,21 @@ const addCoupon = async (req, res) => {
 
 const addCouponPost = async (req, res, next) => {
     console.log(req.body);
-
-    const { couponName, couponCode, discount, minimumSpend, maxSpend, limit, startDate, endDate } = req.body;
-    if (couponName && couponCode && discount && minimumSpend && maxSpend && limit && startDate && endDate) {
-        let regexp = new RegExp(couponCode);
-        console.log(5544);
-        const coupon = await couponModel.findOne({ couponCode: { $regex: regexp } });
-        console.log(coupon);
-        if (coupon) {
-            console.log(7744);
-            res.redirect("/addCoupon");
-        } else {
-            console.log(1111111111);
-            const coupon = { couponName, couponCode, discount, minimumSpend, maxSpend, limit, startDate, endDate };
-            let adding = await couponModel.create(coupon).catch((err) => {
-                console.log(err);
-            });
-            console.log(adding);
-            console.log(11122);
-            res.redirect("/admin/coupon");
-        }
+    let couponMsg;
+    let couponcode = req.body.couponCode;
+    let coupon = couponModel.findOne({ couponCode: couponcode });
+    console.log(coupon);
+    if (coupon) {
+        couponMsg = "coupon already exist";
+        res.json({ staus: false, couponMsg });
+        console.log(1111);
     } else {
-        console.log(1144);
-        res.redirect("/addCoupon");
+        await couponModel.create(req.body).then((data) => {
+            res.json({ success: true });
+            console.log(data);
+            console.log("done");
+        });
     }
-    console.log(11);
-    console.log(couponCode + "  " + minimumSpend);
 };
 
 const logout = (req, res) => {
