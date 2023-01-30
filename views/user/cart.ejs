@@ -167,7 +167,7 @@
                             <button class="butn-style2 small bg-color mb-2 mb-md-0"><span>Empty Cart</span></button>
                             <a href="/userProduct">
                                 <button class="butn-style2 small bg-color float-end ms-2 mb-2 mb-md-0">
-                                    <span>Continue Shopping</span>
+                                    <span><i class="fa-solid fa-shop me-2"></i>Continue Shopping</span>
                                 </button></a
                             >
                         </div>
@@ -197,7 +197,7 @@
                                                 data-bs-parent="#accordion"
                                             >
                                                 <div class="card-body">
-                                                    <form>
+                                                    <form id="couponForm" onsubmit="couponCheck()">
                                                         <div class="row">
                                                             <div class="col-sm-12 mb-2">
                                                                 <div class="form-group">
@@ -206,13 +206,14 @@
                                                                         type="text"
                                                                         class="form-control"
                                                                         name="couponcode"
+                                                                        id="coponCode"
                                                                         placeholder="Enter Your Coupon Code"
                                                                     />
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <button type="button" class="butn-style2 small">Apply Code</button>
+                                                        <button type="submit" class="butn-style2 small">Apply Code</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -233,6 +234,12 @@
                                             <tr>
                                                 <th class="text-end pe-0 text-uppercase">Shipping and Handling</th>
                                                 <td class="text-uppercase text-end pe-0">$0.00</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-end pe-0 text-uppercase">Discount</th>
+                                                <td id="discount" class="text-uppercase text-success text-end pe-0">
+                                                    $0.00
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="pe-0 p-0" colspan="2">
@@ -340,6 +347,40 @@
                         });
                     }
                 });
+            }
+
+            async function couponCheck() {
+                let couponcode = document.getElementById("coponCode").value;
+                event.preventDefault();
+                if (couponcode != "") {
+                    let result = await axios.post("/couponCheck", {
+                        code: couponcode,
+                    });
+                    console.log(result);
+                    if (result.data.status == false) {
+                        await Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: result.data.Msg,
+                        });
+                    } else if (result.data.response.status) {
+                        await Toast.fire({
+                            icon: "success",
+                            title: "Coupen applied successfully",
+                            text: result.data.Msg,
+                        });
+                        document.getElementById("discount").innerHTML = result.data.response.redeem;
+                        document.getElementById("cartPrice").innerHTML = result.data.response.total;
+                        // document.getElementById("couponForm").reset();
+                        // location.href = "/admin/addCoupon";
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong",
+                        });
+                    }
+                }
             }
         </script>
 

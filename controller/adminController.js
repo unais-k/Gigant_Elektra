@@ -297,16 +297,16 @@ const addCouponPost = async (req, res, next) => {
     console.log(req.body);
     let couponMsg;
     let couponcode = req.body.couponCode;
-    let coupon = couponModel.findOne({ couponCode: couponcode });
-    console.log(coupon);
+    let coupon = await couponModel.findOne({ couponCode: couponcode });
+    // console.log(coupon); null value if not
     if (coupon) {
         couponMsg = "coupon already exist";
-        res.json({ staus: false, couponMsg });
+        res.json({ status: true, couponMsg });
         console.log(1111);
     } else {
-        await couponModel.create(req.body).then((data) => {
+        await couponModel.create(req.body).then(() => {
             res.json({ success: true });
-            console.log(data);
+            // console.log(data, +"data");
             console.log("done");
         });
     }

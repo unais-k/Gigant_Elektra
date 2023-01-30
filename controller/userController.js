@@ -11,6 +11,7 @@ const wishlistModel = require("../models/wishlistSchema");
 const { count } = require("../models/userSchema");
 const addressModel = require("../models/addressSchema");
 const orderModel = require("../models/orderSchema");
+const couponModel = require("../models/couponSchema");
 const { ObjectId } = require("mongodb");
 
 const userLogin = (req, res) => {
@@ -768,6 +769,114 @@ const deleteCart = async (req, res, next) => {
     res.json({ status: true });
 };
 
+const coponCheck = async (req, res) => {
+    console.log(11111);
+    let response;
+    let Msg;
+    let userId = req.session.user_login._id;
+    let couponcode = req.body.code;
+    let coopon = await couponModel.findOne({ couponCode: couponcode }).then(async (data) => {
+        console.log(data);
+        if (data) {
+            let { startDate, endDate, discount, minimumSpend, maxSpend, limit } = data;
+            let start = new Date(startDate);
+            let end = new Date(endDate);
+            const now = new Date(Date.now());
+            console.log(start, end, now);
+            if (now >= start) {
+                if (now <= end) {
+                    // let user = await couponModel.findOne({ user: userId });
+                    // console.log(user, "user");
+                    // res.json({ success: true });
+                    // if (!user) {
+                    let cartTotal = await cartModel.findOne({ owner: userId }).then(async (total) => {
+                        console.log(total.cartPrice);
+                        let cartPrice = total.cartPrice;
+                        if (minimumSpend <= cartPrice) {
+                            if (cartPrice <= maxSpend) {
+                                let limit = await couponModel
+                                    .findOne({ couponCode: couponcode, "owner.user": userId })
+                                    .then(async (lim) => {
+                                        if (lim) {
+                                            // coupon discount, limiit, status = session kodukkaa ennale
+                                            let redeem = Math.round((cartPrice * discount) / 100);
+                                            req.session.discount = redeem;
+                                            let total = cartPrice - redeem;
+                                            console.log(redeem, "dicouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuunt");
+                                            Msg = "Coupon applied";
+                                            response = {
+                                                redeem,
+                                                status: true,
+                                                total,
+                                                Msg,
+                                            };
+                                            res.json({ response });
+                                            let couponAdd = await couponModel.updateOne(
+                                                { couponCode: couponcode },
+                                                { $set: { status: "2/2" }, $inc: { limit: 1 } }
+                                            );
+                                            console.log(couponAdd);
+                                        } else {
+                                            let redeem = Math.round((cartPrice * discount) / 100);
+                                            req.session.discount = redeem;
+                                            let total = cartPrice - redeem;
+                                            console.log(redeem, "discooooooooooooooooount");
+                                            Msg = "Coupon applied";
+                                            response = {
+                                                redeem,
+                                                status: true,
+                                                total,
+                                                Msg,
+                                            };
+                                            res.json({ response });
+
+                                            let couponAdd = await couponModel.updateOne(
+                                                { couponCode: couponcode },
+                                                {
+                                                    $push: { owner: { user: userId } },
+                                                    $set: { status: "1/2" },
+                                                    $inc: { limit: 1 },
+                                                }
+                                            );
+                                            console.log(couponAdd);
+                                        }
+                                    });
+                            } else {
+                                Msg = `You have exceeded coupon limit, try another coupon`;
+                                res.json({ status: false, Msg });
+                                console.log(11);
+                            }
+                        } else {
+                            Msg = `You have to spend minimum of ${minimumSpend} to apply this coupon`;
+                            res.json({ status: false, Msg });
+                            console.log(111);
+                        }
+                    });
+                    // } else {
+                    //     Msg = "You have already used";
+                    //     res.json({ status: false, Msg });
+                    //     console.log(111);
+                    // }
+                } else {
+                    Msg = "Coupon has enxpired";
+                    res.json({ status: false, Msg });
+                    console.log(112);
+                }
+            } else {
+                Msg = "Coupon offer not started yet";
+                res.json({ status: false, Msg });
+                console.log(113);
+            }
+        } else {
+            Msg = "The Coupon is not valid";
+            res.json({ status: false, Msg });
+            console.log(114);
+        }
+    });
+    console.log(coopon, "coooooopon");
+    // res.json({ success: true });
+};
+
 const checkout = async (req, res) => {
     req.session.cartId = req.params.id;
     console.log(req.session.cartId);
@@ -908,6 +1017,7 @@ module.exports = {
     quantityChange,
     addToCartShop,
     deleteCart,
+    coponCheck,
     checkout,
     shipping,
     shippingCharge,

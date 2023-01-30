@@ -40,6 +40,7 @@ const {
     editingAddress,
     paymentPost,
     success,
+    coponCheck,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -84,6 +85,8 @@ router.post("/address_first", sessionCheck, firstAddress);
 router.delete("/delete_address/:id", sessionCheck, deleteAddress);
 
 router.get("/cart/:id", sessionCheck, cart);
+
+router.post("/couponCheck", sessionCheck, coponCheck);
 
 router.post("/add_to_cart_home", sessionCheck, addToCartHome);
 
