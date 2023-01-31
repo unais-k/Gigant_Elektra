@@ -237,9 +237,7 @@
                                             </tr>
                                             <tr>
                                                 <th class="text-end pe-0 text-uppercase">Discount</th>
-                                                <td id="discount" class="text-uppercase text-success text-end pe-0">
-                                                    $0.00
-                                                </td>
+                                                <td id="discount" class="text-uppercase text-end pe-0">$0.00</td>
                                             </tr>
                                             <tr>
                                                 <td class="pe-0 p-0" colspan="2">
@@ -348,6 +346,17 @@
                     }
                 });
             }
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "center-end",
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                },
+            });
 
             async function couponCheck() {
                 let couponcode = document.getElementById("coponCode").value;
@@ -369,8 +378,9 @@
                             title: "Coupen applied successfully",
                             text: result.data.Msg,
                         });
-                        document.getElementById("discount").innerHTML = result.data.response.redeem;
-                        document.getElementById("cartPrice").innerHTML = result.data.response.total;
+                        document.getElementById("discount").style.color = "red";
+                        document.getElementById("discount").innerHTML = `- $ ${result.data.response.redeem}`;
+                        document.getElementById("cartPrice").innerHTML = `$ ${result.data.response.total}`;
                         // document.getElementById("couponForm").reset();
                         // location.href = "/admin/addCoupon";
                     } else {

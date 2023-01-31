@@ -286,7 +286,9 @@ const updatedProduct = async (req, res) => {
 };
 
 const coupon = async (req, res) => {
-    res.render("admin/coupon");
+    let cooopon = await couponModel.find({});
+    console.log(coupon);
+    res.render("admin/coupon", { cooopon });
 };
 
 const addCoupon = async (req, res) => {
@@ -310,6 +312,45 @@ const addCouponPost = async (req, res, next) => {
             console.log("done");
         });
     }
+};
+
+const activeCoupon = async (req, res) => {
+    let id = req.params.id;
+    let di = req.body.id;
+    console.log(di);
+    console.log(id);
+    try {
+        let check = await couponModel.findOneAndUpdate({ _id: id }, { $set: { status: false } }).then(() => res.json());
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const revokeCoupon = async (req, res) => {
+    // let id = req.body.id;
+    let id = req.params.id;
+    let di = req.body.id;
+    console.log(di);
+    console.log(id);
+    try {
+        let check = await couponModel.findOneAndUpdate({ _id: id }, { $set: { status: true } }).then(() => res.json());
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const deleteCoupon = async (req, res) => {
+    let admin = req.session.admin_login._id;
+    let id = req.query.id;
+    const deletecop = await couponModel.findOneAndDelete(
+        { _id: id },
+        {
+            $pull: {
+                _id: id,
+            },
+        }
+    );
+    res.json({ status: true });
 };
 
 const logout = (req, res) => {
@@ -342,5 +383,8 @@ module.exports = {
     coupon,
     addCoupon,
     addCouponPost,
+    activeCoupon,
+    revokeCoupon,
+    deleteCoupon,
     logout,
 };

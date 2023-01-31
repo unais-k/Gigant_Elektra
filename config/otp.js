@@ -4,7 +4,7 @@ const AuthToken = process.env.AuthToken;
 
 const client = require("twilio")(AccountSID, AuthToken);
 
-client.verify.v2.services.create({ friendlyName: "GIGANT ELEKTRA" }).then(() => console.log("OTP Ready"));
+client.verify.v2.services.create({ friendlyName: "G E" }).then(() => console.log("OTP Ready"));
 
 function sendotp(mobile) {
     client.verify.v2

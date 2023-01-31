@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- Mirrored from smartshop.websitelayout.net/account-orders.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:34 GMT -->
+    <!-- Mirrored from smartshop.websitelayout.net/account-or by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:34 GMT -->
     <head>
         <!-- metas -->
         <meta charset="utf-8" />
@@ -11,21 +11,21 @@
         <meta name="description" content="Smartshop - Multipurpose eCommerce Template + Admin" />
 
         <!-- title  -->
-        <title>Smartshop - Multipurpose eCommerce Template + Admin</title>
+        <title>Gigant Elektra - Elegant smart world</title>
 
         <!-- google icons -->
         <script src="https://kit.fontawesome.com/138cb064b7.js" crossorigin="anonymous"></script>
 
         <link
             rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4//stylesheet/user/fontawesome.min.css"
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
             integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
             crossorigin="anonymous"
         />
 
         <link
             rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2//stylesheet/user/all.min.css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
             integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
@@ -63,14 +63,15 @@
 
             <!-- PAGE TITLE
         ================================================== -->
-            <section class="page-title-section bg-img cover-background" data-background="img/bg/page-title.jpg">
+            <section class="page-title-section bg-img cover-background" data-background="/images/user/bg/page-title.jpg">
                 <div class="container">
                     <div class="title-info">
                         <h1>My Orders</h1>
                     </div>
                     <div class="breadcrumbs-info">
                         <ul class="ps-0">
-                            <li><a href="home-shop-1.html">Home</a></li>
+                            <li><a href="/">Home</a></li>
+                            >
                             <li><a href="#">My Orders</a></li>
                         </ul>
                     </div>
@@ -90,34 +91,35 @@
                                         <div class="pb-3">
                                             <img
                                                 class="img-fluid rounded-circle img-thumbnail"
-                                                src="img/avatar/t-3.jpg"
+                                                src="/images/user/avatar/t-3.jpg"
                                                 alt="..."
                                             />
                                         </div>
                                         <h6 class="mb-0 display-28">Peter Parker</h6>
                                         <small>Joined February 06, 2017</small>
                                         <div class="reward-points">
-                                            <i class="ti-star text-primary pe-1"></i> Points: 7386
+                                            <i class="fa-regular fa-star text-primary pe-1"></i> Points: 7386
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="list-group">
-                                    <a class="list-group-items active" href="account-orders.html"
-                                        ><i class="ti-bag pe-2"></i>Orders<span class="badge badge-pill">6</span></a
+                                    <a class="list-group-items" href="/order_view">
+                                        <i class="fa-solid fa-bag-shopping pe-2"></i>Orders<span class="badge badge-pill"
+                                            >6</span
+                                        ></a
                                     >
-                                    <a class="list-group-items" href="account-profile.html"
-                                        ><i class="ti-user pe-2"></i>Profile</a
+                                    <a class="list-group-items" href="/profile/<%=user_details._id%>"
+                                        ><i class="fa-regular fa-user pe-2"></i>Profile</a
                                     >
-                                    <a class="list-group-items" href="account-address.html"
-                                        ><i class="ti-location-pin pe-2"></i>Addresses</a
+                                    <a class="list-group-items" href="/address"
+                                        ><i class="fa-sharp fa-solid fa-location-dot pe-2"></i>Addresses</a
                                     >
-                                    <a class="list-group-items" href="account-wishlist.html"
-                                        ><i class="ti-heart pe-2"></i>Wishlist<span class="badge badge-pill">3</span></a
-                                    >
-                                    <a class="list-group-items" href="account-tickets.html"
-                                        ><i class="ti-tag pe-2"></i>My Tickets<span class="badge badge-pill">4</span></a
-                                    >
+                                    <a class="list-group-items active" href="/wishlist"
+                                        ><i class="fa-regular fa-heart pe-2"></i>Wishlist<span
+                                            class="badge badge-pill"
+                                        ></span
+                                    ></a>
                                 </div>
                             </div>
                         </div>
@@ -139,18 +141,29 @@
                                                 <th>Status</th>
                                                 <th>Total</th>
                                                 <th>Actions</th>
+                                                <th>Details</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% for( let i = 0; i < order.length; i++ ) { %>
                                             <tr>
-                                                <th>#2257</th>
-                                                <td>10 January 2022</td>
-                                                <td><span class="fas fa-circle text-primary small mr-1"></span> Pending</td>
-                                                <td>$29</td>
+                                                <th><%=i+1%></th>
+                                                <td><%=order[i].updatedAt.toLocaleDateString()%></td>
                                                 <td>
-                                                    <a href="#" class="text-primary">Pay</a>
+                                                    <span class="fas fa-circle text-primary small mr-1"></span
+                                                    ><%=order[i].order_status%>
+                                                </td>
+                                                <td><%=order[i].total%></td>
+                                                <td>
+                                                    <a href="#" class="text-primary"><%=order[i].payment_method%></a>
+                                                </td>
+                                                <td>
+                                                    <a href="/order_details/<%=order[i]._id%>"
+                                                        ><i class="fa-solid fa-eye"></i>View</a
+                                                    >
                                                 </td>
                                             </tr>
+                                            <% } %>
                                             <tr>
                                                 <th>#2256</th>
                                                 <td>09 January 2022</td>
@@ -235,5 +248,5 @@
         <!-- all js include end -->
     </body>
 
-    <!-- Mirrored from smartshop.websitelayout.net/account-orders.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:34 GMT -->
+    <!-- Mirrored from smartshop.websitelayout.net/account-or by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 03 Jan 2023 16:00:34 GMT -->
 </html>

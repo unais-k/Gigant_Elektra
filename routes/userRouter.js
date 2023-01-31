@@ -41,6 +41,8 @@ const {
     paymentPost,
     success,
     coponCheck,
+    orderView,
+    orderDetails,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -109,6 +111,10 @@ router.post("/order_post", sessionCheck, paymentPost);
 router.get("/order_review", sessionCheck, checkoutReview);
 
 router.get("/success", sessionCheck, success);
+
+router.get("/order_view", sessionCheck, orderView);
+
+router.get("/order_details/:id", sessionCheck, orderDetails);
 
 router.get("/logout", logout);
 

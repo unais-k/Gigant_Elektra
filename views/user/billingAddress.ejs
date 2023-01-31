@@ -782,10 +782,21 @@
                                             <th>Shipping:</th>
                                             <td class="text-gray-dark">$0.00</td>
                                         </tr>
+                                        <% if (discount) { %>
+                                        <tr>
+                                            <th>Discount:</th>
+                                            <td class="text-danger"><span>- $</span><%=discount.redeem%>.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td class="text-lg text-gray-dark"><span>$</span><%=discount.total%>.00</td>
+                                        </tr>
+                                        <% } else { %>
                                         <tr>
                                             <th>Total:</th>
                                             <td class="text-lg text-gray-dark"><span>$</span><%=bill.cartPrice%>.00</td>
                                         </tr>
+                                        <% } %>
                                     </tbody>
                                 </table>
                             </div>

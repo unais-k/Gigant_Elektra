@@ -386,20 +386,51 @@
 
                                 <table class="table classic">
                                     <tbody>
-                                        <tr>
+                                        <!-- <tr>
                                             <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark"><span>$</span><%=cart.cartPrice%>.00</td>
+                                            <td class="text-gray-dark"><span>$</span>%=cart.cartPrice.00</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td class="text-gray-dark"><span>$</span><%=charge.charge%>.00</td>
+                                            <td class="text-gray-dark"><span>$</span>%=charge.charge%>.00</td>
                                         </tr>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td id="total" class="text-lg text-gray-dark">
+                                                <span>$</span>%=charge.adding%>.00
+                                            </td>
+                                        </tr> -->
+                                        <tr>
+                                            <th>Cart Subtotal:</th>
+                                            <td class="text-gray-dark"><span>$</span><%=bill.cartPrice%>.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Shipping:</th>
+                                            <td id="ship" class="text-gray-dark"><span>$</span><%=charge.charge%>.00</td>
+                                        </tr>
+                                        <% if (discount) { %>
+                                        <!-- <tr>
+                                            <th>Shipping:</th>
+                                            <td id="ship" class="text-gray-dark"><span>$</span>%=charge.charge%>.00</td>
+                                        </tr> -->
+                                        <tr>
+                                            <th>Discount:</th>
+                                            <td class="text-danger"><span>- $</span><%=discount.redeem%>.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td id="total" class="text-lg text-gray-dark">
+                                                <span>$</span><%=discount.total%>.00
+                                            </td>
+                                        </tr>
+                                        <% } else { %>
                                         <tr>
                                             <th>Total:</th>
                                             <td id="total" class="text-lg text-gray-dark">
                                                 <span>$</span><%=charge.adding%>.00
                                             </td>
                                         </tr>
+                                        <% } %>
                                     </tbody>
                                 </table>
                             </div>
@@ -461,6 +492,17 @@
 
         <!-- all js include start -->
         <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "center-end",
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                },
+            });
             function confirm() {
                 const index = $('input[type="radio"][name="cod"]:checked').val();
                 // const total = document.getElementById("total").innerHTML;
@@ -477,11 +519,15 @@
                 }).then((result) => {
                     console.log(11111);
                     if (result.data.cod) {
+                        // Toast.fire({
+                        //     icon: "success",
+                        //     title: "Order placed successfully",
+                        // })
                         Swal.fire({
                             title: "Order Placed Successfully",
                             icon: "success",
                             showDenyButton: false,
-                            confirmButtonText: "OK",
+                            showconfirmButton: false,
                             toast: true,
                         }).then((result) => {
                             console.log(5678);

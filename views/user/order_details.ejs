@@ -63,13 +63,13 @@
             <section class="page-title-section bg-img cover-background" data-background="/images/user/bg/page-title.jpg">
                 <div class="container">
                     <div class="title-info">
-                        <h1>Shop Checkout</h1>
+                        <h1>Order Details</h1>
                     </div>
                     <div class="breadcrumbs-info">
                         <ul class="ps-0">
                             <li><a href="home-shop-1">Home</a></li>
                             >
-                            <li><a href="#">Shop Checkout</a></li>
+                            <li><a href="#">Order Details</a></li>
                         </ul>
                     </div>
                 </div>
@@ -80,9 +80,9 @@
             <section class="md">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-xl-12">
                             <div class="process-steps mb-1-9 mb-lg-6">
-                                <a class="step" href="shop-checkout-address"
+                                <!-- <a class="step" href="shop-checkout-address"
                                     ><i class="fa-sharp fa-solid fa-location-dot pe-2"></i>
                                     <h4 class="step-title">1. Address</h4></a
                                 >
@@ -93,16 +93,16 @@
                                 <a class="step" href="shop-checkout-payment"
                                     ><i class="fa-sharp fa-solid fa-money-bill"></i>
                                     <h4 class="step-title">3. Payment</h4></a
-                                >
-                                <a class="step active" href="shop-checkout-review"
+                                > -->
+                                <a class="step active" href="#"
                                     ><i class="fa-regular fa-comment"></i>
-                                    <h4 class="step-title">4. Review</h4></a
+                                    <h4 class="step-title">Order Details</h4></a
                                 >
                             </div>
                         </div>
 
                         <!-- left pannel section -->
-                        <div class="col-lg-9 col-md-12 ps-2-3 mb-1-9 mb-lg-0">
+                        <div class="col-lg-9 col-xl-12 ps-2-3 mb-1-9 mb-lg-0">
                             <div class="common-block">
                                 <div class="inner-title">
                                     <h4 class="mb-0">Review Your Order</h4>
@@ -122,7 +122,7 @@
                                                 <th class="first"></th>
                                                 <th class="text-start text-uppercase font-weight-500">Product</th>
                                                 <th class="text-start text-uppercase font-weight-500">Sub Total</th>
-                                                <th class="text-start text-uppercase font-weight-500">Quantity</th>
+                                                <th class="text-center text-uppercase font-weight-500">Quantity</th>
                                                 <!-- <th class="text-center text-uppercase font-weight-500">Edit</th> -->
                                             </tr>
                                         </thead>
@@ -168,11 +168,11 @@
                                 </div>
 
                                 <div class="buttons-set">
-                                    <a href="/payment" class="butn-style2 wide"
+                                    <a href="/order_view" class="butn-style2 wide"
                                         ><i class="fas fa-arrow-left me-1"></i> Back</a
                                     >
-                                    <a href="/success" class="butn-style2 wide"
-                                        >Complete <i class="fas fa-arrow-right ms-1"></i
+                                    <a href="/" class="butn-style2 wide"
+                                        >Go to home <i class="fas fa-arrow-right ms-1"></i
                                     ></a>
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                         <!-- end left pannel section -->
 
                         <!-- right pannel section -->
-                        <div class="col-lg-3 col-12 side-bar">
+                        <!-- <div class="col-lg-3 col-12 side-bar">
                             <div class="widget">
                                 <div class="widget-title">
                                     <h5>Order Summary</h5>
@@ -188,53 +188,45 @@
 
                                 <table class="table classic">
                                     <tbody>
-                                        <!-- <tr>
+                                         <tr>
                                             <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark"><span>$</span>%=cart.cartPrice%>.00</td>
+                                            <td class="text-gray-dark"><span>$</span>%=cart.cartPrice</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td class="text-gray-dark"><span>$</span>%=charge.charge%>.00</td>
+                                            <td class="text-gray-dark"><span>$</span>%=charge.charge</td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td class="text-lg text-gray-dark"><span>$</span>%=charge.adding%>.00</td>
-                                        </tr> -->
+                                            <td class="text-lg text-gray-dark"><span>$</span>%=charge.adding</td>
+                                        </tr> ////
                                         <tr>
                                             <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark"><span>$</span><%=bill.cartPrice%>.00</td>
+                                            <td class="text-gray-dark"><span>$</span>.cartPrice</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td id="ship" class="text-gray-dark"><span>$</span><%=charge.charge%>.00</td>
+                                            <td id="ship" class="text-gray-dark"><span>$</span>ge.charge</td>
                                         </tr>
-                                        <% if (discount) { %>
-                                        <!-- <tr>
-                                            <th>Shipping:</th>
-                                            <td id="ship" class="text-gray-dark"><span>$</span>%=charge.charge%>.00</td>
-                                        </tr> -->
+
+                                        
                                         <tr>
                                             <th>Discount:</th>
-                                            <td class="text-danger"><span>- $</span><%=discount.redeem%>.00</td>
+                                            <td class="text-danger"><span>- $</span>t.redeem</td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td id="total" class="text-lg text-gray-dark">
-                                                <span>$</span><%=discount.total%>.00
-                                            </td>
+                                            <td id="total" class="text-lg text-gray-dark"><span>$</span>t.total</td>
                                         </tr>
-                                        <% } else { %>
+
                                         <tr>
                                             <th>Total:</th>
-                                            <td id="total" class="text-lg text-gray-dark">
-                                                <span>$</span><%=charge.adding%>.00
-                                            </td>
+                                            <td id="total" class="text-lg text-gray-dark"><span>$</span>ge.adding</td>
                                         </tr>
-                                        <% } %>
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- end right pannel section -->
                     </div>
                 </div>

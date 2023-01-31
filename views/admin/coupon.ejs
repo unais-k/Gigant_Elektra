@@ -84,7 +84,7 @@
                             <!-- Collect the nav links, forms, and other content for toggling -->
 
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav">
+                                <!-- <ul class="nav navbar-nav">
                                     <li>
                                         <a href="#" id="collapsed-sidebar-toggle-button"><i class="fa fa-bars"></i></a>
                                     </li>
@@ -126,11 +126,9 @@
                                                 class="rounded-circle"
                                         /></a>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div>
-                            <!-- /.navbar-collapse -->
                         </div>
-                        <!-- /.container-fluid -->
                     </nav>
                 </div>
 
@@ -194,15 +192,6 @@
                                             <table class="table table-order">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck"
-                                                                />
-                                                            </div>
-                                                        </th>
                                                         <th scope="col">ID</th>
                                                         <th scope="col">Campaigns Name</th>
                                                         <th scope="col">Code</th>
@@ -213,19 +202,11 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <% for( let i = 0; i < cooopon.length; i++ ) { %>
                                                     <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck1"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>1</td>
-                                                        <td>Summer Sale</td>
-                                                        <td>SUMMER01</td>
+                                                        <td><%=i+1%></td>
+                                                        <td><%=cooopon[i].couponName%></td>
+                                                        <td><%=cooopon[i].couponCode%></td>
                                                         <td>
                                                             <div class="custom-progress bg-blue progress mb-2">
                                                                 <div
@@ -241,318 +222,25 @@
                                                                 <div>05 of 10 codes remaining</div>
                                                             </div>
                                                         </td>
-                                                        <td>28th May 2022</td>
-                                                        <td>10th Apr 2022</td>
+                                                        <td><%=cooopon[i].startDate.toLocaleDateString()%></td>
+                                                        <td><%=cooopon[i].endDate.toLocaleDateString()%></td>
+                                                        <%if(cooopon[i].status==true){%>
                                                         <td>
-                                                            <i class="fas fa-circle text-danger me-2 f-s-10"></i>Revoked
+                                                            <a onclick="active('<%=cooopon[i]._id%>')"
+                                                                ><i class="fas fa-circle text-success me-2 f-s-10"></i
+                                                                >Active</a
+                                                            >
                                                         </td>
+                                                        <% } else { %>
+                                                        <td>
+                                                            <a onclick="revoke('<%=cooopon[i]._id%>')"
+                                                                ><i class="fas fa-circle text-danger me-2 f-s-10"></i
+                                                                >Revoked</a
+                                                            >
+                                                        </td>
+                                                        <%}%>
                                                     </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck2"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>2</td>
-                                                        <td>Winter Sale</td>
-                                                        <td>WINTER20</td>
-                                                        <td>
-                                                            <div class="custom-progress bg-blue progress mb-2">
-                                                                <div
-                                                                    class="animated custom-bar progress-bar slideInLeft"
-                                                                    style="width: 30%"
-                                                                    aria-valuemax="100"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuenow="10"
-                                                                    role="progressbar"
-                                                                ></div>
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <div>10 of 20 codes remaining</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>20th Feb 2022</td>
-                                                        <td>01st Dec 2022</td>
-                                                        <td>
-                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck3"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>3</td>
-                                                        <td>Spring Sale</td>
-                                                        <td>SPRING30</td>
-                                                        <td>
-                                                            <div class="custom-progress bg-blue progress mb-2">
-                                                                <div
-                                                                    class="animated custom-bar progress-bar slideInLeft"
-                                                                    style="width: 10%"
-                                                                    aria-valuemax="100"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuenow="10"
-                                                                    role="progressbar"
-                                                                ></div>
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <div>01 of 05 codes remaining</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>07th Sep 2022</td>
-                                                        <td>28th Aug 2022</td>
-                                                        <td>
-                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck4"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>4</td>
-                                                        <td>Women Day Sale</td>
-                                                        <td>WOMEN08</td>
-                                                        <td>
-                                                            <div class="custom-progress bg-blue progress mb-2">
-                                                                <div
-                                                                    class="animated custom-bar progress-bar slideInLeft"
-                                                                    style="width: 45%"
-                                                                    aria-valuemax="100"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuenow="10"
-                                                                    role="progressbar"
-                                                                ></div>
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <div>13 of 30 codes remaining</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>08th Mar 2022</td>
-                                                        <td>06th Mar 2022</td>
-                                                        <td>
-                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck5"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>5</td>
-                                                        <td>Christmas Sale</td>
-                                                        <td>CHRISTMAS25</td>
-                                                        <td>
-                                                            <div class="custom-progress bg-blue progress mb-2">
-                                                                <div
-                                                                    class="animated custom-bar progress-bar slideInLeft"
-                                                                    style="width: 3%"
-                                                                    aria-valuemax="100"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuenow="10"
-                                                                    role="progressbar"
-                                                                ></div>
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <div>02 of 07 codes remaining</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>30th Dec 2022</td>
-                                                        <td>24th Dec 2022</td>
-                                                        <td>
-                                                            <i class="fas fa-circle text-danger me-2 f-s-10"></i>Revoked
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck6"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>6</td>
-                                                        <td>Stock Ending Sale</td>
-                                                        <td>STOCKEND</td>
-                                                        <td>
-                                                            <div class="custom-progress bg-blue progress mb-2">
-                                                                <div
-                                                                    class="animated custom-bar progress-bar slideInLeft"
-                                                                    style="width: 20%"
-                                                                    aria-valuemax="100"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuenow="10"
-                                                                    role="progressbar"
-                                                                ></div>
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <div>10 of 15 codes remaining</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>19th Jul 2022</td>
-                                                        <td>01sth Jun 2022</td>
-                                                        <td>
-                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck7"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>7</td>
-                                                        <td>Republic Day Sale</td>
-                                                        <td>REPUBLIC26</td>
-                                                        <td>
-                                                            <div class="custom-progress bg-blue progress mb-2">
-                                                                <div
-                                                                    class="animated custom-bar progress-bar slideInLeft"
-                                                                    style="width: 50%"
-                                                                    aria-valuemax="100"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuenow="10"
-                                                                    role="progressbar"
-                                                                ></div>
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <div>20 of 30 codes remaining</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>26th Jan 2022</td>
-                                                        <td>24th Jan 2022</td>
-                                                        <td>
-                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck8"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>8</td>
-                                                        <td>Diwali Sale</td>
-                                                        <td>DIWALIUSER</td>
-                                                        <td>
-                                                            <div class="custom-progress bg-blue progress mb-2">
-                                                                <div
-                                                                    class="animated custom-bar progress-bar slideInLeft"
-                                                                    style="width: 45%"
-                                                                    aria-valuemax="100"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuenow="10"
-                                                                    role="progressbar"
-                                                                ></div>
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <div>14 of 25 codes remaining</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>07th Nov 2022</td>
-                                                        <td>01th Nov 2022</td>
-                                                        <td>
-                                                            <i class="fas fa-circle text-danger me-2 f-s-10"></i>Revoked
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck9"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>9</td>
-                                                        <td>Halloween Sale</td>
-                                                        <td>HALLOWEEN31</td>
-                                                        <td>
-                                                            <div class="custom-progress bg-blue progress mb-2">
-                                                                <div
-                                                                    class="animated custom-bar progress-bar slideInLeft"
-                                                                    style="width: 15%"
-                                                                    aria-valuemax="100"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuenow="10"
-                                                                    role="progressbar"
-                                                                ></div>
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <div>04 of 15 codes remaining</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>31st Dec 2022</td>
-                                                        <td>27th Dec 2022</td>
-                                                        <td>
-                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="custom-control custom-checkbox mb-0">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="form-check-input"
-                                                                    id="exampleCheck10"
-                                                                />
-                                                            </div>
-                                                        </th>
-                                                        <td>10</td>
-                                                        <td>Autumn Discount</td>
-                                                        <td>AUTUMNUSER</td>
-                                                        <td>
-                                                            <div class="custom-progress bg-blue progress mb-2">
-                                                                <div
-                                                                    class="animated custom-bar progress-bar slideInLeft"
-                                                                    style="width: 60%"
-                                                                    aria-valuemax="100"
-                                                                    aria-valuemin="0"
-                                                                    aria-valuenow="10"
-                                                                    role="progressbar"
-                                                                ></div>
-                                                            </div>
-                                                            <div class="progress-text">
-                                                                <div>20 of 35 codes remaining</div>
-                                                            </div>
-                                                        </td>
-                                                        <td>20th May 2022</td>
-                                                        <td>10th May 2022</td>
-                                                        <td>
-                                                            <i class="fas fa-circle text-success me-2 f-s-10"></i>Active
-                                                        </td>
-                                                    </tr>
+                                                    <% } %>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -572,6 +260,47 @@
 
         <!-- ALL JS INCLUDE
     ================================================== -->
+        <!-- axios cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                },
+            });
+            async function active(id) {
+                event.preventDefault();
+                await axios.post("/admin/active_coupon/" + id).then(() => {
+                    // if (response.data.statu)
+                    Toast.fire({
+                        icon: "success",
+                        title: "Coupen status updated successfully",
+                    });
+                    location.reload();
+                });
+            }
+            async function revoke(id) {
+                event.preventDefault();
+                await axios.post("/admin/revoke_coupon/" + id).then(() => {
+                    // if (response.data.satu == false)
+                    Toast.fire({
+                        icon: "success",
+                        title: "Coupon status updated successfully",
+                    });
+                    location.reload();
+                });
+            }
+        </script>
 
         <!-- jQuery -->
         <script src="/plugins/admin/jquery/jquery.min.js"></script>

@@ -36,4 +36,13 @@ const user_login = async (req, res, next) => {
     }
 };
 
-module.exports = { user_login, sessionCheck, sessionCheckAxios };
+const admin_login = async (req, res, next) => {
+    if (req.session.admin_login) {
+        next();
+    } else {
+        req.session.admin_login = false;
+        res.redirect("/admin");
+    }
+};
+
+module.exports = { user_login, sessionCheck, sessionCheckAxios, admin_login };

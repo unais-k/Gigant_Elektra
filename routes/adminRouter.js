@@ -30,6 +30,9 @@ const {
     addCoupon,
     coupon,
     addCouponPost,
+    deleteCoupon,
+    activeCoupon,
+    revokeCoupon,
 } = require("../controller/adminController");
 
 router.get("/", adminLogin);
@@ -79,6 +82,12 @@ router.get("/coupon", coupon);
 router.get("/addCoupon", addCoupon);
 
 router.post("/addCoupon_post", addCouponPost);
+
+router.post("/active_coupon/:id", activeCoupon);
+
+router.post("/revoke_coupon/:id", revokeCoupon);
+
+router.delete("/delete_coupon", deleteCoupon);
 
 router.get("/logout", logout);
 

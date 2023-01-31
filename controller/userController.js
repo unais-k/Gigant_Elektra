@@ -775,8 +775,11 @@ const coponCheck = async (req, res) => {
     let Msg;
     let userId = req.session.user_login._id;
     let couponcode = req.body.code;
+    console.log(couponcode, "cooopon");
+    req.session.couponcode = couponcode;
+    console.log(couponcode, "coopooooon");
     let coopon = await couponModel.findOne({ couponCode: couponcode }).then(async (data) => {
-        console.log(data);
+        console.log(data, "data");
         if (data) {
             let { startDate, endDate, discount, minimumSpend, maxSpend, limit } = data;
             let start = new Date(startDate);
@@ -810,12 +813,14 @@ const coponCheck = async (req, res) => {
                                                 total,
                                                 Msg,
                                             };
+                                            req.session.coupon = response;
                                             res.json({ response });
-                                            let couponAdd = await couponModel.updateOne(
-                                                { couponCode: couponcode },
-                                                { $set: { status: "2/2" }, $inc: { limit: 1 } }
-                                            );
-                                            console.log(couponAdd);
+                                            console.log(response, "secnd");
+                                            // let couponAdd = await couponModel.updateOne(
+                                            //     { couponCode: couponcode },
+                                            //     { $set: { status: "2/2" }, $inc: { limit: 1 } }
+                                            // );
+                                            // console.log(couponAdd);
                                         } else {
                                             let redeem = Math.round((cartPrice * discount) / 100);
                                             req.session.discount = redeem;
@@ -828,17 +833,19 @@ const coponCheck = async (req, res) => {
                                                 total,
                                                 Msg,
                                             };
+                                            req.session.coupon = response;
                                             res.json({ response });
+                                            console.log(response, "first");
 
-                                            let couponAdd = await couponModel.updateOne(
-                                                { couponCode: couponcode },
-                                                {
-                                                    $push: { owner: { user: userId } },
-                                                    $set: { status: "1/2" },
-                                                    $inc: { limit: 1 },
-                                                }
-                                            );
-                                            console.log(couponAdd);
+                                            // let couponAdd = await couponModel.updateOne(
+                                            //     { couponCode: couponcode },
+                                            //     {
+                                            //         $push: { owner: { user: userId } },
+                                            //         $set: { status: "1/2" },
+                                            //         $inc: { limit: 1 },
+                                            //     }
+                                            // );
+                                            // console.log(couponAdd);
                                         }
                                     });
                             } else {
@@ -885,25 +892,43 @@ const checkout = async (req, res) => {
     let user_details = req.session.user_login;
     let userId = req.session.user_login._id;
     let cartId = req.session.cartId;
+    let discount = req.session.coupon;
+    console.log(discount, "discooooooooooooooooount");
+    console.log(discount);
     let Add = await addressModel.findOne({ user: userId });
     let bill = await cartModel.findOne({ owner: userId });
     if (Add) {
         let Address = Add.address[0];
         console.log(Address);
-        res.render("user/billingAddress", { user_details, Address, Add, bill, cartId });
+        res.render("user/billingAddress", { user_details, Address, Add, bill, cartId, discount });
     } else {
-        res.render("user/billingAddress", { user_details, Address: false, Add: false, bill: false, cartId: false });
+        res.render("user/billingAddress", {
+            user_details,
+            Address: false,
+            Add: false,
+            bill,
+            cartId: false,
+            discount,
+        });
     }
 };
 
 const shipping = async (req, res) => {
     req.session.address = req.params.id;
     console.log(req.session.address);
+    console.log(1111111111111111111111111111111111111111111111111111111111111111111111111);
     let address = await addressModel.findOne({ "address._id": req.session.address });
-    let cart = await cartModel.findOne({ owner: req.session.user_login._id });
+    let innerAddress = address.address.findIndex((obj) => obj._id == req.session.address);
+    console.log(innerAddress, "finindes");
+    let bill = await cartModel.findOne({ owner: req.session.user_login._id });
     console.log(address, "address");
     let addressId = req.session.address;
-    res.render("user/shipping", { cart, addressId });
+    let discount = req.session.coupon;
+    if (discount) {
+        res.render("user/shipping", { bill, addressId, discount });
+    } else {
+        res.render("user/shipping", { bill, addressId, discount: false });
+    }
 };
 
 const shippingCharge = async (req, res) => {
@@ -912,29 +937,54 @@ const shippingCharge = async (req, res) => {
     console.log(id.cartPrice);
     let charge = req.body.id;
     let cartPrice = id.cartPrice;
-    if (id) {
-        let adding = charge + cartPrice;
-        console.log(adding);
-        req.session.amount = { adding, charge };
-        res.json({ charge, adding });
+    let discount = req.session.coupon;
+    console.log(discount);
+
+    if (discount) {
+        console.log(111);
+        if (id) {
+            console.log(333);
+            let total = req.session.coupon.total;
+            let adding = charge + total;
+            console.log(adding);
+            req.session.amount = { adding, charge };
+            res.json({ charge, adding });
+        } else {
+            res.json((response = "charge"));
+        }
     } else {
-        res.json((response = "charge"));
+        console.log(222);
+        if (id) {
+            console.log(444);
+            let adding = charge + cartPrice;
+            console.log(adding);
+            req.session.amount = { adding, charge };
+            res.json({ charge, adding });
+        } else {
+            res.json((response = "charge"));
+        }
     }
 };
 
 const payment = async (req, res) => {
     let userId = req.session.user_login._id;
-    let cart = await cartModel.findOne({ owner: userId });
+    let bill = await cartModel.findOne({ owner: userId });
     let charge = req.session.amount;
+    let discount = req.session.coupon;
     console.log(charge);
-    res.render("user/payment", { charge, cart });
+    if (discount) {
+        res.render("user/payment", { charge, bill, discount });
+    } else {
+        res.render("user/payment", { charge, bill, discount: false });
+    }
 };
 
 const checkoutReview = async (req, res) => {
     let userId = req.session.user_login._id;
-    let cart = await cartModel.findOne({ owner: userId });
+    let bill = await cartModel.findOne({ owner: userId });
     console.log(cart, "cart1111111111111111111111");
     let charge = req.session.amount;
+    console.log(charge);
     let order = await orderModel.findOne({ _id: req.session.orderId }).populate("items.productId");
     console.log(order + "order");
     const addressId = order.address._id;
@@ -945,8 +995,12 @@ const checkoutReview = async (req, res) => {
     console.log(index);
     const finalAddress = address.address[index];
     console.log(finalAddress);
-
-    res.render("user/checkout_review", { charge, cart, finalAddress, order });
+    let discount = req.session.coupon;
+    if (discount) {
+        res.render("user/checkout_review", { charge, bill, finalAddress, order, discount });
+    } else {
+        res.render("user/checkout_review", { charge, bill, finalAddress, order, discount: false });
+    }
 };
 
 const paymentPost = async (req, res) => {
@@ -977,12 +1031,56 @@ const paymentPost = async (req, res) => {
             req.session.orderId = result._id;
             res.json({ cod: true });
         });
+    let code = req.session.couponcode;
+    let coupon = await couponModel.findOne({ couponCode: code, "owner.user": userId });
+    if (coupon) {
+        let userCoupon = await couponModel.updateOne(
+            { couponCode: code, "owner.user": userId },
+            { $set: { "owner.$.status": "2/2" }, $inc: { "owner.$.limit": 1 } }
+        );
+        console.log(userCoupon, "userCoupon");
+    } else {
+        let couponAdd = await couponModel.updateOne(
+            { couponCode: code },
+            {
+                $push: { owner: { user: userId, status: "1/2", limit: 1 } },
+            }
+        );
+        console.log(couponAdd, "couponAdd");
+    }
+    console.log(coupon, "coupon");
 
     // req.session.orderId = process;
 };
 
 const success = async (req, res) => {
     res.render("user/success");
+};
+
+const orderView = async (req, res) => {
+    let user_details = req.session.user_login;
+    let order = await orderModel.find({ user: req.session.user_login._id });
+    console.log(order);
+    res.render("user/orderList", { user_details, order });
+};
+
+const orderDetails = async (req, res) => {
+    let userId = req.session.user_login._id;
+    let user_details = req.session.user_login;
+    let orderId = req.params.id;
+    // let addressId = req.session.address;
+    let order = await orderModel.findOne({ _id: orderId }).populate("items.productId");
+    console.log(order);
+    let orderAddress = order.address;
+    console.log(orderAddress, "dfgh");
+    // let finalAddress = await addressModel.findOne({ "address._id": orderAddress });
+    // console.log(finalAddress);
+    let addressS = await addressModel.findOne({ "address._id": orderAddress });
+    console.log(addressS);
+    let Index = addressS.address.findIndex((obj) => obj._id == orderAddress.toString());
+    console.log(Index, "dfghjkl");
+    let finalAddress = addressS.address[Index];
+    res.render("user/order_details", { user_details, finalAddress, order });
 };
 
 const logout = (req, res) => {
@@ -1024,5 +1122,7 @@ module.exports = {
     paymentPost,
     checkoutReview,
     success,
+    orderView,
+    orderDetails,
     payment,
 };

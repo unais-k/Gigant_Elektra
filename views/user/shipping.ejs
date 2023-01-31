@@ -197,20 +197,51 @@
 
                                 <table class="table classic">
                                     <tbody>
+                                        <!-- <tr>
+                                            <th>Cart Subtotal:</th>
+                                            <td class="text-gray-dark"><span>$</span>=cart.cartPrice.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Shipping:</th>
+                                            <td  class="text-gray-dark">$0.00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td  class="text-lg text-gray-dark">
+                                                <span>$</span>=cart.cartPrice.00
+                                            </td>
+                                        </tr> -->
                                         <tr>
                                             <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark"><span>$</span><%=cart.cartPrice%>.00</td>
+                                            <td class="text-gray-dark"><span>$</span><%=bill.cartPrice%>.00</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
                                             <td id="ship" class="text-gray-dark">$0.00</td>
                                         </tr>
+                                        <% if (discount) { %>
+                                        <!-- <tr>
+                                            <th>Shipping:</th>
+                                            <td id="ship" class="text-gray-dark">$0.00</td>
+                                        </tr> -->
+                                        <tr>
+                                            <th>Discount:</th>
+                                            <td class="text-danger"><span>- $</span><%=discount.redeem%>.00</td>
+                                        </tr>
                                         <tr>
                                             <th>Total:</th>
                                             <td id="total" class="text-lg text-gray-dark">
-                                                <span>$</span><%=cart.cartPrice%>.00
+                                                <span>$</span><%=discount.total%>.00
                                             </td>
                                         </tr>
+                                        <% } else { %>
+                                        <tr>
+                                            <th>Total:</th>
+                                            <td id="total" class="text-lg text-gray-dark">
+                                                <span>$</span><%=bill.cartPrice%>.00
+                                            </td>
+                                        </tr>
+                                        <% } %>
                                     </tbody>
                                 </table>
                             </div>

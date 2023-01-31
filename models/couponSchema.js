@@ -2,21 +2,23 @@ const mongoose = require("mongoose");
 
 const couponSchema = new mongoose.Schema(
     {
-        owner: {
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "user",
+        owner: [
+            {
+                user: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "user",
+                },
+                limit: {
+                    type: Number,
+                    default: 0,
+                    max: 2,
+                },
+                status: {
+                    type: String,
+                    default: "0/2",
+                },
             },
-            limit: {
-                type: Number,
-                default: 0,
-                max: 2,
-            },
-            status: {
-                type: String,
-                default: "0/2",
-            },
-        },
+        ],
 
         startDate: {
             type: Date,
@@ -46,6 +48,10 @@ const couponSchema = new mongoose.Schema(
         maxSpend: {
             type: Number,
             required: true,
+        },
+        status: {
+            type: Boolean,
+            default: true,
         },
     },
     {

@@ -19,7 +19,7 @@ const cartSchema = new mongoose.Schema({
             },
             date: {
                 type: Date,
-                defualt: Date.now,
+                defualt: Date.now(),
             },
         },
     ],
