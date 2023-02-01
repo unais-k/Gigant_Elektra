@@ -43,6 +43,7 @@ const {
     coponCheck,
     orderView,
     orderDetails,
+    orderViewCheck,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -112,7 +113,9 @@ router.get("/order_review", sessionCheck, checkoutReview);
 
 router.get("/success", sessionCheck, success);
 
-router.get("/order_view", sessionCheck, orderView);
+router.get("/order_view/:id", sessionCheck, orderView);
+
+router.post("/order_view_check/:id", sessionCheck, orderViewCheck);
 
 router.get("/order_details/:id", sessionCheck, orderDetails);
 

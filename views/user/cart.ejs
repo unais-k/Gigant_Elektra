@@ -81,6 +81,14 @@
             <section class="md">
                 <div class="container">
                     <div class="row">
+                        <div class="col-12 border-bottom py-1-9 py-lg-2-3 mb-md-4 mb-lg-0">
+                            <!-- <button class="butn-style2 small bg-color mb-2 mb-md-0"><span>Empty Cart</span></button> -->
+                            <a href="/userProduct">
+                                <button class="butn-style2 small bg-color float-end ms-2 mb-2 mb-md-0">
+                                    <span><i class="fa-solid fa-shop me-2"></i>Continue Shopping</span>
+                                </button></a
+                            >
+                        </div>
                         <!-- product table -->
                         <div class="col-12 shop-cart-table">
                             <table class="table shop-cart text-center">
@@ -161,15 +169,6 @@
                                     <% } %>
                                 </tbody>
                             </table>
-                        </div>
-
-                        <div class="col-12 border-bottom py-1-9 py-lg-2-3 mb-3 mb-md-4 mb-lg-0">
-                            <button class="butn-style2 small bg-color mb-2 mb-md-0"><span>Empty Cart</span></button>
-                            <a href="/userProduct">
-                                <button class="butn-style2 small bg-color float-end ms-2 mb-2 mb-md-0">
-                                    <span><i class="fa-solid fa-shop me-2"></i>Continue Shopping</span>
-                                </button></a
-                            >
                         </div>
 
                         <div class="col-12 cart-total pt-1-9 pt-lg-2-3">
@@ -372,6 +371,7 @@
                             title: "Oops...",
                             text: result.data.Msg,
                         });
+                        document.getElementById("coponCode").value = "";
                     } else if (result.data.response.status) {
                         await Toast.fire({
                             icon: "success",
@@ -389,6 +389,7 @@
                             title: "Oops...",
                             text: "Something went wrong",
                         });
+                        document.getElementById("coponCode").value = "";
                     }
                 }
             }

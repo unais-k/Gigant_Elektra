@@ -32,6 +32,17 @@ const userSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        orders: [
+            {
+                orderId: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "order",
+                },
+                total: {
+                    type: Number,
+                },
+            },
+        ],
         product: [
             {
                 productId: {

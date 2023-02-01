@@ -6,6 +6,8 @@ const userModel = require("../models/userSchema");
 const productModel = require("../models/productSchema");
 const { productPhoto } = require("../middleware/multer");
 
+const { adminSession } = require("../middleware/userLogin");
+
 const {
     adminLogin,
     adminLoginPost,
@@ -33,61 +35,67 @@ const {
     deleteCoupon,
     activeCoupon,
     revokeCoupon,
+    order,
+    orderDetails,
 } = require("../controller/adminController");
 
 router.get("/", adminLogin);
 
 router.post("/adminLogin", adminLoginPost);
 
-router.get("/adminHome", adminHome);
+router.get("/adminHome", adminSession, adminHome);
 
-router.get("/category", category);
+router.get("/category", adminSession, category);
 
-router.get("/addCategory", addCategory);
+router.get("/addCategory", adminSession, addCategory);
 
-router.post("/addCategoryPost", addCategoryPost);
+router.post("/addCategoryPost", adminSession, addCategoryPost);
 
-router.get("/products", showProducts);
+router.get("/products", adminSession, showProducts);
 
-router.get("/addProducts", addProduct);
+router.get("/addProducts", adminSession, addProduct);
 
-router.post("/addProductPost", productPhoto, addProductPost);
+router.post("/addProductPost", adminSession, productPhoto, addProductPost);
 
-router.get("/productDetails", productDetails);
+router.get("/productDetails", adminSession, productDetails);
 
-router.get("/customers", customers);
+router.get("/customers", adminSession, customers);
 
 // router.get("/editProduct/:id", editProduct);
 
-router.get("/delete_product/:id", deleteProduct);
+router.get("/delete_product/:id", adminSession, deleteProduct);
 
-router.get("/activate_product/:id", activateProduct);
+router.get("/activate_product/:id", adminSession, activateProduct);
 
-router.get("/actionFalse/:id", actionFalse);
+router.get("/actionFalse/:id", adminSession, actionFalse);
 
-router.get("/actionTrue/:id", actionTrue);
+router.get("/actionTrue/:id", adminSession, actionTrue);
 
-router.get("/edit_category/:id", editCategory);
+router.get("/edit_category/:id", adminSession, editCategory);
 
-router.get("/delete_category/:id", deleteProduct);
+router.get("/delete_category/:id", adminSession, deleteProduct);
 
-router.get("/detail_product/:id", detail_prdouct);
+router.get("/detail_product/:id", adminSession, detail_prdouct);
 
-router.get("/update_product/:id", updateProduct);
+router.get("/update_product/:id", adminSession, updateProduct);
 
-router.post("/updated_product/:id", productPhoto, updatedProduct);
+router.post("/updated_product/:id", adminSession, productPhoto, updatedProduct);
 
-router.get("/coupon", coupon);
+router.get("/coupon", adminSession, coupon);
 
-router.get("/addCoupon", addCoupon);
+router.get("/addCoupon", adminSession, addCoupon);
 
-router.post("/addCoupon_post", addCouponPost);
+router.post("/addCoupon_post", adminSession, addCouponPost);
 
-router.post("/active_coupon/:id", activeCoupon);
+router.post("/active_coupon/:id", adminSession, activeCoupon);
 
-router.post("/revoke_coupon/:id", revokeCoupon);
+router.post("/revoke_coupon/:id", adminSession, revokeCoupon);
 
-router.delete("/delete_coupon", deleteCoupon);
+router.delete("/delete_coupon", adminSession, deleteCoupon);
+
+router.get("/order", adminSession, order);
+
+router.get("/order_details/:id", adminSession, orderDetails);
 
 router.get("/logout", logout);
 

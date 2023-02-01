@@ -6,21 +6,23 @@ const userModel = require("../models/userSchema");
 const productModel = require("../models/productSchema");
 const { productPhoto } = require("../middleware/multer");
 const couponModel = require("../models/couponSchema");
+const orderModel = require("../models/orderSchema");
+const cartModel = require("../models/cartSchema");
+const adminModel = require("../models/adminSchema");
 // const vendorModel = require("../models/vendorSchema");
 
 const adminLogin = (req, res) => {
     res.render("admin/adminLogin", { message: false });
 };
 
-const adminLoginPost = (req, res, next) => {
-    const adminEmail = process.env.adminEmail;
-    const adminPassword = process.env.adminPassword;
+const adminLoginPost = async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
+    let adminMod = await adminModel.findOne({ email: email, password: password });
     console.log(req.body);
-    if (email == adminEmail) {
+    if (email == adminMod.email) {
         console.log("email true");
-        if (password == adminPassword) {
+        if (password == adminMod.password) {
             req.session.adminLogin = true;
             res.render("admin/adminHome");
         } else {
@@ -141,6 +143,8 @@ const productDetails = (req, res) => {
 
 const customers = async (req, res) => {
     let userList = await userModel.find({});
+
+    console.log(userList);
 
     res.render("admin/customers", { userList });
 };
@@ -353,11 +357,37 @@ const deleteCoupon = async (req, res) => {
     res.json({ status: true });
 };
 
+const order = async (req, res) => {
+    let order = await orderModel.find({}).populate("user").populate("items.productId");
+    let orderId = Math.round(Math.random() * 4685);
+
+    res.render("admin/order", { order, orderId });
+};
+
+const orderDetails = async (req, res) => {
+    let id = req.params.id;
+    let details = await orderModel.findOne({ _id: id }).populate("items.productId");
+    console.log(details);
+    if (details) {
+        for (let i = 0; i < details.items.length; i++) {
+            let items = details.items[i]._id;
+            let ObjId = items.toString("").slice(2, 9);
+            console.log(ObjId);
+        }
+    }
+    // let qty = console.log(details.items);
+    let cart = await cartModel.findOne({ owner: details.user });
+    console.log(cart);
+    // let ObjId = details._id.toString("").slice(0, 5);
+
+    res.render("admin/order_details", { details, cart });
+};
+
 const logout = (req, res) => {
     req.session.destroy();
     res.redirect("/admin");
 };
-addCouponPost;
+// addCouponPost;
 
 module.exports = {
     adminLogin,
@@ -386,5 +416,7 @@ module.exports = {
     activeCoupon,
     revokeCoupon,
     deleteCoupon,
+    order,
+    orderDetails,
     logout,
 };

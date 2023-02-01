@@ -104,7 +104,7 @@
                                 </div>
 
                                 <div class="list-group">
-                                    <a class="list-group-items" href="/order_view">
+                                    <a class="list-group-items active" href="/order_view">
                                         <i class="fa-solid fa-bag-shopping pe-2"></i>Orders<span class="badge badge-pill"
                                             >6</span
                                         ></a
@@ -115,7 +115,7 @@
                                     <a class="list-group-items" href="/address"
                                         ><i class="fa-sharp fa-solid fa-location-dot pe-2"></i>Addresses</a
                                     >
-                                    <a class="list-group-items active" href="/wishlist"
+                                    <a class="list-group-items" href="/wishlist"
                                         ><i class="fa-regular fa-heart pe-2"></i>Wishlist<span
                                             class="badge badge-pill"
                                         ></span
@@ -150,68 +150,24 @@
                                                 <th><%=i+1%></th>
                                                 <td><%=order[i].updatedAt.toLocaleDateString()%></td>
                                                 <td>
-                                                    <span class="fas fa-circle text-primary small mr-1"></span
+                                                    <span class="fas fa-circle text-primary small mr-1 pe-2"></span
                                                     ><%=order[i].order_status%>
                                                 </td>
-                                                <td><%=order[i].total%></td>
+                                                <td><span>$ </span><%=order[i].total%>.00</td>
                                                 <td>
                                                     <a href="#" class="text-primary"><%=order[i].payment_method%></a>
                                                 </td>
                                                 <td>
                                                     <a href="/order_details/<%=order[i]._id%>"
-                                                        ><i class="fa-solid fa-eye"></i>View</a
+                                                        ><i class="fa-solid fa-eye pe-2"></i>View</a
                                                     >
                                                 </td>
                                             </tr>
                                             <% } %>
-                                            <tr>
-                                                <th>#2256</th>
-                                                <td>09 January 2022</td>
-                                                <td>
-                                                    <span class="fas fa-circle text-success small mr-1"></span> Completed
-                                                </td>
-                                                <td>$21</td>
-                                                <td>
-                                                    <a href="#" class="text-primary">View</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>#2255</th>
-                                                <td>08 January 2022</td>
-                                                <td>
-                                                    <span class="fas fa-circle text-success small mr-1"></span> Completed
-                                                </td>
-                                                <td>$66</td>
-                                                <td>
-                                                    <a href="#" class="text-primary">View</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>#2254</th>
-                                                <td>07 January 2022</td>
-                                                <td>
-                                                    <span class="fas fa-circle text-success small mr-1"></span> Completed
-                                                </td>
-                                                <td>$27</td>
-                                                <td>
-                                                    <a href="#" class="text-primary">View</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>#2253</th>
-                                                <td>06 January 2022</td>
-                                                <td>
-                                                    <span class="fas fa-circle text-danger small mr-1"></span> Cancelled
-                                                </td>
-                                                <td>$23</td>
-                                                <td>
-                                                    <a href="#" class="text-primary">View</a>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <a class="butn-style2 mt-3" href="#"><span>Show All Orders</span></a>
+                                <!-- <a class="butn-style2 mt-3" href="#"><span>Show All Orders</span></a> -->
                             </div>
                         </div>
                         <!-- end right panel -->

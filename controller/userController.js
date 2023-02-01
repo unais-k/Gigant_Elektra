@@ -677,16 +677,15 @@ const addToCartShop = async (req, res) => {
                                     productId: findProduct._id,
                                     totalPrice: findProduct.price,
                                 },
-                                $inc: {
-                                    cartPrice: findProduct.price,
-                                },
+                            },
+                            $inc: {
+                                cartPrice: findProduct.price,
                             },
                         }
                     )
                     .then((data) => {
                         res.json({ status: true });
                     });
-                console.log(newProduct);
             }
         } else {
             console.log("error");
@@ -802,25 +801,28 @@ const coponCheck = async (req, res) => {
                                     .then(async (lim) => {
                                         if (lim) {
                                             // coupon discount, limiit, status = session kodukkaa ennale
-                                            let redeem = Math.round((cartPrice * discount) / 100);
-                                            req.session.discount = redeem;
-                                            let total = cartPrice - redeem;
-                                            console.log(redeem, "dicouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuunt");
-                                            Msg = "Coupon applied";
-                                            response = {
-                                                redeem,
-                                                status: true,
-                                                total,
-                                                Msg,
-                                            };
-                                            req.session.coupon = response;
-                                            res.json({ response });
-                                            console.log(response, "secnd");
+                                            // let redeem = Math.round((cartPrice * discount) / 100);
+                                            // req.session.discount = redeem;
+                                            // let total = cartPrice - redeem;
+                                            // console.log(redeem, "dicouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuunt");
+                                            // Msg = "Coupon applied";
+                                            // response = {
+                                            //     redeem,
+                                            //     status: true,
+                                            //     total,
+                                            //     Msg,
+                                            // };
+                                            // req.session.coupon = response;
+                                            // res.json({ response });
+                                            // console.log(response, "secnd");
                                             // let couponAdd = await couponModel.updateOne(
                                             //     { couponCode: couponcode },
                                             //     { $set: { status: "2/2" }, $inc: { limit: 1 } }
                                             // );
                                             // console.log(couponAdd);
+                                            Msg = `You have already used this coupon`;
+                                            res.json({ status: false, Msg });
+                                            console.log(11);
                                         } else {
                                             let redeem = Math.round((cartPrice * discount) / 100);
                                             req.session.discount = redeem;
@@ -1003,18 +1005,52 @@ const checkoutReview = async (req, res) => {
     }
 };
 
-const paymentPost = async (req, res) => {
-    console.log(12122);
-    // let paymode = req.index;
-    // console.log(paymode); no value
+// const inventory = async (id, qty) => {
+//     await productModel.findOneAndUpdate({ _id: id }, { $inc: { quantity: -qty } }).then(() => {
+//         return;
+//     });
+// };
 
+const inventory = (productId, qntity) => {
+    return new Promise((resolve, reject) => {
+        productModel.findOneAndUpdate({ _id: productId }, { $inc: { quantity: -qntity } }).then(() => {
+            resolve();
+            console.log(resolve, "dfghjklrtyui");
+            console.log(resolve(), "dfgh");
+        });
+    });
+};
+
+const paymentPost = async (req, res) => {
     const address = await addressModel.findOne({ "address._id": req.session.address });
     let userId = req.session.user_login._id;
     let cartId = req.session.cartId;
     let cart = await cartModel.findOne({ _id: cartId }).populate("items.productId");
-    console.log(cart);
-    console.log(741);
-    console.log(77777);
+
+    let code = req.session.couponcode;
+    let coupon = await couponModel.findOne({ couponCode: code, "owner.user": userId });
+    // if (coupon) {
+    //     let userCoupon = await couponModel
+    //         .updateOne(
+    //             { couponCode: code, "owner.user": userId },
+    //             { $set: { "owner.$.status": "2/2" }, $inc: { "owner.$.limit": 1 } }
+    //         )
+    //         .then((data) => (data._id = req.session.couponAdded));
+    //     console.log(userCoupon, "userCoupon");
+    // } else {
+    let couponAdd = await couponModel
+        .updateOne(
+            { couponCode: code },
+            {
+                $push: { owner: { user: userId, status: "1/2", limit: 1 } },
+                $inc: {
+                    quantity: -1,
+                },
+            }
+        )
+        .then((data) => (data._id = req.session.couponAdded));
+    console.log(couponAdd, "couponAdd");
+    // }
     let process = await orderModel
         .create({
             user: userId,
@@ -1025,29 +1061,32 @@ const paymentPost = async (req, res) => {
             order_status: "pending",
             payment_status: "confirm",
             payment_method: "cod",
+            coupon: req.session.couponAdded,
             order_date: new Date(),
         })
-        .then((result) => {
+        .then(async (result) => {
             req.session.orderId = result._id;
             res.json({ cod: true });
         });
-    let code = req.session.couponcode;
-    let coupon = await couponModel.findOne({ couponCode: code, "owner.user": userId });
-    if (coupon) {
-        let userCoupon = await couponModel.updateOne(
-            { couponCode: code, "owner.user": userId },
-            { $set: { "owner.$.status": "2/2" }, $inc: { "owner.$.limit": 1 } }
-        );
-        console.log(userCoupon, "userCoupon");
-    } else {
-        let couponAdd = await couponModel.updateOne(
-            { couponCode: code },
-            {
-                $push: { owner: { user: userId, status: "1/2", limit: 1 } },
+    let userAdd = await userModel
+        .findOneAndUpdate(
+            { _id: userId },
+            { $push: { orders: { orderId: req.session.orderId, total: req.session.amount.adding } } }
+        )
+        .then(async () => {
+            let cartIt = await cartModel.findOne({ owner: userId }, { _id: 0, items: 1 });
+            // console.log(cartIt, "cartfghjkl;jhgjkljhgfdsfghjhgfh"); true
+            for (let i = 0; i < cartIt.items.length; i++) {
+                const id = cartIt.items[i].productId;
+                const qty = cartIt.items[i].quantity;
+                await inventory(id, qty);
+                console.log("inventory       11");
             }
-        );
-        console.log(couponAdd, "couponAdd");
-    }
+        })
+        .then(async () => {
+            await cartModel.findOneAndUpdate({ owner: userId }, { $set: { items: [], cartPrice: 0 } });
+        });
+    console.log(userAdd, "userAddd");
     console.log(coupon, "coupon");
 
     // req.session.orderId = process;
@@ -1058,10 +1097,24 @@ const success = async (req, res) => {
 };
 
 const orderView = async (req, res) => {
+    const userId = req.params.id;
     let user_details = req.session.user_login;
     let order = await orderModel.find({ user: req.session.user_login._id });
     console.log(order);
-    res.render("user/orderList", { user_details, order });
+    res.render("user/order_List", { user_details, order });
+};
+
+const orderViewCheck = async (req, res) => {
+    const userId = req.params.id;
+    let orderCheck = await orderModel.findOne({ user: userId });
+    console.log(orderCheck);
+    if (orderCheck) {
+        console.log(11);
+        res.json({ scc: true });
+    } else {
+        res.json({ status: true });
+        console.log(44);
+    }
 };
 
 const orderDetails = async (req, res) => {
@@ -1123,6 +1176,7 @@ module.exports = {
     checkoutReview,
     success,
     orderView,
+    orderViewCheck,
     orderDetails,
     payment,
 };

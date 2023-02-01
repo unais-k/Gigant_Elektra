@@ -1,6 +1,6 @@
 let userId = require("../models/userSchema");
 
-const sessionCheck = async (req, res, next) => {
+exports.sessionCheck = async (req, res, next) => {
     console.log(" session check");
     console.log(req.session.user_login);
     if (req.session.user_login || req.session.otpverifyed) {
@@ -12,7 +12,7 @@ const sessionCheck = async (req, res, next) => {
     }
 };
 
-const sessionCheckAxios = async (req, res, next) => {
+exports.sessionCheckAxios = async (req, res, next) => {
     if (req.session.user_login) {
         if (await userId.findOne({ _id: req.session.user_login._id, block: false })) {
             console.log("Axios session is ready");
@@ -27,7 +27,7 @@ const sessionCheckAxios = async (req, res, next) => {
     }
 };
 
-const user_login = async (req, res, next) => {
+exports.user_login = async (req, res, next) => {
     if (req.session.user_login || req.session.otpverifyed) {
         if (await userId.findOne({ _id: req.session.user_login._id, block: false })) next();
     } else {
@@ -36,13 +36,13 @@ const user_login = async (req, res, next) => {
     }
 };
 
-const admin_login = async (req, res, next) => {
-    if (req.session.admin_login) {
+exports.adminSession = async (req, res, next) => {
+    if (req.session.adminLogin) {
         next();
     } else {
-        req.session.admin_login = false;
+        req.session.adminLoginError = false;
         res.redirect("/admin");
     }
 };
 
-module.exports = { user_login, sessionCheck, sessionCheckAxios, admin_login };
+// module.exports = { user_login, sessionCheck, sessionCheckAxios, adminSession };

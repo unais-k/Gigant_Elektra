@@ -47,6 +47,10 @@ const orderSchema = new mongoose.Schema(
             type: Date,
             default: Date.now,
         },
+        coupon: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "coupon",
+        },
     },
     {
         timestamps: true,
