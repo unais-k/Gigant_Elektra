@@ -6,6 +6,7 @@ const logger = require("morgan");
 const session = require("express-session");
 const nocache = require("nocache");
 const db = require("./config/connection");
+const flash = require("connect-flash");
 const userRouter = require("./routes/userRouter");
 const adminRouter = require("./routes/adminRouter");
 require("dotenv");
@@ -16,6 +17,7 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(flash());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

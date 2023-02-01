@@ -223,7 +223,7 @@
                                                         <td>#<%= Math.round(Math.random() * 4685 + i )%></td>
                                                         <td><%=order[i].user.userName%></td>
                                                         <td><%=order[i].updatedAt.toLocaleDateString()%></td>
-                                                        <td><%=order[i].total%></td>
+                                                        <td><span>$</span><%=order[i].total%></td>
                                                         <td>
                                                             <span class="badge rounded-pill bg-soft-orange"
                                                                 ><%=order[i].order_status%></span

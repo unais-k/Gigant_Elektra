@@ -109,7 +109,7 @@
                                             >6</span
                                         ></a
                                     >
-                                    <a class="list-group-items active" href="/profile/<%=user_details._id%>"
+                                    <a class="list-group-items active" href="/profile"
                                         ><i class="fa-regular fa-user pe-2"></i>Profile</a
                                     >
                                     <a class="list-group-items" href="/address"
@@ -220,8 +220,8 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
-            async function orderView(id) {
-                let result = await axios.post("/order_view_check/" + id).then((e) => {
+            async function orderView() {
+                let result = await axios.post("/order_view_check").then((e) => {
                     if (e.data.status == true) {
                         Swal.fire({
                             icon: "error",
@@ -229,7 +229,7 @@
                             text: "Nothing purchased yet!",
                         });
                     } else {
-                        if (e.data.scc) location.href = "/order_view/" + id;
+                        if (e.data.scc) location.href = "/order_view";
                     }
                 });
             }

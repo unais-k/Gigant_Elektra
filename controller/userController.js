@@ -180,7 +180,7 @@ const otpVerifyPost = async (req, res) => {
 
 const userProduct = async (req, res) => {
     user_details = req.session.user_login;
-    let productList = await productModel.find({});
+    let productList = await productModel.find({ delete: true }).sort({ _id: -1 });
     // const cartPro = await cartModel
     //     .findOne({ owner: mongoose.Types.ObjectId(user_details._id) })
     //     .populate("items.productId");
@@ -196,7 +196,7 @@ const userProduct = async (req, res) => {
 
 const showProductDetails = async (req, res) => {
     let productList;
-
+    let user_details = req.session.user_login;
     try {
         productList = await productModel.findOne({ _id: req.query.id });
 
@@ -290,7 +290,7 @@ const deleteWishlist = async (req, res) => {
 };
 
 const userHome = async (req, res, next) => {
-    let productList = await productModel.find({});
+    let productList = await productModel.find({}).sort({ _id: -1 });
     console.log(req.session.user_login, "helo session");
     user_details = req.session.user_login;
 
@@ -315,8 +315,8 @@ const userHome = async (req, res, next) => {
 };
 
 const profile = async (req, res) => {
-    let userId = req.params.id;
-    let user_details = await userModel.findOne({ _id: userId });
+    console.log(req.session.user_login);
+    let user_details = await userModel.findOne({ _id: req.session.user_login._id });
     res.render("user/profile", { user_details });
 };
 
@@ -1097,7 +1097,6 @@ const success = async (req, res) => {
 };
 
 const orderView = async (req, res) => {
-    const userId = req.params.id;
     let user_details = req.session.user_login;
     let order = await orderModel.find({ user: req.session.user_login._id });
     console.log(order);
@@ -1105,15 +1104,11 @@ const orderView = async (req, res) => {
 };
 
 const orderViewCheck = async (req, res) => {
-    const userId = req.params.id;
-    let orderCheck = await orderModel.findOne({ user: userId });
-    console.log(orderCheck);
+    let orderCheck = await orderModel.findOne({ user: req.session.user_login._id });
     if (orderCheck) {
-        console.log(11);
         res.json({ scc: true });
     } else {
         res.json({ status: true });
-        console.log(44);
     }
 };
 

@@ -10,6 +10,7 @@ const orderModel = require("../models/orderSchema");
 const cartModel = require("../models/cartSchema");
 const adminModel = require("../models/adminSchema");
 // const vendorModel = require("../models/vendorSchema");
+const flash = require("connect-flash");
 
 const adminLogin = (req, res) => {
     res.render("admin/adminLogin", { message: false });
@@ -48,29 +49,22 @@ const category = async (req, res) => {
 
 const addCategory = (req, res) => {
     // const category = categoryModel.find({});
-    res.render("admin/addCategory", { message: false, categoryId: false });
+    let message = req.flash("message");
+    if (message) res.render("admin/addCategory", { message });
+    else res.render("admin/addCategory", { message: false });
 };
 
 const addCategoryPost = async (req, res, next) => {
-    const categoryname = req.body.category;
     const categoryDescription = req.body.description;
     const vendor = req.body.checkbox;
-    console.log(req.body);
-    let categoryCheck = await categoryModel.findOne({ categoryname: categoryname });
-    // let vendorname = await categoryModel.findOne({ vendor: vendor });
+    const categoryname = req.body.category;
+    let name = new RegExp(`^${categoryname}`, "i");
+    let categoryCheck = await categoryModel.findOne({ categoryname: { $regex: name } });
+    console.log(categoryCheck);
     console.log("category adding");
-    // if (categoryCheck) {
-    //     console.log("category already exist ");
-    //     // await categoryModel.updateOne({ categoryname: categoryname }, { $push: { vendor: { $each: [vendor] } } });
-    //     // await categoryModel.updateOne({ categoryname: categoryname }, { $push: { Brand: vendor } });
-    //     res.render("admin/addCategory", { message: "category already exist" });
-    // } else {
-    //     next();
-
-    // }
     if (categoryCheck) {
-        console.log("2nd if");
-        res.render("admin/addCategory", { message: "category already exist" });
+        req.flash("message", "Category already exist");
+        res.redirect("/admin/addCategory");
     } else {
         await categoryModel.create({
             categoryname: categoryname,
@@ -78,12 +72,13 @@ const addCategoryPost = async (req, res, next) => {
             Brand: vendor,
         });
         console.log("category added");
-        res.render("admin/addCategory", { message: false });
+        req.flash("message", "new Category added");
+        res.redirect("/admin/addCategory");
     }
 };
 
 const showProducts = async (req, res) => {
-    let productList = await productModel.find({});
+    let productList = await productModel.find({}).sort({ _id: -1 });
     let categoryList = await categoryModel.find({});
     res.render("admin/showProducts", { productList, categoryList });
 };
@@ -155,7 +150,7 @@ const deleteProduct = async (req, res) => {
     console.log(done);
     if (done) {
         let block = await productModel.updateOne({ _id: productDelete }, { $set: { delete: false } });
-        let productList = await productModel.find({});
+        let productList = await productModel.find({}).sort({ _id: -1 });
         let categoryList = await categoryModel.find({});
         res.render("admin/showProducts", { productList, categoryList });
     } else {
@@ -169,7 +164,7 @@ const activateProduct = async (req, res) => {
     console.log(done);
     if (done) {
         let block = await productModel.updateOne({ _id: productDelete }, { $set: { delete: true } });
-        let productList = await productModel.find({});
+        let productList = await productModel.find({}).sort({ _id: -1 });
         let categoryList = await categoryModel.find({});
         res.render("admin/showProducts", { productList, categoryList });
     } else {

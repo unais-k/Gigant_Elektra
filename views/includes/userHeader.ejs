@@ -55,7 +55,7 @@
                         <li>
                             <a href="/wishlist"><i class="far fa-heart"></i></a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <select>
                                 <option>English</option>
                                 <option>Deutsch</option>
@@ -69,7 +69,7 @@
                                 <option>£ UKP</option>
                                 <option>¥ JPY</option>
                             </select>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -131,7 +131,7 @@
                                     <ul>
                                         <li><a href="/login">Login / Register</a></li>
                                         <li><a href="password-recovery">Password Recovery</a></li>
-                                        <li><a href="orders">Orders List</a></li>
+                                        <li><a href="/order">Orders List</a></li>
                                         <li><a href="wishlist">Wishlist</a></li>
                                         <li><a href="/profile">Profile Page</a></li>
                                         <!-- <li><a href="address">Contact / Shipping Address</a></li>
@@ -144,9 +144,9 @@
                                     <ul>
                                         <li><a href="login-register">Login / Register</a></li>
                                         <li><a href="password-recovery">Password Recovery</a></li>
-                                        <li><a href="orders">Orders List</a></li>
-                                        <li><a href="wishlist">Wishlist</a></li>
-                                        <li><a href="profile">Profile Page</a></li>
+                                        <li><a href="/order_view">Orders List</a></li>
+                                        <li><a href="/wishlist">Wishlist</a></li>
+                                        <li><a href="/profile">Profile Page</a></li>
                                         <!-- <li><a href="address">Contact / Shipping Address</a></li>
                                         <li><a href="tickets">My Tickets</a></li>
                                         <li><a href="single-ticket">Single Ticket</a></li> -->
@@ -185,67 +185,18 @@
                             <!-- attribute navigation -->
                             <div class="attr-nav">
                                 <ul>
-                                    <li class="dropdown me-3 me-lg-0">
-                                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-                                            <i class="fa-solid fa-bag-shopping"></i>
-                                            <span class="badge bg-primary">3</span>
-                                        </a>
-                                        <ul class="dropdown-menu cart-list">
-                                            <li>
-                                                <a href="#" class="photo"
-                                                    ><img
-                                                        src="/images/user/products/cart-thumbs/cart-thumb-01.jpg"
-                                                        class="cart-thumb"
-                                                        alt="..."
-                                                /></a>
-                                                <h6><a href="#">Men's Football Boots </a></h6>
-                                                <p>2x - <span class="price">$30.00</span></p>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="photo"
-                                                    ><img
-                                                        src="/images/user/products/cart-thumbs/cart-thumb-02.jpg"
-                                                        class="cart-thumb"
-                                                        alt="..."
-                                                /></a>
-                                                <h6><a href="#">Sun Protection Cap</a></h6>
-                                                <p>1x - <span class="price">$10.20</span></p>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="photo"
-                                                    ><img
-                                                        src="/images/user/products/cart-thumbs/cart-thumb-03.jpg"
-                                                        class="cart-thumb"
-                                                        alt="..."
-                                                /></a>
-                                                <h6><a href="#">Heel Character Shoes</a></h6>
-                                                <p>2x - <span class="price">$39.00</span></p>
-                                            </li>
-                                            <% if (user_details) { %>
-                                            <li class="total bg-primary">
-                                                <span class="float-start"><strong>Total</strong>: $79.20</span>
-                                                <a
-                                                    href="/cart/<%=user_details._id%>"
-                                                    class="butn-style2 small white float-end w-auto"
-                                                    ><span>View Cart</span></a
-                                                >
-                                            </li>
-                                            <% } else { %>
-                                            <li class="total bg-primary">
-                                                <span class="float-start"><strong>Total</strong>: $79.20</span>
-                                                <a href="/login" class="butn-style2 small white float-end w-auto"
-                                                    ><span>View Cart</span></a
-                                                >
-                                            </li>
-                                            <% } %>
-                                        </ul>
+                                    <li>
+                                        <a href="/cart"
+                                            ><i class="fa-solid fa-bag-shopping"></i>
+                                            <span class="badge bg-primary">3</span></a
+                                        >
                                     </li>
+
                                     <li class="search">
                                         <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
                                     </li>
                                 </ul>
                             </div>
-                            <!-- end attribute navigation -->
                         </nav>
                     </div>
                 </div>

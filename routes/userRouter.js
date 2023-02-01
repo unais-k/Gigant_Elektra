@@ -63,13 +63,13 @@ router.get("/userProduct", userProduct);
 
 router.get("/productDetails", showProductDetails);
 
-router.get("/profile/:id", sessionCheck, profile);
+router.get("/profile", sessionCheck, profile);
 
 router.get("/wishlist", sessionCheck, wishlist);
 
 router.post("/add_to_wishlist", sessionCheck, addToWishlist);
 
-router.delete("/delete_wishlist", deleteWishlist);
+router.delete("/delete_wishlist", sessionCheck, deleteWishlist);
 
 router.post("/otp_verify", otpVerify);
 
@@ -87,7 +87,7 @@ router.post("/address_first", sessionCheck, firstAddress);
 
 router.delete("/delete_address/:id", sessionCheck, deleteAddress);
 
-router.get("/cart/:id", sessionCheck, cart);
+router.get("/cart", sessionCheck, cart);
 
 router.post("/couponCheck", sessionCheck, coponCheck);
 
@@ -97,13 +97,13 @@ router.post("/add_to_cart_shop", sessionCheck, addToCartShop);
 
 router.post("/quantity_change", sessionCheck, quantityChange);
 
-router.delete("/delete_cart", deleteCart);
+router.delete("/delete_cart", sessionCheck, deleteCart);
 
 router.get("/checkout/:id", sessionCheck, checkout);
 
 router.get("/address_confirm/:id", sessionCheck, shipping);
 
-router.post("/shipping_charge", shippingCharge);
+router.post("/shipping_charge", sessionCheck, shippingCharge);
 
 router.get("/payment", sessionCheck, payment);
 
@@ -113,9 +113,9 @@ router.get("/order_review", sessionCheck, checkoutReview);
 
 router.get("/success", sessionCheck, success);
 
-router.get("/order_view/:id", sessionCheck, orderView);
+router.get("/order_view", sessionCheck, orderView);
 
-router.post("/order_view_check/:id", sessionCheck, orderViewCheck);
+router.post("/order_view_check", sessionCheck, orderViewCheck);
 
 router.get("/order_details/:id", sessionCheck, orderDetails);
 
