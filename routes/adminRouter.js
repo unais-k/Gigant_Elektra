@@ -37,6 +37,7 @@ const {
     revokeCoupon,
     order,
     orderDetails,
+    paymentStatus,
 } = require("../controller/adminController");
 
 router.get("/", adminLogin);
@@ -96,6 +97,8 @@ router.delete("/delete_coupon", adminSession, deleteCoupon);
 router.get("/order", adminSession, order);
 
 router.get("/order_details/:id", adminSession, orderDetails);
+
+router.post("/payment_status", adminSession, paymentStatus);
 
 router.get("/logout", logout);
 

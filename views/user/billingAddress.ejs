@@ -385,7 +385,7 @@
                                                     </p>
                                                     <div class="collapse" id="collapseExample<%=i%>">
                                                         <div class="card card-body">
-                                                            <form method="patch" id="checkout-form" novalidate="novalidate">
+                                                            <form method="post" id="checkout-form" novalidate="novalidate">
                                                                 <input
                                                                     type="text"
                                                                     value="<%=Add.address[i]._id%>"
@@ -726,7 +726,7 @@
                                                 <label>Country</label>
                                                 <select name="country" class="form-control form-select">
                                                     <option value="" selected="selected">Select a country</option>
-                                                    <option value="IN">India</option>
+                                                    <option value="INDIA">India</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -886,8 +886,8 @@
                 });
             });
 
-            $("#checkout-form").submit((el) => {
-                el.preventDefault();
+            $("#checkout-form").submit(() => {
+                event.preventDefault();
                 let response = axios({
                     url: "/edit_address",
                     method: "post",

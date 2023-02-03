@@ -44,6 +44,8 @@ const {
     orderView,
     orderDetails,
     orderViewCheck,
+    createorder,
+    verifyPaypal,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -81,7 +83,7 @@ router.post("/address_post", sessionCheck, personalAddressPost);
 
 router.post("/edit_address", sessionCheck, editAddress);
 
-router.post("/editing_address/:id", sessionCheck, editingAddress);
+// router.post("/editing_address/:id", sessionCheck, editingAddress);
 
 router.post("/address_first", sessionCheck, firstAddress);
 
@@ -108,6 +110,10 @@ router.post("/shipping_charge", sessionCheck, shippingCharge);
 router.get("/payment", sessionCheck, payment);
 
 router.post("/order_post", sessionCheck, paymentPost);
+
+router.post("/create-order", sessionCheck, createorder);
+
+router.post("/paypal_post", sessionCheck, verifyPaypal);
 
 router.get("/order_review", sessionCheck, checkoutReview);
 

@@ -361,7 +361,7 @@ const order = async (req, res) => {
 
 const orderDetails = async (req, res) => {
     let id = req.params.id;
-    let details = await orderModel.findOne({ _id: id }).populate("items.productId");
+    let details = await orderModel.findOne({ _id: id }).populate("items.productId").populate("user");
     console.log(details);
     if (details) {
         for (let i = 0; i < details.items.length; i++) {
@@ -376,6 +376,38 @@ const orderDetails = async (req, res) => {
     // let ObjId = details._id.toString("").slice(0, 5);
 
     res.render("admin/order_details", { details, cart });
+};
+
+const inventory = (productId, qntity) => {
+    return new Promise((resolve, reject) => {
+        productModel.findOneAndUpdate({ _id: productId }, { $inc: { quantity: qntity } }).then(() => {
+            resolve();
+        });
+    });
+};
+
+const paymentStatus = async (req, res) => {
+    let bo = req.query.id;
+    let bod = req.body.status;
+    let change = await orderModel.findOneAndUpdate({ _id: bo }, { $set: { order_status: bod } }).then(async () => {
+        if (bod == "Completed") {
+            let change = await orderModel.findOneAndUpdate({ _id: bo }, { $set: { order_status: bod } }).then(() => {
+                res.json({ complete: true });
+            });
+        } else if (bod == "Cancelled") {
+            let addQty = await orderModel.findOne({ _id: bo }).populate("items.productId");
+            for (let i = 0; i < addQty.items.length; i++) {
+                const element = addQty.items[i];
+                console.log(element);
+                let id = element.productId;
+                let qty = element.quantity;
+                inventory(id, qty);
+            }
+            res.json({ cancel: true });
+        } else if (bod == "Pending Payment") {
+            res.json({ status: true });
+        }
+    });
 };
 
 const logout = (req, res) => {
@@ -413,5 +445,6 @@ module.exports = {
     deleteCoupon,
     order,
     orderDetails,
+    paymentStatus,
     logout,
 };
