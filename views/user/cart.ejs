@@ -80,16 +80,16 @@
         ================================================== -->
             <section class="md">
                 <div class="container">
+                    <% if (cartItems.items.length) { %>
                     <div class="row">
                         <div class="col-12 border-bottom py-1-9 py-lg-2-3 mb-md-4 mb-lg-0">
-                            <!-- <button class="butn-style2 small bg-color mb-2 mb-md-0"><span>Empty Cart</span></button> -->
                             <a href="/userProduct">
                                 <button class="butn-style2 small bg-color float-end ms-2 mb-2 mb-md-0">
                                     <span><i class="fa-solid fa-shop me-2"></i>Continue Shopping</span>
                                 </button></a
                             >
                         </div>
-                        <!-- product table -->
+
                         <div class="col-12 shop-cart-table">
                             <table class="table shop-cart text-center">
                                 <colgroup>
@@ -100,7 +100,6 @@
                                     <col width="100" />
                                     <col width="1" />
                                 </colgroup>
-
                                 <thead>
                                     <tr>
                                         <th class="first"></th>
@@ -112,8 +111,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% if (cartItems) { %> <% for( let i = 0; i < cartItems.items.length; i++ ) { %>
-
+                                    <% for( let i = 0; i < cartItems.items.length; i++ ) { %>
                                     <tr>
                                         <td class="product-thumbnail text-start">
                                             <a href="#"
@@ -123,7 +121,7 @@
                                         <td class="text-start">
                                             <a href="#"><%=cartItems.items[i].productId.productName%></a>
                                             <!-- <span class="text-uppercase d-block">SKU: 290397</span>
-                                            <a href="#" class="display-31"><i class="fas fa-edit"></i> Edit</a> -->
+                                                <a href="#" class="display-31"><i class="fas fa-edit"></i> Edit</a> -->
                                         </td>
                                         <td class="text-start"><span>$</span> <%=cartItems.items[i].productId.price%></td>
                                         <td class="product-quantity">
@@ -170,7 +168,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                         <div class="col-12 cart-total pt-1-9 pt-lg-2-3">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 mb-1-9 mb-md-0">
@@ -219,7 +216,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-lg-6 offset-lg-1 col-md-7 offset-md-0">
                                     <table class="table cart-sub-total">
                                         <tbody>
@@ -263,15 +259,18 @@
                                 </div>
                             </div>
                         </div>
-                        <% } else { %>
+                    </div>
+                    <% } else { %>
+                    <div class="row">
                         <div>
                             <h1>Your cart is Empty</h1>
                             <br /><br />
                             <a class="butn-style2 p-2 m-3" href="/userProduct">Go to shop</a>
                             <a class="butn-style2 p-2 m-3" href="/">Go to Home</a>
                         </div>
-                        <% } %>
                     </div>
+
+                    <% } %>
                 </div>
             </section>
 

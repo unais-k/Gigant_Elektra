@@ -11,6 +11,8 @@ const cartModel = require("../models/cartSchema");
 const adminModel = require("../models/adminSchema");
 // const vendorModel = require("../models/vendorSchema");
 const flash = require("connect-flash");
+const addressModel = require("../models/addressSchema");
+const { default: mongoose } = require("mongoose");
 
 const adminLogin = (req, res) => {
     res.render("admin/adminLogin", { message: false });
@@ -353,7 +355,7 @@ const deleteCoupon = async (req, res) => {
 };
 
 const order = async (req, res) => {
-    let order = await orderModel.find({}).populate("user").populate("items.productId");
+    let order = await orderModel.find({}).populate("user").populate("items.productId").sort({ _id: -1 });
     let orderId = Math.round(Math.random() * 4685);
 
     res.render("admin/order", { order, orderId });
@@ -362,7 +364,10 @@ const order = async (req, res) => {
 const orderDetails = async (req, res) => {
     let id = req.params.id;
     let details = await orderModel.findOne({ _id: id }).populate("items.productId").populate("user");
-    console.log(details);
+    let addre = details.address;
+    let address = await addressModel.findOne({ "address._id": addre });
+    let index = address.address.findIndex((obj) => obj._id == addre.toString());
+    let finalAddress = address.address[index];
     if (details) {
         for (let i = 0; i < details.items.length; i++) {
             let items = details.items[i]._id;
@@ -375,7 +380,7 @@ const orderDetails = async (req, res) => {
     console.log(cart);
     // let ObjId = details._id.toString("").slice(0, 5);
 
-    res.render("admin/order_details", { details, cart });
+    res.render("admin/order_details", { details, cart, finalAddress });
 };
 
 const inventory = (productId, qntity) => {
@@ -403,11 +408,14 @@ const paymentStatus = async (req, res) => {
                 let qty = element.quantity;
                 inventory(id, qty);
             }
+            let change = await orderModel.findOneAndUpdate({ _id: bo }, { $set: { order_status: bod } });
             res.json({ cancel: true });
         } else if (bod == "Pending Payment") {
+            let change = await orderModel.findOneAndUpdate({ _id: bo }, { $set: { order_status: bod } });
             res.json({ status: true });
         }
     });
+    // res.json({ status: true });
 };
 
 const logout = (req, res) => {

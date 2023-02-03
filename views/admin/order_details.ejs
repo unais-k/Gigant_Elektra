@@ -164,6 +164,77 @@
                                     </div>
                                     <div class="card-body">
                                         <form id="paymentStatus" method="post">
+                                            <% if (details.order_status=="Completed") { %>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="validationCustom01">Status</label>
+                                                        <div>
+                                                            <input type="text" class="form-control" value="Completed" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label>Date Created</label>
+                                                        <div>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                value="<%=details.createdAt.toLocaleString()%>"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Date Updated</label>
+                                                        <div>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                value="<%=details.updatedAt.toLocaleString()%>"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% } else if (details.order_status=="Cancelled") { %>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label for="validationCustom01">Status</label>
+                                                        <div>
+                                                            <input type="text" class="form-control" value="Cancelled" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 mb-2">
+                                                    <div class="form-group">
+                                                        <label>Date Created</label>
+                                                        <div>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                value="<%=details.createdAt.toLocaleString()%>"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Date Updated</label>
+                                                        <div>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                value="<%=details.updatedAt.toLocaleString()%>"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% } else { %>
                                             <div class="row">
                                                 <div class="col-md-12 mb-2">
                                                     <div class="form-group">
@@ -179,6 +250,18 @@
                                                             <option value="Cancelled">Cancelled</option>
                                                         </select>
                                                     </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <div class="form-group">
+                                                            <label>Date Created</label>
+                                                            <div>
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    value="<%=details.createdAt.toLocaleString()%>"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-6 mb-2">
                                                     <button id="fomrbtn" class="btn btn-primary" type="submit">
@@ -186,6 +269,7 @@
                                                     </button>
                                                 </div>
                                             </div>
+                                            <% } %>
                                         </form>
                                     </div>
                                 </div>
@@ -215,17 +299,17 @@
                                             <div class="col-lg-auto ps-xl-5">
                                                 <h6 class="fw-bold text-uppercase mb-3">shipping</h6>
                                                 <ul class="list-unstyled ps-0">
-                                                    <li>Street Name Example</li>
-                                                    <li>2233</li>
-                                                    <li>Detroit</li>
-                                                    <li>Michigan</li>
-                                                    <li>56218</li>
-                                                    <li>UK</li>
+                                                    <li><%=finalAddress.name%></li>
+                                                    <li><%=finalAddress.lastname%></li>
+                                                    <li><%=finalAddress.address%></li>
+                                                    <li><%=finalAddress.city%></li>
+                                                    <li><%=finalAddress.pincode%></li>
+                                                    <li><%=finalAddress.country%></li>
                                                 </ul>
                                                 <strong class="d-block">Email address:</strong>
-                                                <a href="#">name@domain.com</a>
+                                                <a href="#"><%=finalAddress.email%></a>
                                                 <strong class="d-block mt-3">Phone:</strong>
-                                                <a href="#5551234">1234-5678</a>
+                                                <a href="#"><%=finalAddress.phone%></a>
                                             </div>
                                         </div>
                                     </div>
@@ -265,7 +349,7 @@
                                                         <td class="text-end">$<%=details.items[i].totalPrice%>.00</td>
                                                     </tr>
                                                     <% } %>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td class="ps-4">
                                                             <a href="#"><strong>290398</strong></a>
                                                         </td>
@@ -282,7 +366,7 @@
                                                         <td class="text-end">$19.50</td>
                                                         <td class="text-end">1</td>
                                                         <td class="text-end">$19.50</td>
-                                                    </tr>
+                                                    </tr> -->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -292,7 +376,7 @@
                                                 <span class="d-flex align-items-center">
                                                     <%=details.items.length%> Items
                                                     <i class="fas fa-chevron-right f-s-11 text-primary px-3"></i>
-                                                    <b>$<%=cart.cartPrice%>.00</b>
+                                                    <b>$<%=details.cartTotal%>.00</b>
                                                 </span>
                                             </div>
                                             <div class="col-auto me-5">
@@ -337,22 +421,77 @@
 
         <script>
             // const method = $('input[type="radio"][name="payment"]:checked').val();
+
             const form = document.getElementById("paymentStatus");
             form.addEventListener("submit", (e) => {
                 e.preventDefault();
                 const formData = new FormData(form);
                 const formProps = Object.fromEntries(formData);
-                console.log(formProps);
-                axios
-                    .post("/admin/payment_status?id=<%=details._id%>", formProps)
-                    .then((res) => {
-                        if (res.data.complete) {
-                            document.getElementById("fomrbtn").style.visibility = "hidden";
+                console.log(formProps, "aaaa");
+                if ({ status: "Cancelled" }) {
+                    console.log(1111);
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, do it!",
+                    }).then(async (result) => {
+                        console.log(2222);
+                        if (result.isConfirmed) {
+                            await axios.post("/admin/payment_status?id=<%=details._id%>", formProps).then((res) => {
+                                if (res.data.cancel) {
+                                    Swal.fire("Cancel!", "This order has been canceld.", "success");
+                                    location.reload();
+                                    document.getElementById("fomrbtn").style.visibility = "hidden";
+                                }
+                            });
                         }
-                    })
-                    .catch((err) => {
-                        console.log(err);
                     });
+                } else if ({ status: "Completed" }) {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Yes, Do it!",
+                    }).then(async (result) => {
+                        if (result.isConfirmed) {
+                            await axios.post("/admin/payment_status?id=<%=details._id%>", formProps).then((res) => {
+                                if (res.data.complete) {
+                                    Swal.fire("Completed!", "This order has been completed.", "success");
+                                }
+                                document.getElementById("fomrbtn").style.visibility = "hidden";
+                                location.reload();
+                            });
+                        }
+                    });
+                } else {
+                    axios
+                        .post("/admin/payment_status?id=<%=details._id%>", formProps)
+                        .then((res) => {
+                            console.log(4444);
+                            if (res.data.status) {
+                                Swal.fire({
+                                    title: "Wake up!!",
+                                    text: "What are you doing!",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Yes, Do it!",
+                                });
+                                // document.getElementById("fomrbtn").style.visibility = "hidden";
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
             });
         </script>
 

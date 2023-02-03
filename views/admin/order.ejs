@@ -210,10 +210,10 @@
                                                         <th>Date</th>
                                                         <th>Total</th>
                                                         <th>Order Status</th>
-                                                        <th>Payment Status</th>
                                                         <th>Payment Method</th>
+                                                        <th>Payment Status</th>
                                                         <th>View Details</th>
-                                                        <th>Action</th>
+                                                        <!-- <th>Action</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -224,21 +224,22 @@
                                                         <td><%=order[i].user.userName%></td>
                                                         <td><%=order[i].updatedAt.toLocaleDateString()%></td>
                                                         <td><span>$</span><%=order[i].total%></td>
+                                                        <% if (order[i].order_status == "Completed") { %>
                                                         <td>
-                                                            <span class="badge rounded-pill bg-soft-orange"
+                                                            <span class="badge rounded-pill bg-soft-green"
                                                                 ><%=order[i].order_status%></span
                                                             >
                                                         </td>
-                                                        <% if (order[i].payment_status == "pending") { %>
+                                                        <% } else if (order[i].order_status == "Cancelled") { %>
                                                         <td>
-                                                            <span class="badge rounded-pill bg-soft-orange"
-                                                                ><%=order[i].payment_status%></span
+                                                            <span class="badge rounded-pill bg-soft-pink"
+                                                                ><%=order[i].order_status%></span
                                                             >
                                                         </td>
                                                         <% } else { %>
                                                         <td>
-                                                            <span class="badge rounded-pill bg-soft-green"
-                                                                ><%=order[i].payment_status%></span
+                                                            <span class="badge rounded-pill bg-soft-orange"
+                                                                ><%=order[i].order_status%></span
                                                             >
                                                         </td>
                                                         <% } %> <% if (order[i].payment_method == "paypal") { %>
@@ -252,6 +253,18 @@
                                                             <!-- ejs of payment_method -->
                                                             C O D
                                                         </td>
+                                                        <% } %> <% if (order[i].payment_status == "pending") { %>
+                                                        <td>
+                                                            <span class="badge rounded-pill bg-soft-orange"
+                                                                ><%=order[i].payment_status%></span
+                                                            >
+                                                        </td>
+                                                        <% } else { %>
+                                                        <td>
+                                                            <span class="badge rounded-pill bg-soft-green"
+                                                                ><%=order[i].payment_status%></span
+                                                            >
+                                                        </td>
                                                         <% } %>
 
                                                         <td>
@@ -264,7 +277,7 @@
                                                                 </button>
                                                             </a>
                                                         </td>
-                                                        <td>
+                                                        <!-- <td>
                                                             <a
                                                                 href="#"
                                                                 class="me-3"
@@ -274,18 +287,18 @@
                                                             >
                                                                 <i class="far fa-edit text-primary ps-3"></i>
                                                             </a>
-                                                            <!-- <a
+                                                            <a
                                                                 href="#"
                                                                 data-bs-toggle="tooltip"
                                                                 data-bs-placement="top"
                                                                 title="Delete"
                                                             >
                                                                 <i class="far fa-trash-alt text-danger"></i>
-                                                            </a> -->
-                                                        </td>
+                                                            </a> 
+                                                        </td> -->
                                                     </tr>
                                                     <% } %>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td><a href="#">#SK2541</a></td>
                                                         <td>Carl M. Gaier</td>
                                                         <td>19 Mar, 2022</td>
@@ -584,7 +597,7 @@
                                                                 <i class="far fa-trash-alt text-danger"></i>
                                                             </a>
                                                         </td>
-                                                    </tr>
+                                                    </tr> -->
                                                 </tbody>
                                             </table>
                                         </div>

@@ -8,7 +8,7 @@ const { sendotp, verifyotp } = require("../config/otp");
 const { response } = require("express");
 const cartModel = require("../models/cartSchema");
 const wishlistModel = require("../models/wishlistSchema");
-const { count } = require("../models/userSchema");
+const { count, find } = require("../models/userSchema");
 const addressModel = require("../models/addressSchema");
 const orderModel = require("../models/orderSchema");
 const couponModel = require("../models/couponSchema");
@@ -570,59 +570,58 @@ const addToCartHome = async (req, res, next) => {
     let response = null;
     let productId = req.body.id;
     const findProduct = await productModel.findOne({ _id: productId });
-    console.log("findproduct" + findProduct);
     let findUser = await cartModel.findOne({ owner: userId });
-    console.log("find user" + findUser);
-    if (!findUser) {
-        console.log(" creating cart");
-        let addCart = await cartModel
-            .create({
-                owner: userId,
-                items: [
-                    {
-                        productId: findProduct._id,
-                        totalPrice: findProduct.price,
-                    },
-                ],
-                cartPrice: findProduct.price,
-            })
-            .then((data) => {
-                res.json({ response: true });
-            });
-        console.log(addCart);
-    } else {
-        if (findUser) {
-            console.log("sdfghjkl");
-            let productExist = await cartModel.findOne({ owner: userId, "items.productId": productId });
-            if (productExist) {
-                console.log("productexiatS");
-                res.json({ response: "productExist" });
-            } else {
-                console.log(1234567);
-                const newProduct = await cartModel
-                    .findOneAndUpdate(
-                        { owner: userId },
+    if (findProduct.quantity) {
+        if (!findUser) {
+            console.log(" creating cart");
+            let addCart = await cartModel
+                .create({
+                    owner: userId,
+                    items: [
                         {
-                            $push: {
-                                items: {
-                                    productId: findProduct._id,
-                                    totalPrice: findProduct.price,
-                                },
-                            },
-                            $inc: {
-                                cartPrice: findProduct.price,
-                            },
-                        }
-                    )
-                    .then((data) => {
-                        res.json({ status: true });
-                    });
-            }
+                            productId: findProduct._id,
+                            totalPrice: findProduct.price,
+                        },
+                    ],
+                    cartPrice: findProduct.price,
+                })
+                .then((data) => {
+                    res.json({ response: true });
+                });
+            console.log(addCart);
         } else {
-            console.log("error");
+            if (findUser) {
+                let productExist = await cartModel.findOne({ owner: userId, "items.productId": productId });
+                if (productExist) {
+                    console.log("productexiatS");
+                    res.json({ response: "productExist" });
+                } else {
+                    const newProduct = await cartModel
+                        .findOneAndUpdate(
+                            { owner: userId },
+                            {
+                                $push: {
+                                    items: {
+                                        productId: findProduct._id,
+                                        totalPrice: findProduct.price,
+                                    },
+                                },
+                                $inc: {
+                                    cartPrice: findProduct.price,
+                                },
+                            }
+                        )
+                        .then((data) => {
+                            res.json({ status: true });
+                        });
+                }
+            } else {
+                console.log("error");
+            }
         }
+    } else {
+        res.json({ response: "Out of stock" });
     }
-
     // res.json({ response: true });
     // console.log(addCart);
     console.log("added to cart from home");
@@ -633,55 +632,57 @@ const addToCartShop = async (req, res) => {
     let response = null;
     let productId = req.body.id;
     const findProduct = await productModel.findOne({ _id: productId });
-    console.log("findproduct" + findProduct);
     let findUser = await cartModel.findOne({ owner: userId });
-    console.log("find user" + findUser);
-    if (!findUser) {
-        console.log(" creating cart");
-        let addCart = await cartModel
-            .create({
-                owner: userId,
-                items: [
-                    {
-                        productId: findProduct._id,
-                        totalPrice: findProduct.price,
-                    },
-                ],
-                cartPrice: findProduct.price,
-            })
-            .then((data) => {
-                res.json({ response: true });
-            });
-        console.log(addCart);
-    } else {
-        if (findUser) {
-            let productExist = await cartModel.findOne({ owner: userId, "items.productId": productId });
-            if (productExist) {
-                console.log("productexiatS");
-                res.json({ response: "productExist" });
-            } else {
-                const newProduct = await cartModel
-                    .findOneAndUpdate(
-                        { owner: userId },
+    if (findProduct.quantity) {
+        if (!findUser) {
+            console.log(" creating cart");
+            let addCart = await cartMode
+                .create({
+                    owner: userId,
+                    items: [
                         {
-                            $push: {
-                                items: {
-                                    productId: findProduct._id,
-                                    totalPrice: findProduct.price,
-                                },
-                            },
-                            $inc: {
-                                cartPrice: findProduct.price,
-                            },
-                        }
-                    )
-                    .then((data) => {
-                        res.json({ status: true });
-                    });
-            }
+                            productId: findProduct._id,
+                            totalPrice: findProduct.price,
+                        },
+                    ],
+                    cartPrice: findProduct.price,
+                })
+                .then((data) => {
+                    res.json({ response: true });
+                });
+            console.log(addCart);
         } else {
-            console.log("error");
+            if (findUser) {
+                let productExist = await cartModel.findOne({ owner: userId, "items.productId": productId });
+                if (productExist) {
+                    console.log("productexiatS");
+                    res.json({ response: "productExist" });
+                } else {
+                    const newProduct = await cartModel
+                        .findOneAndUpdate(
+                            { owner: userId },
+                            {
+                                $push: {
+                                    items: {
+                                        productId: findProduct._id,
+                                        totalPrice: findProduct.price,
+                                    },
+                                },
+                                $inc: {
+                                    cartPrice: findProduct.price,
+                                },
+                            }
+                        )
+                        .then((data) => {
+                            res.json({ status: true });
+                        });
+                }
+            } else {
+                console.log("error");
+            }
         }
+    } else {
+        res.json({ response: "outofstock" });
     }
 
     // res.json({ response: true });
@@ -844,6 +845,9 @@ const checkout = async (req, res) => {
     let discount = req.session.coupon;
     let Add = await addressModel.findOne({ user: userId });
     let bill = await cartModel.findOne({ owner: userId });
+    let cartT = bill.cartPrice;
+    req.session.cartTotal = cartT;
+    console.log(bill, "12345678sdfghjkl");
     if (Add) {
         let Address = Add.address[0];
         console.log(Address);
@@ -993,6 +997,7 @@ const paymentPost = async (req, res) => {
                 order_status: "pending",
                 payment_status: "confirm",
                 payment_method: payment,
+                cartTotal: req.session.cartTotal,
                 coupon: req.session.couponAdded,
                 order_date: new Date(),
             })
@@ -1050,6 +1055,7 @@ const verifyPaypal = async (req, res) => {
             order_status: "pending",
             payment_status: "confirm",
             payment_method: "paypal",
+            cartTotal: req.session.cartTotal,
             coupon: req.session.couponAdded,
             order_date: new Date(),
         })

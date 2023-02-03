@@ -156,7 +156,7 @@
                                     <li>
                                         <a href="/login"><i class="fa-regular fa-user"></i></a>
                                     </li>
-                                    <%}%> <%if( cart.items == 0){%>
+                                    <%}%> <%if( cart.items>0){%>
                                     <li>
                                         <a href="/cart"> <i class="fa-solid fa-bag-shopping"></i></a>
                                     </li>
@@ -1422,6 +1422,14 @@
                             icon: "error",
                             title: "Oops...",
                             text: "Product already exist in cart",
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                    } else if (result.data.response == "Out of stock") {
+                        await Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Product out of stock",
                             showConfirmButton: false,
                             timer: 1000,
                         });
