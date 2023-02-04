@@ -95,8 +95,8 @@
                                                 alt="..."
                                             />
                                         </div>
-                                        <h6 class="mb-0 display-28">Peter Parker</h6>
-                                        <small>Joined February 06, 2017</small>
+                                        <h6 class="mb-0 display-28"><%=user_details.userName%></h6>
+                                        <!-- <small>Joined February 06, 2017</small> -->
                                         <div class="reward-points">
                                             <i class="fa-regular fa-star text-primary pe-1"></i> Points: 7386
                                         </div>
@@ -142,10 +142,36 @@
                                                 <th>Total</th>
                                                 <th>Actions</th>
                                                 <th>Details</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% for( let i = 0; i < order.length; i++ ) { %>
+                                            <% for( let i = 0; i < order.length; i++ ) { %> <% if (order[i].order_status ==
+                                            "pending") { %>
+
+                                            <tr>
+                                                <th><%=i+1%></th>
+                                                <td><%=order[i].updatedAt.toLocaleDateString()%></td>
+                                                <td>
+                                                    <span class="fas fa-circle text-primary small mr-1 pe-2"></span
+                                                    ><%=order[i].order_status%>
+                                                </td>
+                                                <td><span>$ </span><%=order[i].total%>.00</td>
+                                                <td>
+                                                    <a href="#" class="text-primary"><%=order[i].payment_method%></a>
+                                                </td>
+                                                <td>
+                                                    <a href="/order_details/<%=order[i]._id%>"
+                                                        ><i class="fa-solid fa-eye pe-2"></i>View</a
+                                                    >
+                                                </td>
+                                                <td>
+                                                    <button onclick="cancelOrder('<%=order[i]._id%>')" class="btn btn-dark">
+                                                        Cancel
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <% } else {%>
                                             <tr>
                                                 <th><%=i+1%></th>
                                                 <td><%=order[i].updatedAt.toLocaleDateString()%></td>
@@ -163,7 +189,7 @@
                                                     >
                                                 </td>
                                             </tr>
-                                            <% } %>
+                                            <% } %> <% } %>
                                         </tbody>
                                     </table>
                                 </div>
@@ -185,6 +211,35 @@
         <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
 
         <!-- all js include start -->
+
+        <!-- axios cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            function cancelOrder(id) {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, do it!",
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        await axios.post(`/cancel_order?id=${id}`).then((res) => {
+                            if (res.data.succ) {
+                                Swal.fire("Completed!", "This order has been Canceld.", "success");
+                            }
+                            location.reload();
+                        });
+                    }
+                });
+            }
+        </script>
 
         <!-- jQuery -->
         <script src="/js/user/jquery.min.js"></script>

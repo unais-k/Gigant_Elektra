@@ -170,69 +170,20 @@
                         </div>
                         <div class="col-12 cart-total pt-1-9 pt-lg-2-3">
                             <div class="row">
-                                <div class="col-lg-5 col-md-5 mb-1-9 mb-md-0">
-                                    <div id="accordion" class="accordion-style3">
-                                        <div class="card">
-                                            <div class="card-header" id="headingOne">
-                                                <h5 class="mb-0">
-                                                    <button
-                                                        class="btn btn-link"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#collapseOne"
-                                                        aria-expanded="true"
-                                                        aria-controls="collapseOne"
-                                                    >
-                                                        Coupon Code
-                                                    </button>
-                                                </h5>
-                                            </div>
-                                            <div
-                                                id="collapseOne"
-                                                class="collapse show"
-                                                aria-labelledby="headingOne"
-                                                data-bs-parent="#accordion"
-                                            >
-                                                <div class="card-body">
-                                                    <form id="couponForm" onsubmit="couponCheck()">
-                                                        <div class="row">
-                                                            <div class="col-sm-12 mb-2">
-                                                                <div class="form-group">
-                                                                    <label>Enter Your Coupon Code</label>
-                                                                    <input
-                                                                        type="text"
-                                                                        class="form-control"
-                                                                        name="couponcode"
-                                                                        id="coponCode"
-                                                                        placeholder="Enter Your Coupon Code"
-                                                                    />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <button type="submit" class="butn-style2 small">Apply Code</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 offset-lg-1 col-md-7 offset-md-0">
+                                <div class="col-md-6"></div>
+                                <div class="col-lg-6 border-1">
                                     <table class="table cart-sub-total">
                                         <tbody>
                                             <tr>
                                                 <th class="text-end pe-0 text-uppercase">Cart Subtotal</th>
                                                 <td id="SubcartPrice" class="text-uppercase text-end pe-0">
                                                     <span>$</span>
-                                                    <%=cartItems.cartPrice%>
+                                                    <%=cartItems.cartPrice%>.00
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th class="text-end pe-0 text-uppercase">Shipping and Handling</th>
                                                 <td class="text-uppercase text-end pe-0">$0.00</td>
-                                            </tr>
-                                            <tr>
-                                                <th class="text-end pe-0 text-uppercase">Discount</th>
-                                                <td id="discount" class="text-uppercase text-end pe-0">$0.00</td>
                                             </tr>
                                             <tr>
                                                 <td class="pe-0 p-0" colspan="2">
@@ -243,7 +194,7 @@
                                                 <th class="text-uppercase text-end pe-0 p-0">Order Total</th>
                                                 <td id="cartPrice" class="text-uppercase text-end pe-0 p-0">
                                                     <span>$</span>
-                                                    <%=cartItems.cartPrice%>
+                                                    <%=cartItems.cartPrice%>.00
                                                 </td>
                                             </tr>
                                             <tr>
@@ -310,18 +261,19 @@
                             icon: "error",
                             title: "product stock unavailable",
                             text: "Sorry , Product unavailable",
+                            showConfirmButton: false,
                         });
+                        location.reload();
                     }
-
                     document.getElementById(prodctId).value = response.data.qty;
                     document.getElementById("cartPrice").innerHTML = `$ ${response.data.cartPrice}`;
                     document.getElementById("SubcartPrice").innerHTML = `$ ${response.data.cartPrice}`;
                     document.getElementById("totalPrice" + prodctId).innerHTML = ` $ ${response.data.totalPrice} `;
-                    if (response.data.qty == 1) {
-                        document.getElementById("minusBtn" + prodctId).style.visibility = "hidden";
-                    } else {
-                        document.getElementById("minusBtn" + prodctId).style.visibility = "visible";
-                    }
+                    // if (response.data.qty == 1) {
+                    //     document.getElementById("minusBtn" + prodctId).style.visibility = "hidden";
+                    // } else {
+                    //     document.getElementById("minusBtn" + prodctId).style.visibility = "visible";
+                    // }
                 });
             }
 
@@ -355,43 +307,6 @@
                     toast.addEventListener("mouseleave", Swal.resumeTimer);
                 },
             });
-
-            async function couponCheck() {
-                let couponcode = document.getElementById("coponCode").value;
-                event.preventDefault();
-                if (couponcode != "") {
-                    let result = await axios.post("/couponCheck", {
-                        code: couponcode,
-                    });
-                    console.log(result);
-                    if (result.data.status == false) {
-                        await Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: result.data.Msg,
-                        });
-                        document.getElementById("coponCode").value = "";
-                    } else if (result.data.response.status) {
-                        await Toast.fire({
-                            icon: "success",
-                            title: "Coupen applied successfully",
-                            text: result.data.Msg,
-                        });
-                        document.getElementById("discount").style.color = "red";
-                        document.getElementById("discount").innerHTML = `- $ ${result.data.response.redeem}`;
-                        document.getElementById("cartPrice").innerHTML = `$ ${result.data.response.total}`;
-                        // document.getElementById("couponForm").reset();
-                        // location.href = "/admin/addCoupon";
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Something went wrong",
-                        });
-                        document.getElementById("coponCode").value = "";
-                    }
-                }
-            }
         </script>
 
         <!-- jQuery -->

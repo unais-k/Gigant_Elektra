@@ -221,11 +221,13 @@
                                         <% if (discount) { %>
                                         <tr>
                                             <th>Discount:</th>
-                                            <td class="text-danger"><span>- $</span><%=discount.redeem%>.00</td>
+                                            <td id="discount" class="text-danger">
+                                                <span>- $</span><%=discount.redeem%>.00
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td id="total" class="text-lg text-gray-dark">
+                                            <td id="cartPrice" class="text-lg text-gray-dark">
                                                 <span>$</span><%=discount.total%>.00
                                             </td>
                                         </tr>
@@ -239,6 +241,53 @@
                                         <% } %>
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div class="mb-3">
+                                <div id="accordion" class="accordion-style3">
+                                    <div class="card">
+                                        <div class="card-header" id="headingOne">
+                                            <h5 class="mb-0">
+                                                <button
+                                                    class="btn btn-link"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseOne"
+                                                    aria-expanded="true"
+                                                    aria-controls="collapseOne"
+                                                >
+                                                    Coupon Code
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div
+                                            id="collapseOne"
+                                            class="collapse"
+                                            aria-labelledby="headingOne"
+                                            data-bs-parent="#accordion"
+                                        >
+                                            <div class="card-body">
+                                                <form id="couponForm" onsubmit="couponCheck()">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 mb-2">
+                                                            <div class="form-group">
+                                                                <label>Enter Your Coupon Code</label>
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    name="couponcode"
+                                                                    id="coponCode"
+                                                                    placeholder="Enter Your Coupon Code"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="submit" class="butn-style2 small">Apply Code</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div>
@@ -272,6 +321,43 @@
 
         <!-- all js include start -->
         <script>
+            async function couponCheck() {
+                let couponcode = document.getElementById("coponCode").value;
+                event.preventDefault();
+                if (couponcode != "") {
+                    let result = await axios.post("/couponCheck", {
+                        code: couponcode,
+                    });
+                    console.log(result);
+                    if (result.data.status == false) {
+                        await Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: result.data.Msg,
+                        });
+                        document.getElementById("coponCode").value = "";
+                    } else if (result.data.response.status) {
+                        await Toast.fire({
+                            icon: "success",
+                            title: "Coupen applied successfully",
+                            text: result.data.Msg,
+                        });
+                        document.getElementById("discount").style.color = "red";
+                        document.getElementById("discount").innerHTML = `- $ ${result.data.response.redeem}`;
+                        document.getElementById("cartPrice").innerHTML = `$ ${result.data.response.total}`;
+                        // document.getElementById("couponForm").reset();
+                        // location.href = "/admin/addCoupon";
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong",
+                        });
+                        document.getElementById("coponCode").value = "";
+                    }
+                }
+            }
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: "center-end",

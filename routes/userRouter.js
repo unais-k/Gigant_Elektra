@@ -46,6 +46,7 @@ const {
     orderViewCheck,
     createorder,
     verifyPaypal,
+    cancelOrder,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -124,6 +125,8 @@ router.get("/order_view", sessionCheck, orderView);
 router.post("/order_view_check", sessionCheck, orderViewCheck);
 
 router.get("/order_details/:id", sessionCheck, orderDetails);
+
+router.post("/cancel_order", sessionCheck, cancelOrder);
 
 router.get("/logout", logout);
 

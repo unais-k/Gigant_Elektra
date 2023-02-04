@@ -12,21 +12,6 @@ exports.sessionCheck = async (req, res, next) => {
     }
 };
 
-exports.sessionCheckAxios = async (req, res, next) => {
-    if (req.session.user_login) {
-        if (await userId.findOne({ _id: req.session.user_login._id, block: false })) {
-            console.log("Axios session is ready");
-            next();
-        } else {
-            req.session.user_login = false;
-            res.json = { response: "login" };
-        }
-    } else {
-        req.session.user_login = false;
-        res.json = { response: "login" };
-    }
-};
-
 exports.user_login = async (req, res, next) => {
     if (req.session.user_login || req.session.otpverifyed) {
         if (await userId.findOne({ _id: req.session.user_login._id, block: false })) next();

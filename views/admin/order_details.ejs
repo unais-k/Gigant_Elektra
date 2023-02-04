@@ -444,9 +444,9 @@
                             await axios.post("/admin/payment_status?id=<%=details._id%>", formProps).then((res) => {
                                 if (res.data.cancel) {
                                     Swal.fire("Cancel!", "This order has been canceld.", "success");
-                                    location.reload();
-                                    document.getElementById("fomrbtn").style.visibility = "hidden";
                                 }
+                                document.getElementById("fomrbtn").style.visibility = "hidden";
+                                location.reload();
                             });
                         }
                     });

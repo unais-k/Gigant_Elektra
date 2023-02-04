@@ -418,3 +418,9 @@
         </div>
     </div>
 </div>
+
+////////////////////////////////// exports.sessionCheckAxios = async (req, res, next) => { if (req.session.user_login) { if
+(await userId.findOne({ _id: req.session.user_login._id, block: false })) { console.log("Axios session is ready"); next(); }
+else { req.session.user_login = false; res.json = { response: "login" }; } } else { req.session.user_login = false; res.json
+= { response: "login" }; } }; ///////////////////////// <% if (cartItems.items[i].quantity > 1) { %> style="visibility:
+visible" <% } else { %> style="visibility: hidden" <% } %>

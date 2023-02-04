@@ -761,6 +761,54 @@ const deleteCart = async (req, res, next) => {
     res.json({ status: true });
 };
 
+const checkout = async (req, res) => {
+    req.session.cartId = req.params.id;
+    let user_details = req.session.user_login;
+    let userId = req.session.user_login._id;
+    let cartId = req.session.cartId;
+
+    let Add = await addressModel.findOne({ user: userId });
+    let bill = await cartModel.findOne({ owner: userId });
+    let cartT = bill.cartPrice;
+    req.session.cartTotal = cartT;
+    console.log(bill, "12345678sdfghjkl");
+    if (Add) {
+        let Address = Add.address[0];
+        console.log(Address);
+        res.render("user/billingAddress", { user_details, Address, Add, bill, cartId });
+    } else {
+        res.render("user/billingAddress", {
+            user_details,
+            Address: false,
+            Add: false,
+            bill,
+            cartId: false,
+        });
+    }
+};
+
+const shipping = async (req, res) => {
+    req.session.address = req.params.id;
+    let address = await addressModel.findOne({ "address._id": req.session.address });
+    let innerAddress = address.address.findIndex((obj) => obj._id == req.session.address);
+    let bill = await cartModel.findOne({ owner: req.session.user_login._id });
+    let addressId = req.session.address;
+    res.render("user/shipping", { bill, addressId });
+};
+
+const shippingCharge = async (req, res) => {
+    let userID = req.session.user_login._id;
+    let id = await cartModel.findOne({ owner: userID });
+    let charge = req.body.id;
+    let cartPrice = id.cartPrice;
+    if (id) {
+        let adding = charge + cartPrice;
+        req.session.amount = { adding, charge };
+        res.json({ charge, adding });
+    } else {
+        res.json((response = "charge"));
+    }
+};
 const coponCheck = async (req, res) => {
     console.log(11111);
     let response;
@@ -772,6 +820,7 @@ const coponCheck = async (req, res) => {
     console.log(couponcode, "coopooooon");
     let coopon = await couponModel.findOne({ couponCode: couponcode }).then(async (data) => {
         console.log(data, "data");
+        data._id = req.session.couponAdded;
         if (data) {
             let { startDate, endDate, discount, minimumSpend, maxSpend, limit } = data;
             let start = new Date(startDate);
@@ -783,6 +832,8 @@ const coponCheck = async (req, res) => {
                     let cartTotal = await cartModel.findOne({ owner: userId }).then(async (total) => {
                         console.log(total.cartPrice);
                         let cartPrice = total.cartPrice;
+                        let shipping = req.session.amount;
+                        console.log(shipping);
                         if (minimumSpend <= cartPrice) {
                             if (cartPrice <= maxSpend) {
                                 let limit = await couponModel
@@ -794,7 +845,7 @@ const coponCheck = async (req, res) => {
                                         } else {
                                             let redeem = Math.round((cartPrice * discount) / 100);
                                             req.session.discount = redeem;
-                                            let total = cartPrice - redeem;
+                                            let total = shipping.adding - redeem;
                                             Msg = "Coupon applied";
                                             response = {
                                                 redeem,
@@ -835,74 +886,6 @@ const coponCheck = async (req, res) => {
     });
     console.log(coopon, "coooooopon");
     // res.json({ success: true });
-};
-
-const checkout = async (req, res) => {
-    req.session.cartId = req.params.id;
-    let user_details = req.session.user_login;
-    let userId = req.session.user_login._id;
-    let cartId = req.session.cartId;
-    let discount = req.session.coupon;
-    let Add = await addressModel.findOne({ user: userId });
-    let bill = await cartModel.findOne({ owner: userId });
-    let cartT = bill.cartPrice;
-    req.session.cartTotal = cartT;
-    console.log(bill, "12345678sdfghjkl");
-    if (Add) {
-        let Address = Add.address[0];
-        console.log(Address);
-        res.render("user/billingAddress", { user_details, Address, Add, bill, cartId, discount });
-    } else {
-        res.render("user/billingAddress", {
-            user_details,
-            Address: false,
-            Add: false,
-            bill,
-            cartId: false,
-            discount,
-        });
-    }
-};
-
-const shipping = async (req, res) => {
-    req.session.address = req.params.id;
-    let address = await addressModel.findOne({ "address._id": req.session.address });
-    let innerAddress = address.address.findIndex((obj) => obj._id == req.session.address);
-    let bill = await cartModel.findOne({ owner: req.session.user_login._id });
-    let addressId = req.session.address;
-    let discount = req.session.coupon;
-    if (discount) {
-        res.render("user/shipping", { bill, addressId, discount });
-    } else {
-        res.render("user/shipping", { bill, addressId, discount: false });
-    }
-};
-
-const shippingCharge = async (req, res) => {
-    let userID = req.session.user_login._id;
-    let id = await cartModel.findOne({ owner: userID });
-    let charge = req.body.id;
-    let cartPrice = id.cartPrice;
-    let discount = req.session.coupon;
-
-    if (discount) {
-        if (id) {
-            let total = req.session.coupon.total;
-            let adding = charge + total;
-            req.session.amount = { adding, charge };
-            res.json({ charge, adding });
-        } else {
-            res.json((response = "charge"));
-        }
-    } else {
-        if (id) {
-            let adding = charge + cartPrice;
-            req.session.amount = { adding, charge };
-            res.json({ charge, adding });
-        } else {
-            res.json((response = "charge"));
-        }
-    }
 };
 
 const payment = async (req, res) => {
@@ -962,6 +945,14 @@ const inventory = (productId, qntity) => {
     });
 };
 
+// const cancelInventory = (productId, qntity) => {
+//     return new Promise((resolve, reject) => {
+//         productModel.findOneAndUpdate({ _id: productId }, { $inc: { quantity: -qntity } }).then(() => {
+//             resolve();
+//         });
+//     });
+// };
+
 const paymentPost = async (req, res) => {
     const payment = req.body.payment;
     console.log(payment);
@@ -976,17 +967,15 @@ const paymentPost = async (req, res) => {
     // }
     const total = req.session.amount.adding;
     if (payment == "cod") {
-        let couponAdd = await couponModel
-            .updateOne(
-                { couponCode: code },
-                {
-                    $push: { owner: { user: userId, status: "1/2", limit: 1 } },
-                    $inc: {
-                        quantity: -1,
-                    },
-                }
-            )
-            .then((data) => (data._id = req.session.couponAdded));
+        let couponAdd = await couponModel.updateOne(
+            { couponCode: code },
+            {
+                $push: { owner: { user: userId, status: "1/2", limit: 1 } },
+                $inc: {
+                    quantity: -1,
+                },
+            }
+        );
         let process = await orderModel
             .create({
                 user: userId,
@@ -1034,17 +1023,15 @@ const verifyPaypal = async (req, res) => {
     let cartId = req.session.cartId;
     let cart = await cartModel.findOne({ _id: cartId }).populate("items.productId");
     let code = req.session.couponcode;
-    let couponAdd = await couponModel
-        .updateOne(
-            { couponCode: code },
-            {
-                $push: { owner: { user: userId, status: "1/2", limit: 1 } },
-                $inc: {
-                    quantity: -1,
-                },
-            }
-        )
-        .then((data) => (data._id = req.session.couponAdded));
+    let couponAdd = await couponModel.updateOne(
+        { couponCode: code },
+        {
+            $push: { owner: { user: userId, status: "1/2", limit: 1 } },
+            $inc: {
+                quantity: -1,
+            },
+        }
+    );
     let process = await orderModel
         .create({
             user: userId,
@@ -1069,7 +1056,6 @@ const verifyPaypal = async (req, res) => {
         )
         .then(async () => {
             let cartIt = await cartModel.findOne({ owner: userId }, { _id: 0, items: 1 });
-            // console.log(cartIt, "cartfghjkl;jhgjkljhgfdsfghjhgfh"); true
             for (let i = 0; i < cartIt.items.length; i++) {
                 const id = cartIt.items[i].productId;
                 const qty = cartIt.items[i].quantity;
@@ -1140,6 +1126,27 @@ const orderDetails = async (req, res) => {
     res.render("user/order_details", { user_details, finalAddress, order });
 };
 
+const cancelInventory = async (id, qty) => {
+    await productModel.findOneAndUpdate({ _id: id }, { $inc: { quantity: qty } }).then(() => {
+        return;
+    });
+};
+
+const cancelOrder = async (req, res) => {
+    let id = req.query.id;
+    let userId = req.session.user_login._id;
+    const find = await orderModel.findOne({ _id: id });
+    const findCart = await cartModel.findOne({ owner: userId }, { _id: 0, items: 1 });
+    for (let i = 0; i < findCart.items.length; i++) {
+        const id = findCart.items[i].productId;
+        const qty = findCart.items[i].quantity;
+        await cancelInventory(id, qty);
+    }
+    let cancel = await orderModel.findOneAndUpdate({ _id: id }, { $set: { order_status: "Cancelled" } }).then(() => {
+        res.json({ succ: true });
+    });
+};
+
 const logout = (req, res) => {
     req.session.destroy();
     res.redirect("/");
@@ -1184,5 +1191,6 @@ module.exports = {
     orderView,
     orderViewCheck,
     orderDetails,
+    cancelOrder,
     payment,
 };
