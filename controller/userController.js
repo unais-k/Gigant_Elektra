@@ -33,23 +33,31 @@ const userLoginPost = async (req, res, next) => {
     try {
         const username = req.body.username;
         const password = req.body.password;
+        let response = null;
         let userId = await userModel.findOne({ userId: username });
+        console.log(userId);
         if (userId) {
             let pass = bcrypt.compare(password, userId.password);
             if (pass) {
-                req.session.user_login = userId;
-                res.redirect("/");
+                if (userId.block) {
+                    response = "Your Account is temporarly blocked";
+                } else {
+                    response = false;
+                    req.session.user_login = userId;
+                }
             } else {
+                response = "Invalid Password";
                 req.session.user_loginError = true;
-                res.render("user/userLogin", { message: "Password error" });
             }
         } else {
+            response = "Invalid username";
             req.session.user_loginError = true;
-            res.render("user/userLogin", { message: "username error" });
         }
+        res.json({ response });
     } catch (error) {
         console.log(error);
     }
+
     // res.render("user/userHome");
 };
 
@@ -762,7 +770,8 @@ const deleteCart = async (req, res, next) => {
 };
 
 const checkout = async (req, res) => {
-    req.session.cartId = req.params.id;
+    req.session.cartId = req.query.id;
+    console.log(req.session.cartId);
     let user_details = req.session.user_login;
     let userId = req.session.user_login._id;
     let cartId = req.session.cartId;
@@ -788,7 +797,7 @@ const checkout = async (req, res) => {
 };
 
 const shipping = async (req, res) => {
-    req.session.address = req.params.id;
+    req.session.address = req.query.id;
     let address = await addressModel.findOne({ "address._id": req.session.address });
     let innerAddress = address.address.findIndex((obj) => obj._id == req.session.address);
     let bill = await cartModel.findOne({ owner: req.session.user_login._id });

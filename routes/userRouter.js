@@ -102,9 +102,9 @@ router.post("/quantity_change", sessionCheck, quantityChange);
 
 router.delete("/delete_cart", sessionCheck, deleteCart);
 
-router.get("/checkout/:id", sessionCheck, checkout);
+router.get("/checkout", sessionCheck, checkout);
 
-router.get("/address_confirm/:id", sessionCheck, shipping);
+router.get("/address_confirm", sessionCheck, shipping);
 
 router.post("/shipping_charge", sessionCheck, shippingCharge);
 

@@ -111,15 +111,15 @@
                                     ><i class="fa-sharp fa-solid fa-location-dot pe-2"></i>
                                     <h4 class="step-title">1. Address</h4></a
                                 >
-                                <a class="step" href="shop-checkout-shipping"
+                                <a class="step" href="#"
                                     ><i class="fa-sharp fa-solid fa-truck-fast"></i>
                                     <h4 class="step-title">2. Shipping</h4></a
                                 >
-                                <a class="step" href="shop-checkout-payment"
+                                <a class="step" href="#"
                                     ><i class="fa-sharp fa-solid fa-money-bill"></i>
                                     <h4 class="step-title">3. Payment</h4></a
                                 >
-                                <a class="step" href="shop-checkout-review"
+                                <a class="step" href="#"
                                     ><i class="fa-regular fa-comment"></i>
                                     <h4 class="step-title">4. Review</h4></a
                                 >
@@ -142,7 +142,7 @@
                                                     aria-expanded="true"
                                                     aria-controls="<%=Address._id%>"
                                                 >
-                                                    Choose an Address
+                                                    Address of <%=Address.name%>
                                                 </button>
                                             </h5>
                                         </div>
@@ -164,7 +164,7 @@
                                                     <div class="me-auto p-2 bd-highlight">
                                                         <button
                                                             onclick="deleteAddress('<%=Address._id%>')"
-                                                            class="butn-style2"
+                                                            class="btn btn-link"
                                                         >
                                                             <i class="fa-sharp fa-solid fa-trash pe-2"></i>Delete
                                                         </button>
@@ -337,7 +337,7 @@
                                                     aria-expanded="false"
                                                     aria-controls="collapse<%=[i]%>"
                                                 >
-                                                    Choose an Address
+                                                    Address of <%=Add.address[i].name%>
                                                 </button>
                                             </h5>
                                         </div>
@@ -359,13 +359,13 @@
                                                     <div class="me-auto p-2 bd-highlight">
                                                         <button
                                                             onclick="deleteAddress('<%=Add.address[i]._id%>')"
-                                                            class="butn-style2"
+                                                            class="btn btn-link"
                                                         >
                                                             <i class="fa-sharp fa-solid fa-trash pe-2"></i>Delete
                                                         </button>
                                                     </div>
                                                     <div class="p-2 bd-highlight">
-                                                        <a href="/address_confirm/<%=Add.address[i]._id%>">
+                                                        <a href="/address_confirm?id=<%=Add.address[i]._id%>">
                                                             <button type="submit" class="butn-style2 mt-2">Proceed</button>
                                                         </a>
                                                     </div>

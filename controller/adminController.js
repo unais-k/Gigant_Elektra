@@ -21,23 +21,27 @@ const adminLogin = (req, res) => {
 const adminLoginPost = async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
+    let response = null;
     let adminMod = await adminModel.findOne({ email: email, password: password });
+    console.log(adminMod);
     console.log(req.body);
-    if (email == adminMod.email) {
-        console.log("email true");
-        if (password == adminMod.password) {
-            req.session.adminLogin = true;
-            res.render("admin/adminHome");
+    if (adminMod) {
+        if (email == adminMod.email) {
+            if (password == adminMod.password) {
+                req.session.adminLogin = true;
+                response = false;
+            } else {
+                req.session.adminLoginError = true;
+                response = true;
+            }
         } else {
-            console.log("password error");
             req.session.adminLoginError = true;
-            res.render("admin/adminLogin", { message: "password error" });
+            response = true;
         }
     } else {
-        console.log("email error");
-        req.session.adminLoginError = true;
-        res.render("admin/adminLogin", { message: "email error" });
+        response = true;
     }
+    res.json({ response });
 };
 
 const adminHome = (req, res) => {

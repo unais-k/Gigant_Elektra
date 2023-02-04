@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="/stylesheet/admin/stylelogin.css" />
     </head>
     <body class="img js-fullheight" style="background-image: url(/images/admin/bg.jpg)">
-        <section class="ftco-section">
+        <section class="ftco-section" style="height: 100vh">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center mb-5">
@@ -27,34 +27,37 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-lg-4">
                         <div class="login-wrap p-0">
-                            <form action="/admin/adminLogin" method="post" enctype="application/x-www-form-urlencoded">
+                            <form action="" method="post">
                                 <!-- Email input -->
                                 <div class="form-outline mb-4">
                                     <input
                                         type="email"
-                                        id="form3Example3"
+                                        id="loginemail"
                                         name="email"
                                         class="form-control"
                                         autocomplete="off"
                                         placeholder="Enter a valid email address"
                                         required
                                     />
+                                    <p class="text-danger mb-1 fw-light opacity-75" id="emailidwarning"></p>
                                 </div>
 
                                 <!-- Password input -->
                                 <div class="form-outline mb-3">
                                     <input
                                         type="password"
-                                        id="form3Example4"
+                                        id="loginpassword"
                                         name="password"
                                         class="form-control"
                                         autocomplete="off"
                                         placeholder="Enter password"
                                         required
                                     />
+                                    <p class="text-danger mb-1 fw-light opacity-75" id="passwordidwarning"></p>
                                 </div>
                                 <div class="login_btn">
                                     <button
+                                        onclick="validate()"
                                         class="btn btn-primary"
                                         type="submit"
                                         value="submit"
@@ -62,71 +65,70 @@
                                     >
                                         Login
                                     </button>
+                                    <p class="text-danger" id="errmsg"></p>
                                 </div>
                                 <br />
-                                <% if (message) { %>
-                                <h5 style="color: red"><%= message %></h5>
-                                <% } else { %> <% } %>
-                                <div class="form-group d-md-flex">
-                                    <div class="w-50">
-                                        <label class="checkbox-wrap checkbox-primary"
-                                            >Remember Me
-                                            <input type="checkbox" />
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <div class="w-50 text-md-right">
-                                        <a href="#" style="color: #fff">Forgot Password</a>
-                                    </div>
-                                </div>
                             </form>
-
-                            <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-                            <div class="social d-flex text-center">
-                                <a href="#" class="px-2 py-2 mr-md-1 rounded"
-                                    ><span class="ion-logo-facebook mr-2"></span> Facebook</a
-                                >
-                                <a href="#" class="px-2 py-2 ml-md-1 rounded"
-                                    ><span class="ion-logo-twitter mr-2"></span> Twitter</a
-                                >
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- axios cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            function validate() {
+                let email = document.getElementById("loginemail");
+                let password = document.getElementById("loginpassword");
+                let emailwarning = document.getElementById("emailidwarning");
+                let passwordwarning = document.getElementById("passwordidwarning");
+                document.getElementById("errmsg").innerHTML = "";
+                event.preventDefault();
+                let form = event.target.form;
+                let validation = true;
+                emailwarning.innerHTML = "";
+                passwordwarning.innerHTML = "";
+                if (email.value === "") {
+                    emailwarning.innerHTML = "Please enter your email id";
+                    validation = false;
+                }
+                if (password.value === "") {
+                    passwordwarning.innerHTML = "Please enter your password";
+                    validation = false;
+                }
+                if (validation) {
+                    email = email.value;
+                    password = password.value;
+                    try {
+                        axios
+                            .post("/admin/adminLogin", {
+                                email: email,
+                                password: password,
+                            })
+                            .then((e) => {
+                                if (!e.data.response) {
+                                    form.submit();
+                                    location.href = "/admin/adminHome";
+                                } else {
+                                    document.getElementById("errmsg").innerHTML = "Invalid credentials";
+                                }
+                            });
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    return validation;
+                }
+            }
+        </script>
+
         <script src="/js/admin/jquery.min.js"></script>
         <script src="/js/admin/popper.js"></script>
         <script src="/js/admin/bootstrap.min.js"></script>
         <script src="/js/admin/main.js"></script>
-        <!-- <script>
-            const form = document.getElementById("form");
-            form.addEventListener("submit", (e) => {
-                const email = document.getElementById("email");
-                const password = document.getElementById("password");
-
-                const err = document.getElementById("errMsg");
-                const err2 = document.getElementById("errMsg2");
-
-                if (email.value == "" || email.value == null) {
-                    e.preventDefault();
-                    err.innerHTML = "please fill this";
-                    // $('#form').after(`<span class="error text-danger">Please fill this</span>`)
-                    setTimeout(() => {
-                        console.log("hiii");
-                        err.innerHTML = "";
-                    }, 700);
-                } else if (password.value == "" || password.value == null) {
-                    e.preventDefault();
-                    err2.innerHTML = "please fill this";
-                    // $('#form').after(`<span class="error text-danger">Please fill this</span>`)
-                    setTimeout(() => {
-                        console.log("hiii");
-                        err2.innerHTML = "";
-                    }, 700);
-                }
-            });
-        </script> -->
     </body>
 </html>
