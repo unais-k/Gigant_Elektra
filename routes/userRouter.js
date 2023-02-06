@@ -2,7 +2,7 @@ var express = require("express");
 const bcrypt = require("bcrypt");
 var router = express.Router();
 // const { user_login } = require("../middleware/userLogin");
-const { sessionCheck } = require("../middleware/userLogin");
+const { sessionCheck } = require("../middleware/auth");
 const userModel = require("../models/userSchema");
 // const { uploadProfile } = require("../middleware/multer");
 // const { otpCalling, otpVeryfication } = require("../config/otp");
@@ -47,6 +47,9 @@ const {
     createorder,
     verifyPaypal,
     cancelOrder,
+    forgotPassword,
+    forgorpasswordPost,
+    changePassword,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -127,6 +130,12 @@ router.post("/order_view_check", sessionCheck, orderViewCheck);
 router.get("/order_details/:id", sessionCheck, orderDetails);
 
 router.post("/cancel_order", sessionCheck, cancelOrder);
+
+router.get("/forgot_password", forgotPassword);
+
+router.post("/forgot_password_post", forgorpasswordPost);
+
+router.patch("/changePassword", changePassword);
 
 router.get("/logout", logout);
 

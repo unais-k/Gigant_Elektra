@@ -400,9 +400,11 @@ const paymentStatus = async (req, res) => {
     let bod = req.body.status;
     let change = await orderModel.findOneAndUpdate({ _id: bo }, { $set: { order_status: bod } }).then(async () => {
         if (bod == "Completed") {
-            let change = await orderModel.findOneAndUpdate({ _id: bo }, { $set: { order_status: bod } }).then(() => {
-                res.json({ complete: true });
-            });
+            let change = await orderModel
+                .findOneAndUpdate({ _id: bo }, { $set: { order_status: bod, payment_status: "confirm" } })
+                .then(() => {
+                    res.json({ complete: true });
+                });
         } else if (bod == "Cancelled") {
             let addQty = await orderModel.findOne({ _id: bo }).populate("items.productId");
             for (let i = 0; i < addQty.items.length; i++) {
@@ -412,9 +414,12 @@ const paymentStatus = async (req, res) => {
                 let qty = element.quantity;
                 inventory(id, qty);
             }
-            let change = await orderModel.findOneAndUpdate({ _id: bo }, { $set: { order_status: bod } });
+            let change = await orderModel.findOneAndUpdate(
+                { _id: bo },
+                { $set: { order_status: bod, payment_status: "returned" } }
+            );
             res.json({ cancel: true });
-        } else if (bod == "Pending Payment") {
+        } else if (bod == "Pending Order") {
             let change = await orderModel.findOneAndUpdate({ _id: bo }, { $set: { order_status: bod } });
             res.json({ status: true });
         }

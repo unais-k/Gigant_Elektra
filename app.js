@@ -9,6 +9,7 @@ const db = require("./config/connection");
 const flash = require("connect-flash");
 const userRouter = require("./routes/userRouter");
 const adminRouter = require("./routes/adminRouter");
+const errorrs = require("./middleware/error_handler");
 require("dotenv");
 
 const app = express();
@@ -43,18 +44,8 @@ app.use(function (req, res, next) {
     res.render("404");
     next(createError(404));
 });
-
 // error handler
-app.use(function (err, req, res, next) {
-    // console.log(err, "error");
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get("env") === "development" ? err : {};
-
-    // render the error page
-    res.status(err.status || 500);
-    // res.render("error");
-});
+app.use(errorrs);
 
 app.listen(process.env.PORT, () => {
     console.log("server started");

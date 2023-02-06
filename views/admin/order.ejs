@@ -207,7 +207,8 @@
                                                     <tr>
                                                         <th>Order ID</th>
                                                         <th>Billing Name</th>
-                                                        <th>Date</th>
+                                                        <th>Ordered Date</th>
+                                                        <th>Updated Date</th>
                                                         <th>Total</th>
                                                         <th>Order Status</th>
                                                         <th>Payment Method</th>
@@ -222,6 +223,7 @@
                                                     <tr>
                                                         <td>#<%= Math.round(Math.random() * 4685 + i )%></td>
                                                         <td><%=order[i].user.userName%></td>
+                                                        <td><%=order[i].createdAt.toLocaleDateString()%></td>
                                                         <td><%=order[i].updatedAt.toLocaleDateString()%></td>
                                                         <td><span>$</span><%=order[i].total%></td>
                                                         <% if (order[i].order_status == "Completed") { %>
@@ -256,6 +258,12 @@
                                                         <% } %> <% if (order[i].payment_status == "pending") { %>
                                                         <td>
                                                             <span class="badge rounded-pill bg-soft-orange"
+                                                                ><%=order[i].payment_status%></span
+                                                            >
+                                                        </td>
+                                                        <% } else if(order[i].payment_status == "returned" ) { %>
+                                                        <td>
+                                                            <span class="badge rounded-pill bg-soft-pink"
                                                                 ><%=order[i].payment_status%></span
                                                             >
                                                         </td>

@@ -216,29 +216,19 @@
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td id="ship" class="text-gray-dark"><span>$</span><%=charge.charge%>.00</td>
+                                            <td class="text-gray-dark"><span>$</span><%=charge.charge%>.00</td>
                                         </tr>
-                                        <% if (discount) { %>
+
                                         <tr>
                                             <th>Discount:</th>
-                                            <td id="discount" class="text-danger">
-                                                <span>- $</span><%=discount.redeem%>.00
-                                            </td>
+                                            <td id="discount" class="text-gray-dark"><span>$</span>0.00</td>
                                         </tr>
-                                        <tr>
-                                            <th>Total:</th>
-                                            <td id="cartPrice" class="text-lg text-gray-dark">
-                                                <span>$</span><%=discount.total%>.00
-                                            </td>
-                                        </tr>
-                                        <% } else { %>
                                         <tr>
                                             <th>Total:</th>
                                             <td id="total" class="text-lg text-gray-dark">
                                                 <span>$</span><%=charge.adding%>.00
                                             </td>
                                         </tr>
-                                        <% } %>
                                     </tbody>
                                 </table>
                             </div>
@@ -282,7 +272,9 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="submit" class="butn-style2 small">Apply Code</button>
+                                                    <button type="submit" id="coupId" class="butn-style2 small">
+                                                        Apply Code
+                                                    </button>
                                                 </form>
                                             </div>
                                         </div>
@@ -342,9 +334,10 @@
                             title: "Coupen applied successfully",
                             text: result.data.Msg,
                         });
+                        document.getElementById("coupId").disabled = true;
                         document.getElementById("discount").style.color = "red";
                         document.getElementById("discount").innerHTML = `- $ ${result.data.response.redeem}`;
-                        document.getElementById("cartPrice").innerHTML = `$ ${result.data.response.total}`;
+                        document.getElementById("total").innerHTML = `$ ${result.data.response.total}`;
                         // document.getElementById("couponForm").reset();
                         // location.href = "/admin/addCoupon";
                     } else {

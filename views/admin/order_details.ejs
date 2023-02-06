@@ -163,78 +163,78 @@
                                         <h4 class="card-title">General</h4>
                                     </div>
                                     <div class="card-body">
+                                        <% if (details.order_status=="Completed") { %>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-2">
+                                                <div class="form-group">
+                                                    <label for="validationCustom01">Status</label>
+                                                    <div>
+                                                        <input type="text" class="form-control" value="Completed" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-2">
+                                                <div class="form-group">
+                                                    <label>Date Created</label>
+                                                    <div>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            value="<%=details.createdAt.toLocaleString()%>"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Date Updated</label>
+                                                    <div>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            value="<%=details.updatedAt.toLocaleString()%>"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% } else if (details.order_status=="Cancelled") { %>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-2">
+                                                <div class="form-group">
+                                                    <label for="validationCustom01">Status</label>
+                                                    <div>
+                                                        <input type="text" class="form-control" value="Cancelled" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-2">
+                                                <div class="form-group">
+                                                    <label>Date Created</label>
+                                                    <div>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            value="<%=details.createdAt.toLocaleString()%>"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Date Updated</label>
+                                                    <div>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            value="<%=details.updatedAt.toLocaleString()%>"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% } else { %>
                                         <form id="paymentStatus" method="post">
-                                            <% if (details.order_status=="Completed") { %>
-                                            <div class="row">
-                                                <div class="col-md-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="validationCustom01">Status</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" value="Completed" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label>Date Created</label>
-                                                        <div>
-                                                            <input
-                                                                type="text"
-                                                                class="form-control"
-                                                                value="<%=details.createdAt.toLocaleString()%>"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Date Updated</label>
-                                                        <div>
-                                                            <input
-                                                                type="text"
-                                                                class="form-control"
-                                                                value="<%=details.updatedAt.toLocaleString()%>"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <% } else if (details.order_status=="Cancelled") { %>
-                                            <div class="row">
-                                                <div class="col-md-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label for="validationCustom01">Status</label>
-                                                        <div>
-                                                            <input type="text" class="form-control" value="Cancelled" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 mb-2">
-                                                    <div class="form-group">
-                                                        <label>Date Created</label>
-                                                        <div>
-                                                            <input
-                                                                type="text"
-                                                                class="form-control"
-                                                                value="<%=details.createdAt.toLocaleString()%>"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Date Updated</label>
-                                                        <div>
-                                                            <input
-                                                                type="text"
-                                                                class="form-control"
-                                                                value="<%=details.updatedAt.toLocaleString()%>"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <% } else { %>
                                             <div class="row">
                                                 <div class="col-md-12 mb-2">
                                                     <div class="form-group">
@@ -245,7 +245,7 @@
                                                             name="status"
                                                             aria-label="Default select example"
                                                         >
-                                                            <option value="Pending Payment">Pending Payment</option>
+                                                            <option value="Pending Order">Pending Order</option>
                                                             <option value="Completed">Completed</option>
                                                             <option value="Cancelled">Cancelled</option>
                                                         </select>
@@ -269,8 +269,8 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <% } %>
                                         </form>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -441,7 +441,7 @@
                     }).then(async (result) => {
                         console.log(2222);
                         if (result.isConfirmed) {
-                            await axios.post("/admin/payment_status?id=<%=details._id%>", formProps).then((res) => {
+                            await axios.post("/admin/order_status_confirm?id=<%=details._id%>", formProps).then((res) => {
                                 if (res.data.cancel) {
                                     Swal.fire("Cancel!", "This order has been canceld.", "success");
                                 }
@@ -461,7 +461,7 @@
                         confirmButtonText: "Yes, Do it!",
                     }).then(async (result) => {
                         if (result.isConfirmed) {
-                            await axios.post("/admin/payment_status?id=<%=details._id%>", formProps).then((res) => {
+                            await axios.post("/admin/order_status_confirm?id=<%=details._id%>", formProps).then((res) => {
                                 if (res.data.complete) {
                                     Swal.fire("Completed!", "This order has been completed.", "success");
                                 }
@@ -472,7 +472,7 @@
                     });
                 } else {
                     axios
-                        .post("/admin/payment_status?id=<%=details._id%>", formProps)
+                        .post("/admin/order_status_confirm?id=<%=details._id%>", formProps)
                         .then((res) => {
                             console.log(4444);
                             if (res.data.status) {

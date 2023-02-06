@@ -818,6 +818,14 @@ const shippingCharge = async (req, res) => {
         res.json((response = "charge"));
     }
 };
+
+const payment = async (req, res) => {
+    let userId = req.session.user_login._id;
+    let bill = await cartModel.findOne({ owner: userId });
+    let charge = req.session.amount;
+    res.render("user/payment", { charge, bill, paypalCliendid: process.env.ClientId });
+};
+
 const coponCheck = async (req, res) => {
     console.log(11111);
     let response;
@@ -895,19 +903,6 @@ const coponCheck = async (req, res) => {
     });
     console.log(coopon, "coooooopon");
     // res.json({ success: true });
-};
-
-const payment = async (req, res) => {
-    let userId = req.session.user_login._id;
-    let bill = await cartModel.findOne({ owner: userId });
-    let charge = req.session.amount;
-    let discount = req.session.coupon;
-    console.log(charge);
-    if (discount) {
-        res.render("user/payment", { charge, bill, discount, paypalCliendid: process.env.ClientId });
-    } else {
-        res.render("user/payment", { charge, bill, discount: false, paypalCliendid: process.env.ClientId });
-    }
 };
 
 const createorder = async (req, res) => {
@@ -993,7 +988,7 @@ const paymentPost = async (req, res) => {
                 total: req.session.amount.adding,
                 delivery: req.session.amount.charge,
                 order_status: "pending",
-                payment_status: "confirm",
+                payment_status: "pending",
                 payment_method: payment,
                 cartTotal: req.session.cartTotal,
                 coupon: req.session.couponAdded,
@@ -1085,6 +1080,7 @@ const checkoutReview = async (req, res) => {
     let orderiddd = req.session.orderId;
     console.log(orderiddd, "sdfghjkkjhgfdsdfghjk");
     let order = await orderModel.findOne({ _id: req.session.orderId }).populate("items.productId");
+    console.log(order, 111);
     const addressId = order.address._id;
     const address = await addressModel.findOne({ "address._id": req.session.address });
     const index = await address.address.findIndex((obj) => obj._id == req.session.address);
@@ -1151,9 +1147,34 @@ const cancelOrder = async (req, res) => {
         const qty = findCart.items[i].quantity;
         await cancelInventory(id, qty);
     }
-    let cancel = await orderModel.findOneAndUpdate({ _id: id }, { $set: { order_status: "Cancelled" } }).then(() => {
-        res.json({ succ: true });
+    let cancel = await orderModel
+        .findOneAndUpdate({ _id: id }, { $set: { order_status: "Cancelled", payment_status: "returned" } })
+        .then(() => {
+            res.json({ succ: true });
+        });
+};
+
+const forgotPassword = async (req, res) => {
+    res.render("user/forgot_password", { user_details: false });
+};
+
+const forgorpasswordPost = async (req, res) => {
+    let response = null;
+    console.log(req.body.email, 11);
+    let userfind = await userModel.findOne({ userEmail: req.body.email }, { _id: 0, phone: 1 }).then((user) => {
+        console.log(user, 1111);
+        if (user) {
+            sendotp(user.phone);
+            res.json({ mobile: user.phone });
+        } else {
+            res.json({ response: "Email id not found" });
+        }
     });
+    // res.json({ response });
+};
+
+const changePassword = async (req, res) => {
+    let response = null;
 };
 
 const logout = (req, res) => {
@@ -1201,5 +1222,8 @@ module.exports = {
     orderViewCheck,
     orderDetails,
     cancelOrder,
+    forgotPassword,
+    forgorpasswordPost,
+    changePassword,
     payment,
 };

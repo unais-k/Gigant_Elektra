@@ -6,7 +6,7 @@ const userModel = require("../models/userSchema");
 const productModel = require("../models/productSchema");
 const { productPhoto } = require("../middleware/multer");
 
-const { adminSession } = require("../middleware/userLogin");
+const { adminSession } = require("../middleware/auth");
 
 const {
     adminLogin,
@@ -98,7 +98,7 @@ router.get("/order", adminSession, order);
 
 router.get("/order_details/:id", adminSession, orderDetails);
 
-router.post("/payment_status", adminSession, paymentStatus);
+router.post("/order_status_confirm", adminSession, paymentStatus);
 
 router.get("/logout", logout);
 
