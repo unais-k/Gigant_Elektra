@@ -49,7 +49,9 @@ const {
     cancelOrder,
     forgotPassword,
     forgorpasswordPost,
+    otpforgotverify,
     changePassword,
+    otpPage,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -78,6 +80,8 @@ router.post("/add_to_wishlist", sessionCheck, addToWishlist);
 router.delete("/delete_wishlist", sessionCheck, deleteWishlist);
 
 router.post("/otp_verify", otpVerify);
+
+router.get("/otp", otpPage);
 
 router.post("/otp_verifyied", otpVerifyPost);
 
@@ -134,6 +138,8 @@ router.post("/cancel_order", sessionCheck, cancelOrder);
 router.get("/forgot_password", forgotPassword);
 
 router.post("/forgot_password_post", forgorpasswordPost);
+
+router.post("/otpforgotPost", otpforgotverify);
 
 router.patch("/changePassword", changePassword);
 

@@ -89,8 +89,14 @@
                                     <p class="mb-0">There's lots of fun in Register.</p>
                                 </div>
 
-                                <form method="post" action="/otp_verify">
+                                <form action="/otp_verify" method="post">
                                     <div class="row">
+                                        <div
+                                            class="alert alert-danger mt-0 mb-2"
+                                            style="display: none"
+                                            id="errmsg"
+                                            role="alert"
+                                        ></div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Full Name</label>
@@ -290,7 +296,6 @@
                     mobilewarning.innerHTML = "Mobile number is not in valid format";
                     validation = false;
                 }
-
                 if (password.value == "") {
                     passwordwarning.innerHTML = "Please enter a password";
                     validation = false;
@@ -321,8 +326,8 @@
                                 }
                                 if (!e.data.response) {
                                     form.submit();
-                                    // location.href = "/otp_verify";
-                                    location.href = "/";
+                                    location.href = "/otp";
+                                    // location.href = "/";
                                 } else {
                                     errmsg.style.display = "block";
                                     document.getElementById("errmsg").innerHTML = e.data.response;
@@ -333,7 +338,6 @@
                     }
                 }
             }
-
             function emailkey() {
                 emailwarning.innerHTML = "";
             }

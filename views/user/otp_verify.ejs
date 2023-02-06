@@ -124,19 +124,25 @@
                                         Please enter the one time password <br />
                                         to verify your account
                                     </h6>
-                                    <div><span>A code has been sent to</span> <small>*******9897</small></div>
+                                    <div>
+                                        <span>A code has been sent to</span> <small>*******<%=phone.substring(6)%></small>
+                                    </div>
                                     <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
                                         <input
                                             class="m-2 text-center form-control rounded"
                                             type="text"
-                                            id="first"
+                                            id="otpid"
                                             name="otp"
+                                            onkeyup="otpcheck()"
                                             maxlength="6"
                                         />
                                     </div>
-                                    <div class="mt-4">
+                                    <!-- <div class="mt-4">
                                         <button type="submit" class="btn btn-danger px-4 validate">Validate</button>
-                                    </div>
+                                    </div> -->
+                                    <p class="ml-5 text-danger" id="errmsg" style="display: none">
+                                        OTP verification failed
+                                    </p>
                                 </div>
                                 <div class="card-2">
                                     <!-- <div class="content d-flex justify-content-center align-items-center">
@@ -155,40 +161,39 @@
             <%- include("../includes/user-footer.ejs") %>
         </div>
 
-        <!-- <script>
-            document.addEventListener("DOMContentLoaded", function (event) {
-                function OTPInput() {
-                    const inputs = document.querySelectorAll("#otp > *[id]");
-                    for (let i = 0; i < inputs.length; i++) {
-                        inputs[i].addEventListener("keydown", function (event) {
-                            if (event.key === "Backspace") {
-                                inputs[i].value = "";
-                                if (i !== 0) inputs[i - 1].focus();
-                            } else {
-                                if (i === inputs.length - 1 && inputs[i].value !== "") {
-                                    return true;
-                                } else if (event.keyCode > 47 && event.keyCode < 58) {
-                                    inputs[i].value = event.key;
-                                    if (i !== inputs.length - 1) inputs[i + 1].focus();
-                                    event.preventDefault();
-                                } else if (event.keyCode > 64 && event.keyCode < 91) {
-                                    inputs[i].value = String.fromCharCode(event.keyCode);
-                                    if (i !== inputs.length - 1) inputs[i + 1].focus();
-                                    event.preventDefault();
-                                }
-                            }
-                        });
-                    }
-                }
-                OTPInput();
-            });
-        </script> -->
-
         <!-- SCROLL TO TOP
     ================================================== -->
         <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
 
         <!-- all js include start -->
+
+        <!-- axios cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            function otpcheck() {
+                let otp = document.getElementById("otpid").value;
+                if (otp.length === 6) {
+                    document.getElementById("otpid").disabled = true;
+                    try {
+                        axios.post("/otp_verifyied", { otp: otp }).then((e) => {
+                            if (e.data.response) {
+                                location.href = "/";
+                            } else {
+                                document.getElementById("otpid").value = "";
+                                document.getElementById("otpid").disabled = false;
+                                document.getElementById("errmsg").style.display = "";
+                            }
+                        });
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            }
+        </script>
 
         <!-- jQuery -->
         <script src="/js/user/jquery.min.js"></script>

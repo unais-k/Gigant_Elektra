@@ -14,6 +14,7 @@ const orderModel = require("../models/orderSchema");
 const couponModel = require("../models/couponSchema");
 const { ObjectId } = require("mongodb");
 const paypal = require("@paypal/checkout-server-sdk");
+let userData;
 
 const envirolment = process.env.NODE_ENV === "production" ? paypal.core.LiveEnvironment : paypal.core.SandboxEnvironment;
 
@@ -114,7 +115,7 @@ const userRegisterPost = async (req, res, next) => {
 };
 
 const otpVerify = async (req, res, next) => {
-    const userDetails = {
+    userData = {
         userName: req.body.fullname,
         userId: req.body.username,
         phone: req.body.phone,
@@ -122,75 +123,59 @@ const otpVerify = async (req, res, next) => {
         password: req.body.password,
     };
     console.log(req.body);
-    if (req.session.user_login) {
-        res.redirect("/login");
-    } else {
-        req.session.user_login = req.body;
-        if (await userModel.findOne({ userEmail: userDetails.userEmail })) {
-            res.render("user/userRegister", { message: "Email id already exists" });
+    try {
+        let response = null;
+        if (req.session.user_login) {
+            res.redirect("/login");
         } else {
-            if (await userModel.findOne({ phone: userDetails.phone })) {
-                res.render("user/userRegister", { message: "Phone number already exists" });
+            userData = req.body;
+            if (await userModel.findOne({ userEmail: userData.userEmail })) {
+                response = "Email id already exists";
+            } else if (await userModel.findOne({ phone: userData.phone })) {
+                response = "Mobile number is already exists";
             } else {
-                if (req.body.password == req.body.confirmpassword) {
-                    // req.session.user_login = req.body;
-                    // console.log("post register");
-                    // console.log(req.session.user_login);
-                    // sendotp(userDetails.phone);
-                    // console.log("send otp");
-                    // res.render("user/otpverify");
-                    // this was code if otp ready
-                    console.log(req.body);
-                    const hashedpassword = await bcrypt.hash(userDetails.password, 10);
-                    let userData = req.session.user_login;
-                    let data = await userModel.create({
-                        userName: userData.fullname,
-                        userId: userData.username,
-                        userEmail: userData.email,
-                        phone: userData.phone,
-                        password: hashedpassword,
-                    });
-                    console.log("userData saved");
-                    req.session.otpverifyed = true;
-                    req.session.user_login = data;
-                    res.redirect("/");
-                } else {
-                    console.log("error in password hasing");
-                    req.session.user_loginError = true;
-                    res.render("user/userRegister", { message: "please check password again" });
-                }
+                userData = req.body;
+                sendotp(userData.phone);
+                response = null;
             }
         }
+        res.json({ response });
+    } catch (error) {
+        next(error);
     }
 };
 
+const otpPage = async (req, res) => {
+    let phone = userData.phone;
+    console.log(phone);
+    await res.render("user/otp_verify", { phone, user_details: false });
+};
+
 const otpVerifyPost = async (req, res) => {
-    let userData = req.session.user_login;
-    console.log(userData);
-    console.log(req.session.user_login + " req");
-    const password = req.session.user_login.password;
-    const phone = req.session.user_login.phone;
+    const password = userData.password;
+    const phone = userData.phone;
     const otp = req.body.otp;
     console.log(phone);
     console.log(otp);
     await verifyotp(phone, otp).then(async (varification_check) => {
         if (varification_check.status == "approved") {
             const hashedpassword = await bcrypt.hash(password, 10);
-            let userData = req.session.user_login;
-            await userModel.create({
-                userName: userData.fullname,
-                userId: userData.username,
-                userEmail: userData.email,
-                phone: userData.phone,
-                password: hashedpassword,
-            });
-            console.log("userData saved");
+            await userModel
+                .create({
+                    userName: userData.fullname,
+                    userId: userData.username,
+                    userEmail: userData.email,
+                    phone: userData.phone,
+                    password: hashedpassword,
+                })
+                .then((e) => {
+                    req.session.user_login = e;
+                    console.log(req.session.user_login, "sessssssin");
+                    res.json({ response: true });
+                });
             req.session.otpverifyed = true;
-            res.redirect("/");
         } else {
-            req.send("otp error", "otp not match");
-
-            req.redirect("/otp_verify");
+            res.json({ response: false });
         }
     });
 };
@@ -1173,8 +1158,33 @@ const forgorpasswordPost = async (req, res) => {
     // res.json({ response });
 };
 
+const otpforgotverify = async (req, res) => {
+    try {
+        let { otp, number } = req.body;
+        console.log(req.body);
+        console.log(2222);
+        verifyotp(otp, number).then((response) => {
+            console.log("waiting for otp verify");
+            if (response) {
+                res.json({ response: true });
+            } else {
+                res.json({ response: false });
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        console.log(11111111111111);
+    }
+};
+
 const changePassword = async (req, res) => {
-    let response = null;
+    let { password, email } = req.body;
+    password = await bcrypt.hash(password, 10);
+    let check = await userModel.findOne({ password: password });
+    console.log(check, 11);
+    userModel.updateOne({ userEmail: email }, { $set: { password: password } }).then((e) => {
+        res.json({ succ: true });
+    });
 };
 
 const logout = (req, res) => {
@@ -1192,6 +1202,7 @@ module.exports = {
     // userProductDetails,
     showProductDetails,
     profile,
+    otpPage,
     wishlist,
     addToWishlist,
     deleteWishlist,
@@ -1224,6 +1235,7 @@ module.exports = {
     cancelOrder,
     forgotPassword,
     forgorpasswordPost,
+    otpforgotverify,
     changePassword,
     payment,
 };
