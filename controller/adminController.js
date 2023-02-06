@@ -427,6 +427,14 @@ const paymentStatus = async (req, res) => {
     // res.json({ status: true });
 };
 
+const addBanner = async (req, res) => {
+    res.render("admin/add_banner");
+};
+
+const banner = async (req, res) => {
+    res.render("admin/banner");
+};
+
 const logout = (req, res) => {
     req.session.destroy();
     res.redirect("/admin");
@@ -463,5 +471,7 @@ module.exports = {
     order,
     orderDetails,
     paymentStatus,
+    banner,
+    addBanner,
     logout,
 };

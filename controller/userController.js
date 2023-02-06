@@ -1163,7 +1163,7 @@ const otpforgotverify = async (req, res) => {
         let { otp, number } = req.body;
         console.log(req.body);
         console.log(2222);
-        verifyotp(otp, number).then((response) => {
+        await verifyotp(number, otp).then((response) => {
             console.log("waiting for otp verify");
             if (response) {
                 res.json({ response: true });
@@ -1180,8 +1180,6 @@ const otpforgotverify = async (req, res) => {
 const changePassword = async (req, res) => {
     let { password, email } = req.body;
     password = await bcrypt.hash(password, 10);
-    let check = await userModel.findOne({ password: password });
-    console.log(check, 11);
     userModel.updateOne({ userEmail: email }, { $set: { password: password } }).then((e) => {
         res.json({ succ: true });
     });

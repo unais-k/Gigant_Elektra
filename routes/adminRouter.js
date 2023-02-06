@@ -38,6 +38,8 @@ const {
     order,
     orderDetails,
     paymentStatus,
+    addBanner,
+    banner,
 } = require("../controller/adminController");
 
 router.get("/", adminLogin);
@@ -99,6 +101,10 @@ router.get("/order", adminSession, order);
 router.get("/order_details/:id", adminSession, orderDetails);
 
 router.post("/order_status_confirm", adminSession, paymentStatus);
+
+router.get("/banner", banner);
+
+router.get("/add_banner", addBanner);
 
 router.get("/logout", logout);
 
