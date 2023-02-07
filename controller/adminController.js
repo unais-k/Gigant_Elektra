@@ -84,9 +84,21 @@ const addCategoryPost = async (req, res, next) => {
 };
 
 const showProducts = async (req, res) => {
-    let productList = await productModel.find({}).sort({ _id: -1 });
-    let categoryList = await categoryModel.find({});
-    res.render("admin/showProducts", { productList, categoryList });
+    let sub = req.query.sub;
+    let cat = req.query.cat;
+    if (sub == "ALL" && cat) {
+        let productList = await productModel.find({ category: cat }).sort({ _id: -1 });
+        let categoryList = await categoryModel.find({});
+        res.render("admin/showProducts", { productList, categoryList });
+    } else if (sub && cat) {
+        let productList = await productModel.find({ brand: sub, category: cat }).sort({ _id: -1 });
+        let categoryList = await categoryModel.find({});
+        res.render("admin/showProducts", { productList, categoryList });
+    } else {
+        let categoryList = await categoryModel.find({});
+        let productList = await productModel.find({}).sort({ _id: -1 });
+        res.render("admin/showProducts", { productList, categoryList });
+    }
 };
 
 const addProduct = async (req, res) => {
@@ -113,7 +125,7 @@ const addProductPost = async (req, res, next) => {
             price: body.price,
             brand: body.brand,
             details: body.details,
-            category: body.category,
+            category: body.category.toUpperCase(),
             quantity: body.quantity,
             color: body.color,
         });
@@ -368,6 +380,7 @@ const order = async (req, res) => {
 const orderDetails = async (req, res) => {
     let id = req.params.id;
     let details = await orderModel.findOne({ _id: id }).populate("items.productId").populate("user");
+    console.log(details, 333);
     let addre = details.address;
     let address = await addressModel.findOne({ "address._id": addre });
     let index = address.address.findIndex((obj) => obj._id == addre.toString());
@@ -384,6 +397,8 @@ const orderDetails = async (req, res) => {
     console.log(cart);
     // let ObjId = details._id.toString("").slice(0, 5);
 
+    // let user = userModel.findOne({ _id: details.user._id.toString() });
+    // console.log(user, 1111111);
     res.render("admin/order_details", { details, cart, finalAddress });
 };
 

@@ -101,8 +101,6 @@ router.get("/cart", sessionCheck, cart);
 
 router.post("/couponCheck", sessionCheck, coponCheck);
 
-router.post("/add_to_cart_home", sessionCheck, addToCartHome);
-
 router.post("/add_to_cart_shop", sessionCheck, addToCartShop);
 
 router.post("/quantity_change", sessionCheck, quantityChange);

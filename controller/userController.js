@@ -11,6 +11,7 @@ const wishlistModel = require("../models/wishlistSchema");
 const { count, find } = require("../models/userSchema");
 const addressModel = require("../models/addressSchema");
 const orderModel = require("../models/orderSchema");
+const categoryModel = require("../models/categorySchema");
 const couponModel = require("../models/couponSchema");
 const { ObjectId } = require("mongodb");
 const paypal = require("@paypal/checkout-server-sdk");
@@ -181,16 +182,33 @@ const otpVerifyPost = async (req, res) => {
 };
 
 const userProduct = async (req, res) => {
-    user_details = req.session.user_login;
-    let productList = await productModel.find({ delete: true }).sort({ _id: -1 });
-    // const cartPro = await cartModel
-    //     .findOne({ owner: mongoose.Types.ObjectId(user_details._id) })
-    //     .populate("items.productId");
-    // let cart = cartPro.items.slice(0, 3);
-
-    await res.render("user/userProducts", { productList, user_details });
+    let sub = req.query.sub;
+    let cat = req.query.cat;
+    console.log(cat);
+    console.log(sub);
+    if (sub == "ALL" && cat) {
+        let category = await categoryModel.find({});
+        user_details = req.session.user_login;
+        let productList = await productModel.find({ category: cat });
+        console.log(productList, 444);
+        await res.render("user/userProducts", { productList, user_details, category });
+    } else if (sub && cat) {
+        let category = await categoryModel.find({});
+        user_details = req.session.user_login;
+        let productList = await productModel.find({ category: cat, brand: sub });
+        console.log(productList, 444);
+        await res.render("user/userProducts", { productList, user_details, category });
+    } else {
+        user_details = req.session.user_login;
+        let productList = await productModel.find({ delete: true }).sort({ _id: -1 });
+        let category = await categoryModel.find({});
+        await res.render("user/userProducts", { productList, user_details, category });
+    }
 };
 
+// const filterProduct = async (req, res) => {
+//     let {}
+// };
 // const userProductDetails = async (req, res) => {
 //     let productList = await productModel.find({});
 //     res.render("user/productDetails", { productList });
@@ -308,6 +326,7 @@ const userHome = async (req, res, next) => {
             console.log(cart);
             await res.render("user/userHome", { user_details, productList, cart });
         }
+
         console.log(user_details, "ivde unde");
         res.render("user/userHome", { user_details, productList, cart: false });
     } else {
@@ -321,16 +340,6 @@ const profile = async (req, res) => {
     let user_details = await userModel.findOne({ _id: req.session.user_login._id });
     res.render("user/profile", { user_details });
 };
-
-// const wishList = (req, res) => {
-//     if (req.session.user_login) {
-//         res.render("user/wishlist");
-//     } else {
-//         console.log("profile error");
-//         res.redirect("/userLogin");
-//     }
-//     // res.render("user/wishlist");
-// };
 
 const personalAddress = async (req, res) => {
     console.log(55555555555555555555555555555555555555555);
@@ -491,64 +500,6 @@ const deleteAddress = async (req, res) => {
     }
 };
 
-// const updateAddress = async (req, res) => {
-//     console.log(12345);
-//     let userId = req.session.user_login._id;
-//     // let address = await addressModel.findOne({ user: userId });
-//     // let contact = address.address[0];
-//     // let shipping = address.address[1];
-//     let contactId = req.params.id;
-//     let shippingId = req.params.id;
-//     // let shippingAdd = await addressModel.aggregate([
-//     //     { $unwind: "$address" },
-//     //     { $match: { user: userId, "address.contact": true } },
-//     // ]);
-//     console.log(shippingId);
-//     console.log(contactId);
-//     let shippingAdd = await addressModel.findOne({ "address._id": shippingId });
-//     let contactAdd = await addressModel.findOne({ "address._id": contactId });
-//     console.log(shippingAdd.address[0].contact);
-//     console.log(shippingAdd + "-shipping");
-//     console.log(contactAdd + "contact");
-//     if (shippingAdd.address[0].contact == true) {
-//         console.log(12345678);
-//         let updateCont = await addressModel.updateMany(
-//             { user: userId, "address._id": contactId },
-//             {
-//                 $set: {
-//                     "address.$.name": req.body.name,
-//                     "address.$.address": req.body.address,
-//                     "address.$.pincode": req.body.pincode,
-//                     "address.$.city": req.body.city,
-//                     "address.$.state": req.body.state,
-//                     "address.$.country": req.body.country,
-//                 },
-//             }
-//         );
-//         console.log(updateCont);
-//         res.redirect("/checkout");
-//     } else {
-//         console.log(987654);
-//         let updateShip = await addressModel.updateMany(
-//             { user: userId, "address._id": shippingId },
-//             {
-//                 $set: {
-//                     "address.$.name": req.body.name,
-//                     "address.$.address": req.body.address,
-//                     "address.$.pincode": req.body.pincode,
-//                     "address.$.city": req.body.city,
-//                     "address.$.state": req.body.state,
-//                     "address.$.phone": req.body.phone,
-//                     "address.$.email": req.body.email,
-//                     "address.$.country": req.body.country,
-//                 },
-//             }
-//         );
-//         console.log(updateShip);
-//         res.redirect("/checkout");
-//     }
-// };
-
 const cart = async (req, res) => {
     user_details = req.session.user_login;
     userId = req.session.user_login._id;
@@ -556,68 +507,6 @@ const cart = async (req, res) => {
     const cartItems = await cartModel.findOne({ owner: mongoose.Types.ObjectId(userId) }).populate("items.productId");
     console.log("cartItems" + cartItems);
     res.render("user/cart", { cartItems, user_details });
-};
-
-const addToCartHome = async (req, res, next) => {
-    let userId = req.session.user_login._id;
-    let response = null;
-    let productId = req.body.id;
-    const findProduct = await productModel.findOne({ _id: productId });
-    let findUser = await cartModel.findOne({ owner: userId });
-    if (findProduct.quantity) {
-        if (!findUser) {
-            console.log(" creating cart");
-            let addCart = await cartModel
-                .create({
-                    owner: userId,
-                    items: [
-                        {
-                            productId: findProduct._id,
-                            totalPrice: findProduct.price,
-                        },
-                    ],
-                    cartPrice: findProduct.price,
-                })
-                .then((data) => {
-                    res.json({ response: true });
-                });
-            console.log(addCart);
-        } else {
-            if (findUser) {
-                let productExist = await cartModel.findOne({ owner: userId, "items.productId": productId });
-                if (productExist) {
-                    console.log("productexiatS");
-                    res.json({ response: "productExist" });
-                } else {
-                    const newProduct = await cartModel
-                        .findOneAndUpdate(
-                            { owner: userId },
-                            {
-                                $push: {
-                                    items: {
-                                        productId: findProduct._id,
-                                        totalPrice: findProduct.price,
-                                    },
-                                },
-                                $inc: {
-                                    cartPrice: findProduct.price,
-                                },
-                            }
-                        )
-                        .then((data) => {
-                            res.json({ status: true });
-                        });
-                }
-            } else {
-                console.log("error");
-            }
-        }
-    } else {
-        res.json({ response: "Out of stock" });
-    }
-    // res.json({ response: true });
-    // console.log(addCart);
-    console.log("added to cart from home");
 };
 
 const addToCartShop = async (req, res) => {
@@ -1084,8 +973,8 @@ const success = async (req, res) => {
 
 const orderView = async (req, res) => {
     let user_details = req.session.user_login;
-    let order = await orderModel.find({ user: req.session.user_login._id });
-    res.render("user/order_List", { user_details, order });
+    let order = await orderModel.find({ user: req.session.user_login._id }).sort({ _id: -1 });
+    let total = res.render("user/order_List", { user_details, order });
 };
 
 const orderViewCheck = async (req, res) => {
@@ -1101,17 +990,11 @@ const orderDetails = async (req, res) => {
     let userId = req.session.user_login._id;
     let user_details = req.session.user_login;
     let orderId = req.params.id;
-    // let addressId = req.session.address;
+    let sum = 0;
     let order = await orderModel.findOne({ _id: orderId }).populate("items.productId");
-    console.log(order);
     let orderAddress = order.address;
-    console.log(orderAddress, "dfgh");
-    // let finalAddress = await addressModel.findOne({ "address._id": orderAddress });
-    // console.log(finalAddress);
     let addressS = await addressModel.findOne({ "address._id": orderAddress });
-    console.log(addressS);
     let Index = addressS.address.findIndex((obj) => obj._id == orderAddress.toString());
-    console.log(Index, "dfghjkl");
     let finalAddress = addressS.address[Index];
     res.render("user/order_details", { user_details, finalAddress, order });
 };
@@ -1199,6 +1082,7 @@ module.exports = {
     userProduct,
     // userProductDetails,
     showProductDetails,
+    // filterProduct,
     profile,
     otpPage,
     wishlist,
@@ -1214,7 +1098,6 @@ module.exports = {
     editingAddress,
     deleteAddress,
     cart,
-    addToCartHome,
     quantityChange,
     addToCartShop,
     deleteCart,

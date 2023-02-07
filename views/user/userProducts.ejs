@@ -89,154 +89,50 @@
                                     <h5>Categories</h5>
                                 </div>
                                 <div id="accordion" class="accordion-style2">
+                                    <% for( let i = 0; i < category.length; i++ ) { %>
                                     <div class="card">
                                         <div class="card-header" id="headingOne">
                                             <h5 class="mb-0">
                                                 <button
                                                     class="btn btn-link"
                                                     data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseOne"
+                                                    data-bs-target="#collapseOne<%=i%>"
                                                     aria-expanded="true"
-                                                    aria-controls="collapseOne"
+                                                    aria-controls="collapseOne<%=i%>"
                                                 >
-                                                    Shirts
+                                                    <%=category[i].categoryname%>
                                                 </button>
                                             </h5>
                                         </div>
+
                                         <div
-                                            id="collapseOne"
-                                            class="collapse show"
+                                            id="collapseOne<%=i%>"
+                                            class="collapse"
                                             aria-labelledby="headingOne"
                                             data-bs-parent="#accordion"
                                         >
                                             <div class="card-body">
                                                 <ul class="list-unstyled">
-                                                    <li><a href="#">Casual Shirts</a></li>
-                                                    <li><a href="#">Formal Shirts</a></li>
-                                                    <li><a href="#">Longline Shirts</a></li>
+                                                    <% for( let j = 0; j < category[i].Brand.length; j++ ) { %>
+                                                    <li>
+                                                        <a
+                                                            href="/userProduct?sub=<%=category[i].Brand[j]%>&cat=<%=category[i].categoryname%>"
+                                                            ><%=category[i].Brand[j]%></a
+                                                        >
+                                                    </li>
+                                                    <% } %>
+                                                    <li>
+                                                        <a href="/userProduct?sub=ALL&cat=<%=category[i].categoryname%>"
+                                                            >ALL</a
+                                                        >
+                                                    </li>
+                                                    <!-- <li><a href="#">Formal Shirts</a></li>
+                                                        <li><a href="#">Longline Shirts</a></li> -->
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card">
-                                        <div class="card-header" id="headingTwo">
-                                            <h5 class="mb-0">
-                                                <button
-                                                    class="btn btn-link collapsed"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseTwo"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapseTwo"
-                                                >
-                                                    Jeans
-                                                </button>
-                                            </h5>
-                                        </div>
-                                        <div
-                                            id="collapseTwo"
-                                            class="collapse"
-                                            aria-labelledby="headingTwo"
-                                            data-bs-parent="#accordion"
-                                        >
-                                            <div class="card-body">
-                                                <ul class="list-unstyled">
-                                                    <li><a href="#">Regular Jeans</a></li>
-                                                    <li><a href="#">Denim Jeans</a></li>
-                                                    <li><a href="#">Low Rise Jeans</a></li>
-                                                    <li><a href="#">Mid Rise Denims</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" id="headingThree">
-                                            <h5 class="mb-0">
-                                                <button
-                                                    class="btn btn-link collapsed"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseThree"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapseThree"
-                                                >
-                                                    Shoes
-                                                </button>
-                                            </h5>
-                                        </div>
-                                        <div
-                                            id="collapseThree"
-                                            class="collapse"
-                                            aria-labelledby="headingThree"
-                                            data-bs-parent="#accordion"
-                                        >
-                                            <div class="card-body">
-                                                <ul class="list-unstyled">
-                                                    <li><a href="#">Sports Shoes</a></li>
-                                                    <li><a href="#">Wedding Shoes</a></li>
-                                                    <li><a href="#">Loafers Shoes</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" id="headingFour">
-                                            <h5 class="mb-0">
-                                                <button
-                                                    class="btn btn-link collapsed"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseFour"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapseFour"
-                                                >
-                                                    T-Shirts
-                                                </button>
-                                            </h5>
-                                        </div>
-                                        <div
-                                            id="collapseFour"
-                                            class="collapse"
-                                            aria-labelledby="headingFour"
-                                            data-bs-parent="#accordion"
-                                        >
-                                            <div class="card-body">
-                                                <ul class="list-unstyled">
-                                                    <li><a href="#">Polo T-Shirt</a></li>
-                                                    <li><a href="#">V-neck T-Shirt</a></li>
-                                                    <li><a href="#">Striped T-Shirt</a></li>
-                                                    <li><a href="#">Graphic T-Shirt</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" id="headingFive">
-                                            <h5 class="mb-0">
-                                                <button
-                                                    class="btn btn-link collapsed"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseFive"
-                                                    aria-expanded="false"
-                                                    aria-controls="collapseFive"
-                                                >
-                                                    Mobile
-                                                </button>
-                                            </h5>
-                                        </div>
-                                        <div
-                                            id="collapseFive"
-                                            class="collapse"
-                                            aria-labelledby="headingFive"
-                                            data-bs-parent="#accordion"
-                                        >
-                                            <div class="card-body">
-                                                <ul class="list-unstyled">
-                                                    <li><a href="#">Intex</a></li>
-                                                    <li><a href="#">Google</a></li>
-                                                    <li><a href="#">Samsung</a></li>
-                                                    <li><a href="#">Apple</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -319,11 +215,6 @@
                                                             >Add to Cart</a
                                                         >
                                                     </li>
-                                                    <!-- <li>
-                                                    <a href="#" class="btn-link" title="Add To Compare"
-                                                        ><i class="fas fa-random"></i
-                                                    ></a>
-                                                </li> -->
                                                 </ul>
                                             </div>
                                         </div>
