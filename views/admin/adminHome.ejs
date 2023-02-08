@@ -65,14 +65,14 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <div>
-                                                <h4 class="mb-0 text-blue">850</h4>
+                                                <h4 class="mb-0 text-blue"><%=totalqty[0].qty%></h4>
                                                 <p class="text-muted mb-0">Products Sold</p>
                                             </div>
                                             <div>
                                                 <i class="fas fa-shopping-cart text-blue fs-2"></i>
                                             </div>
                                         </div>
-                                        <div class="custom-progress bg-blue progress mb-0">
+                                        <!-- <div class="custom-progress progress mb-0">
                                             <div
                                                 class="animated custom-bar progress-bar slideInLeft"
                                                 style="width: 70%"
@@ -81,7 +81,7 @@
                                                 aria-valuenow="10"
                                                 role="progressbar"
                                             ></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                                                 <i class="fas fa-chart-pie text-orange fs-2"></i>
                                             </div>
                                         </div>
-                                        <div class="custom-progress bg-orange progress mb-0">
+                                        <!-- <div class="custom-progress progress mb-0">
                                             <div
                                                 class="animated custom-bar progress-bar slideInLeft"
                                                 style="width: 80%"
@@ -106,7 +106,7 @@
                                                 aria-valuenow="10"
                                                 role="progressbar"
                                             ></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -115,14 +115,14 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <div>
-                                                <h4 class="mb-0 text-green">146</h4>
-                                                <p class="text-muted mb-0">New Customers</p>
+                                                <h4 class="mb-0 text-green"><%=userTotal%></h4>
+                                                <p class="text-muted mb-0">Total Customers</p>
                                             </div>
                                             <div>
                                                 <i class="far fa-user text-green fs-2"></i>
                                             </div>
                                         </div>
-                                        <div class="custom-progress bg-green progress mb-0">
+                                        <!-- <div class="custom-progress progress mb-0">
                                             <div
                                                 class="animated custom-bar progress-bar slideInLeft"
                                                 style="width: 60%"
@@ -131,7 +131,7 @@
                                                 aria-valuenow="10"
                                                 role="progressbar"
                                             ></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@
                                                 <i class="far fa-heart text-pink fs-2"></i>
                                             </div>
                                         </div>
-                                        <div class="custom-progress bg-pink progress mb-0">
+                                        <!-- <div class="custom-progress progress mb-0">
                                             <div
                                                 class="animated custom-bar progress-bar slideInLeft"
                                                 style="width: 90%"
@@ -156,7 +156,7 @@
                                                 aria-valuenow="10"
                                                 role="progressbar"
                                             ></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -178,202 +178,49 @@
                             <div class="col-xl-5 half-gutter grid-margin">
                                 <div class="card card-white h-100">
                                     <div class="card-heading clearfix">
-                                        <h4 class="card-title">New Orders</h4>
+                                        <h4 class="card-title">Monthly Reports</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive" style="max-height: 350px; overflow-y: scroll">
                                             <table class="table mb-0">
-                                                <thead>
+                                                <thead style="position: sticky; top: 0">
                                                     <tr>
-                                                        <th class="border-top-0">Product</th>
-                                                        <th class="border-top-0">Customers</th>
-                                                        <th class="border-top-0">Total</th>
+                                                        <th
+                                                            class="border-top-0 text-center"
+                                                            style="position: sticky; top: 0; background-color: #fff"
+                                                        >
+                                                            Year
+                                                        </th>
+                                                        <th
+                                                            class="border-top-0 text-center"
+                                                            style="position: sticky; top: 0; background-color: #fff"
+                                                        >
+                                                            Month
+                                                        </th>
+                                                        <th
+                                                            class="border-top-0 text-center"
+                                                            style="position: sticky; top: 0; background-color: #fff"
+                                                        >
+                                                            Quantity
+                                                        </th>
+                                                        <th
+                                                            class="border-top-0 text-center"
+                                                            style="position: sticky; top: 0; background-color: #fff"
+                                                        >
+                                                            Sale
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <% for( let i = 0; i < monthlyTotal.length; i++ ) { %>
+
                                                     <tr>
-                                                        <td>iPhone X</td>
-                                                        <td>
-                                                            <ul class="list-unstyled users-list m-0">
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Nicolette Villeneuve"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-01.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Carl M. Gaier"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-02.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Frank Manning"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-03.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>$8999</td>
+                                                        <td class="text-center"><%=monthlyTotal[i]._id.Year%></td>
+                                                        <td class="text-center"><%=monthlyTotal[i]._id.Month%></td>
+                                                        <td class="text-center"><%=monthlyTotal[i].Quantity%></td>
+                                                        <td class="text-center">$ <%=monthlyTotal[i].Total%>.00</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Pixel 2</td>
-                                                        <td>
-                                                            <ul class="list-unstyled users-list m-0">
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Gary Bradley"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-04.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Chandra Cirillo"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-05.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>$5550</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>OnePlus</td>
-                                                        <td>
-                                                            <ul class="list-unstyled users-list m-0">
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Frederick Cooper"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-06.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Elizabeth Elzey"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-07.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Eugene Rivera"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-08.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>$9000</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Galaxy</td>
-                                                        <td>
-                                                            <ul class="list-unstyled users-list m-0">
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Janet Zoller"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-09.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="George Biddle"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-10.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Nicolette Villeneuve"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-01.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>$7500</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Moto Z2</td>
-                                                        <td>
-                                                            <ul class="list-unstyled users-list m-0">
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Carl M. Gaier"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-02.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                                <li
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Frank Manning"
-                                                                >
-                                                                    <img
-                                                                        class="rounded-circle"
-                                                                        src="/images/admin/avatars/avatar-03.jpg"
-                                                                        alt="..."
-                                                                    />
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>$8500</td>
-                                                    </tr>
+                                                    <% } %>
                                                 </tbody>
                                             </table>
                                         </div>

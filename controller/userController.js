@@ -518,7 +518,7 @@ const addToCartShop = async (req, res) => {
     if (findProduct.quantity) {
         if (!findUser) {
             console.log(" creating cart");
-            let addCart = await cartMode
+            let addCart = await cartModel
                 .create({
                     owner: userId,
                     items: [
@@ -1069,7 +1069,7 @@ const changePassword = async (req, res) => {
 };
 
 const logout = (req, res) => {
-    req.session.destroy();
+    req.session.user_login = null;
     res.redirect("/");
 };
 

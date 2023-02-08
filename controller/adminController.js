@@ -44,8 +44,103 @@ const adminLoginPost = async (req, res, next) => {
     res.json({ response });
 };
 
-const adminHome = (req, res) => {
-    res.render("admin/adminHome");
+const adminHome = async (req, res) => {
+    let user = await userModel.find({});
+    let userTotal = user.length;
+    let today = new Date(Date.now());
+    let totalpro = await orderModel.find({}, { total: 1, _id: 0 });
+    let salereport = await orderModel.aggregate([
+        { $match: { order_status: { $eq: "Completed" } } },
+        {
+            $group: {
+                _id: {
+                    Year: { $year: "$createdAt" },
+                    Month: { $month: "$createdAt" },
+                    Day: { $dayOfMonth: "$createdAt" },
+                },
+                Total: { $sum: "$cartTotal" },
+            },
+        },
+        {
+            $sort: { "_id.Year": 1, "_id.Month": 1, "_id.Day": 1 },
+        },
+    ]);
+    const date = new Date();
+    let month = date.getMonth();
+    month = month + 1;
+    const year = date.getFullYear();
+    console.log(month, "ipo month", year, "ipo year");
+    const day = date.getDate();
+    let todaySale = await orderModel.aggregate([
+        {
+            $match: {
+                order_status: { $ne: "Cancelled" },
+            },
+        },
+        {
+            $addFields: {
+                Day: { $dayOfMonth: "$createdAt" },
+                Month: { $month: "$createdAt" },
+                Year: { $year: "$createdAt" },
+            },
+        },
+        {
+            $match: { Day: day, Year: year, Month: month },
+        },
+        {
+            $group: {
+                _id: {
+                    day: { $dayOfMonth: "$createdAt" },
+                },
+                total: { $sum: "$items.totalPrice" },
+            },
+        },
+    ]);
+    console.log(todaySale);
+    let yearlyTotal = await orderModel.aggregate([
+        {
+            $group: {
+                _id: {
+                    Year: { $year: "$foryear" },
+                },
+                Total: { $sum: "$cartTotal" },
+            },
+        },
+        {
+            $sort: { "_id.Year": 1 },
+        },
+    ]);
+    let totalqty = await orderModel.aggregate([
+        {
+            $group: {
+                _id: {
+                    _id: null,
+                },
+                qty: { $sum: { $size: "$items.quantity" } },
+            },
+        },
+    ]);
+    let monthlyTotal = await orderModel.aggregate([
+        {
+            $group: {
+                _id: {
+                    Year: { $year: "$createdAt" },
+                    Month: { $month: "$createdAt" },
+                    // Day: { $dayOfMonth: "$createdAt" },
+                },
+                Total: { $sum: "$cartTotal" },
+                Quantity: { $sum: { $size: "$items.quantity" } },
+            },
+        },
+        {
+            $sort: { "_id.Year": 1, "_id.Month": -1 },
+        },
+    ]);
+    console.log(totalqty);
+    console.log(yearlyTotal);
+    console.log(monthlyTotal);
+    console.log(salereport);
+    res.render("admin/adminHome", { userTotal, monthlyTotal, userTotal, yearlyTotal, totalqty });
 };
 
 const category = async (req, res) => {
@@ -54,7 +149,6 @@ const category = async (req, res) => {
 };
 
 const addCategory = (req, res) => {
-    // const category = categoryModel.find({});
     let message = req.flash("message");
     if (message) res.render("admin/addCategory", { message });
     else res.render("admin/addCategory", { message: false });
@@ -451,7 +545,7 @@ const banner = async (req, res) => {
 };
 
 const logout = (req, res) => {
-    req.session.destroy();
+    req.session.adminLogin = null;
     res.redirect("/admin");
 };
 // addCouponPost;
