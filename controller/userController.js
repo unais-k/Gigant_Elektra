@@ -701,7 +701,6 @@ const payment = async (req, res) => {
 };
 
 const coponCheck = async (req, res) => {
-    console.log(11111);
     let response;
     let Msg;
     let userId = req.session.user_login._id;

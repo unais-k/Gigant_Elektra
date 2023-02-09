@@ -68,7 +68,7 @@
                                                 <a href="/admin/report"><h4 class="mb-0 text-blue">Yearly Report</h4></a>
                                             </div>
                                             <div>
-                                                <i class="fas fa-shopping-cart text-blue fs-2"></i>
+                                                <i class="fas fa-chart-pie text-blue fs-2"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@
                                                 <a onclick="month()">
                                                     <h4 class="mb-0 text-orange">Month Report</h4>
                                                 </a>
-                                                <p class="text-muted mb-0">Net Profit</p>
+                                                <!-- <p class="text-muted mb-0">Net Profit</p> -->
                                             </div>
                                             <div>
                                                 <i class="fas fa-chart-pie text-orange fs-2"></i>
@@ -111,8 +111,7 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <div>
-                                                <h4 class="mb-0 text-pink">99.89 %</h4>
-                                                <p class="text-muted mb-0">Customer Satisfaction</p>
+                                                <a onclick="dailysale()"> <h4 class="mb-0 text-pink">Daily Report</h4></a>
                                             </div>
                                             <div>
                                                 <i class="far fa-heart text-pink fs-2"></i>
@@ -126,7 +125,7 @@
                             <div class="col-md-12 grid-margin">
                                 <div class="card card-white h-100">
                                     <div class="card-heading clearfix">
-                                        <h4 class="card-title">Year Transaction</h4>
+                                        <h4 id="headng" class="card-title">Year Transaction</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -148,7 +147,7 @@
                                                         <td><%=report.count%></td>
                                                         <td><%=report.items%></td>
                                                         <td>$<%=report.total%>.00</td>
-                                                        <td>$<%=(report.total*15)/100%>.00</td>
+                                                        <td>$<%=(report.total*15)/100%></td>
                                                         <!-- <td>$400</td> -->
                                                         <%}%>
                                                     </tr>
@@ -159,6 +158,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="page-footer">
+                        <p>Copyright &copy; <span class="current-year"></span> Gigant Elektra All rights reserved.</p>
                     </div>
                 </div>
             </div>
@@ -184,27 +186,61 @@
 
         <script>
             function month() {
-                console.log(222);
                 axios({
-                    method: "get",
+                    method: "post",
                     url: "/admin/salesresport",
                 })
                     .then((result) => {
                         console.log(11111);
                         if (result.data.error) {
+                            console.log(22);
                         } else {
+                            console.log(1111111);
                             let html = "";
-                            let saleReport = result.data.salesRe;
+                            let saleReport = result.data.salesRep;
                             saleReport.forEach((element) => {
                                 html += `<tr>
-                                            <td><a href="#"><%=element._id.month%></a></td>
-                                            <td><%=element.count%></td>
-                                            <td><%=element.items%></td>
-                                            <td>$<%=element.total%>.00</td>
-                                            <td>$<%=(element.total*15)/100%>.00</td>
+                                            <td><a href="#">${element._id.month}</a></td>
+                                            <td>${element.count}</td>
+                                            <td>${element.items}</td>
+                                            <td>$${element.total}.00</td>
+                                            <td>$${(element.total * 15) / 100}</td>
                                         </tr>`;
                             });
                             document.getElementById("tableVa").innerHTML = html;
+                            document.getElementById("headng").innerHTML = "Month Transaction";
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+            function dailysale() {
+                axios({
+                    method: "post",
+                    url: "/admin/dailyreport",
+                })
+                    .then((result) => {
+                        console.log(11111);
+                        if (result.data.error) {
+                            console.log(22);
+                        } else {
+                            console.log(1111111);
+                            let html = "";
+                            let saleReport = result.data.daily;
+                            saleReport.forEach((element) => {
+                                html += `<tr>
+                                            <td><a href="#">${element._id.Day}/${element._id.Month}/${
+                                    element._id.Year
+                                }</a></td>
+                                            <td>${element.count}</td>
+                                            <td>${element.items}</td>
+                                            <td>$${element.Total}.00</td>
+                                            <td>$${(element.Total * 15) / 100}</td>
+                                        </tr>`;
+                            });
+                            document.getElementById("tableVa").innerHTML = html;
+                            document.getElementById("headng").innerHTML = "Daily Transaction";
                         }
                     })
                     .catch((err) => {

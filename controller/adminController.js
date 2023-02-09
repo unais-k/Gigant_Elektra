@@ -134,6 +134,28 @@ const adminHome = async (req, res) => {
             },
         },
     ]);
+    let dateMonth = new Date();
+    dateMonth = dateMonth.getMonth();
+    dateMonth = dateMonth + 1;
+
+    let thismonth = await orderModel.aggregate([
+        {
+            $addFields: { month: { $month: "$updatedAt" } },
+        },
+        {
+            $match: { month: { $eq: dateMonth } },
+        },
+        {
+            $group: {
+                _id: {
+                    Month: { $month: "$updatedAt" },
+                },
+                Total: { $sum: "$cartTotal" },
+            },
+        },
+    ]);
+    const totalMonthSale = thismonth[0].Total;
+    const totalMonthProfit = (totalMonthSale * 15) / 100;
     let monthlyTotal = await orderModel.aggregate([
         {
             $group: {
@@ -147,12 +169,20 @@ const adminHome = async (req, res) => {
             },
         },
         {
-            $sort: { "_id.Year": 1, "_id.Month": -1 },
+            $sort: { "_id.Year": -1, "_id.Month": -1 },
         },
     ]);
-
     let totalProfit = (yearlyTotal[0].Total * 15) / 100;
-    res.render("admin/adminHome", { userTotal, monthlyTotal, totalProfit, userTotal, yearlyTotal, totalqty });
+    res.render("admin/adminHome", {
+        userTotal,
+        monthlyTotal,
+        totalProfit,
+        totalMonthSale,
+        totalMonthProfit,
+        userTotal,
+        yearlyTotal,
+        totalqty,
+    });
 };
 
 const graph = async (req, res) => {
@@ -219,6 +249,9 @@ const graph = async (req, res) => {
 const weekly = async (req, res) => {
     let weeksale = await orderModel.aggregate([
         {
+            $match: { order_status: { $eq: "Completed" } },
+        },
+        {
             $group: {
                 _id: {
                     month: { $month: "$createdAt" },
@@ -268,7 +301,6 @@ const report = async (req, res) => {
             },
         },
     ]);
-    console.log(yearly, 111);
     res.render("admin/reports", { yearly });
 };
 
@@ -287,9 +319,49 @@ const sales = async (req, res) => {
                 count: { $sum: 1 },
             },
         },
+        { $sort: { "_id.month": 1 } },
     ]);
+    const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    const salesRep = salesRe.map((el) => {
+        const newOne = { ...el };
+        newOne._id.month = months[newOne._id.month - 1];
+        return newOne;
+    });
+    res.json({ salesRep, error: false });
+};
 
-    res.json({ salesRe, error: true });
+const dailly = async (req, res) => {
+    let daily = await orderModel.aggregate([
+        { $match: { order_status: { $eq: "Completed" } } },
+        {
+            $group: {
+                _id: {
+                    Year: { $year: "$updatedAt" },
+                    Month: { $month: "$updatedAt" },
+                    Day: { $dayOfMonth: "$updatedAt" },
+                },
+                Total: { $sum: "$cartTotal" },
+                items: { $sum: { $size: "$items" } },
+                count: { $sum: 1 },
+            },
+        },
+        { $sort: { "_id.Year": -1, "_id.Month": 1, "_id.Day": 1 } },
+    ]);
+    console.log(daily, 111);
+    res.json({ error: false, daily });
 };
 
 const category = async (req, res) => {
@@ -705,6 +777,7 @@ module.exports = {
     adminHome,
     weekly,
     graph,
+    dailly,
     category,
     addCategory,
     report,

@@ -48,7 +48,7 @@ $(document).ready(function () {
 
     // apexchart2
     var options = {
-        series: [75],
+        series: [15],
         chart: {
             height: 200,
             type: "radialBar",

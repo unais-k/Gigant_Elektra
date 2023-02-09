@@ -44,6 +44,7 @@ const {
     report,
     weekly,
     sales,
+    dailly,
 } = require("../controller/adminController");
 
 router.get("/", adminLogin);
@@ -74,7 +75,9 @@ router.get("/customers", adminSession, customers);
 
 router.get("/report", adminSession, report);
 
-router.get("/salesresport", adminSession, sales);
+router.post("/salesresport", adminSession, sales);
+
+router.post("/dailyreport", adminSession, dailly);
 
 // router.get("/editProduct/:id", editProduct);
 

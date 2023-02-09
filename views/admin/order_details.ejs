@@ -243,8 +243,9 @@
                                             <table class="table mb-0 order-details-table">
                                                 <thead class="bg-light">
                                                     <tr>
-                                                        <th class="ps-4 id">ID</th>
-                                                        <th class="name">Name</th>
+                                                        <th class="text-center ps-4 id">ID</th>
+                                                        <th class="text-center">Image</th>
+                                                        <th class="text-center name">Name</th>
                                                         <th class="text-end cost">Cost</th>
                                                         <th class="text-end qty">Qty</th>
                                                         <th class="text-end total">Total</th>
@@ -253,12 +254,11 @@
                                                 <tbody>
                                                     <% for( let i = 0; i < details.items.length; i++ ) { %>
                                                     <tr>
-                                                        <td class="ps-4">
-                                                            <a href="#"><strong>290397</strong></a>
-                                                        </td>
-                                                        <td><a href="#"><%=details.items[i].productId.productName%></a></td>
+                                                        <td class="text-center ps-4"><strong><%=details.items[i].productId._id.toString().substr(15)%><strong></td>
+                                                        <td class="text-center"><img src="<%=details.items[i].productId.productImages[0]%>" alt=""></td>
+                                                        <td class="text-center"><a href="/admin/detail_product/<%=details.items[i].productId._id%>"><%=details.items[i].productId.productName%></a></td>
                                                         <td class="text-end">$<%=details.items[i].productId.price%>.00</td>
-                                                        <td class="text-end"><%=details.items[i].quantity%></td>
+                                                        <td class="text-center"><%=details.items[i].quantity%></td>
                                                         <td class="text-end">$<%=details.items[i].totalPrice%>.00</td>
                                                     </tr>
                                                     <% } %>
@@ -311,6 +311,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="page-footer">
+                        <p>Copyright &copy; <span class="current-year"></span> Gigant Elektra All rights reserved.</p>
                     </div>
                 </div>
             </div>

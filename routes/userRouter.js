@@ -23,7 +23,7 @@ const {
     personalAddress,
     personalAddressPost,
     cart,
-    addToCartHome,
+    // addToCartHome,
     addToCartShop,
     quantityChange,
     deleteCart,

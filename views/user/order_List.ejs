@@ -175,10 +175,22 @@
                                             <tr>
                                                 <th><%=i+1%></th>
                                                 <td><%=order[i].updatedAt.toLocaleDateString()%></td>
+                                                <%if(order[i].order_status=="Completed"){%>
+                                                <td>
+                                                    <span class="fas fa-circle text-success small mr-1 pe-2"></span
+                                                    ><%=order[i].order_status%>
+                                                </td>
+                                                <%}else if(order[i].order_status=="Cancelled"){%>
+                                                <td>
+                                                    <span class="fas fa-circle text-danger small mr-1 pe-2"></span
+                                                    ><%=order[i].order_status%>
+                                                </td>
+                                                <%}else{%>
                                                 <td>
                                                     <span class="fas fa-circle text-primary small mr-1 pe-2"></span
                                                     ><%=order[i].order_status%>
                                                 </td>
+                                                <%}%>
                                                 <td><span>$ </span><%=order[i].total%>.00</td>
                                                 <td>
                                                     <a href="#" class="text-primary"><%=order[i].payment_method%></a>
