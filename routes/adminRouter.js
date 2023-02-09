@@ -40,6 +40,10 @@ const {
     paymentStatus,
     addBanner,
     banner,
+    graph,
+    report,
+    weekly,
+    sales,
 } = require("../controller/adminController");
 
 router.get("/", adminLogin);
@@ -47,6 +51,10 @@ router.get("/", adminLogin);
 router.post("/adminLogin", adminLoginPost);
 
 router.get("/adminHome", adminSession, adminHome);
+
+router.get("/dashboardgraph", adminSession, graph);
+
+router.get("/weekly", adminSession, weekly);
 
 router.get("/category", adminSession, category);
 
@@ -63,6 +71,10 @@ router.post("/addProductPost", adminSession, productPhoto, addProductPost);
 router.get("/productDetails", adminSession, productDetails);
 
 router.get("/customers", adminSession, customers);
+
+router.get("/report", adminSession, report);
+
+router.get("/salesresport", adminSession, sales);
 
 // router.get("/editProduct/:id", editProduct);
 

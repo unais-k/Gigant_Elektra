@@ -69,7 +69,6 @@ const adminHome = async (req, res) => {
     let month = date.getMonth();
     month = month + 1;
     const year = date.getFullYear();
-    console.log(month, "ipo month", year, "ipo year");
     const day = date.getDate();
     let todaySale = await orderModel.aggregate([
         {
@@ -91,12 +90,27 @@ const adminHome = async (req, res) => {
             $group: {
                 _id: {
                     day: { $dayOfMonth: "$createdAt" },
+                    // _id: null,
                 },
-                total: { $sum: "$items.totalPrice" },
+                total: { $sum: "$cartTotal" },
             },
         },
     ]);
-    console.log(todaySale);
+    const monthlyreport = await orderModel.aggregate([
+        {
+            $match: { order_status: { $eq: "Completed" } },
+        },
+        {
+            $group: {
+                _id: {
+                    Year: { $year: "$createdAt" },
+                    Month: { $month: "$createdAt" },
+                },
+                Total: { $sum: "$cartTotal" },
+            },
+        },
+        { $sort: { createdAt: -1 } },
+    ]);
     let yearlyTotal = await orderModel.aggregate([
         {
             $group: {
@@ -136,11 +150,146 @@ const adminHome = async (req, res) => {
             $sort: { "_id.Year": 1, "_id.Month": -1 },
         },
     ]);
-    console.log(totalqty);
-    console.log(yearlyTotal);
-    console.log(monthlyTotal);
-    console.log(salereport);
-    res.render("admin/adminHome", { userTotal, monthlyTotal, userTotal, yearlyTotal, totalqty });
+
+    let totalProfit = (yearlyTotal[0].Total * 15) / 100;
+    res.render("admin/adminHome", { userTotal, monthlyTotal, totalProfit, userTotal, yearlyTotal, totalqty });
+};
+
+const graph = async (req, res) => {
+    // let DailyProfit = await orderModel.aggregate([
+    //     { $match: { order_status: { $eq: "Completed" } } },
+    //     {
+    //         $group: {
+    //             _id: {
+    //                 Year: { $year: "$createdAt" },
+    //                 Month: { $month: "$createdAt" },
+    //                 Day: { $dayOfMonth: "$createdAt" },
+    //             },
+    //             Total: { $sum: "$cartTotal" },
+    //             count: { $sum: 1 },
+    //         },
+    //     },
+    //     { $sort: { "_id.Year": -1 } },
+    // ]);
+    // let canceld = await orderModel.aggregate([
+    //     { $match: { order_status: { $eq: "Cancelled" } } },
+    //     {
+    //         $group: {
+    //             _id: {
+    //                 Year: { $year: "$createdAt" },
+    //                 Month: { $month: "$createdAt" },
+    //                 Day: { $dayOfMonth: "$createdAt" },
+    //             },
+    //             Total: { $sum: "$cartTotal" },
+    //             count: { $sum: 1 },
+    //         },
+    //     },
+    //     { $sort: { "_id.Year": -1 } },
+    // ]);
+    let DailySale = await orderModel.aggregate([
+        {
+            $group: {
+                // _id: {
+                //     Year: { $year: "$createdAt" },
+                //     Month: { $month: "$createdAt" },
+                //     Day: { $dayOfMonth: "$createdAt" },
+                //     // $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
+                // },
+                _id: { date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } } },
+                count: { $sum: 1 },
+                Total: { $sum: "$cartTotal" },
+                count: { $sum: 1 },
+            },
+        },
+        { $sort: { "_id.date": 1 } },
+    ]);
+
+    let dailysales = [];
+    let dailyprofits = [];
+    let datetata = [];
+
+    for (let i = 0; i < DailySale.length; i++) {
+        dailysales.push(DailySale[i].Total);
+        dailyprofits.push((DailySale[i].Total * 15) / 100);
+        datetata.push(DailySale[i]._id.date);
+    }
+    res.json({ status: true, dailyprofits, dailysales, datetata });
+};
+
+const weekly = async (req, res) => {
+    let weeksale = await orderModel.aggregate([
+        {
+            $group: {
+                _id: {
+                    month: { $month: "$createdAt" },
+                },
+                Total: { $sum: "$cartTotal" },
+                count: { $sum: 1 },
+            },
+        },
+        { $sort: { "_id.month": 1 } },
+    ]);
+
+    const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    const salesRep = weeksale.map((el) => {
+        const newOne = { ...el };
+        newOne._id.month = months[newOne._id.month - 1];
+        return newOne;
+    });
+    res.json({ status: true, salesRep });
+};
+
+const report = async (req, res) => {
+    let yearly = await orderModel.aggregate([
+        {
+            $match: { order_status: { $eq: "Completed" } },
+        },
+        {
+            $group: {
+                _id: {
+                    year: { $year: "$updatedAt" },
+                },
+                items: { $sum: { $size: "$items" } },
+                total: { $sum: "$cartTotal" },
+                count: { $sum: 1 },
+            },
+        },
+    ]);
+    console.log(yearly, 111);
+    res.render("admin/reports", { yearly });
+};
+
+const sales = async (req, res) => {
+    let salesRe = await orderModel.aggregate([
+        {
+            $match: { order_status: { $eq: "Completed" } },
+        },
+        {
+            $group: {
+                _id: {
+                    month: { $month: "$updatedAt" },
+                },
+                items: { $sum: { $size: "$items" } },
+                total: { $sum: "$cartTotal" },
+                count: { $sum: 1 },
+            },
+        },
+    ]);
+
+    res.json({ salesRe, error: true });
 };
 
 const category = async (req, res) => {
@@ -554,8 +703,12 @@ module.exports = {
     adminLogin,
     adminLoginPost,
     adminHome,
+    weekly,
+    graph,
     category,
     addCategory,
+    report,
+    sales,
     addCategoryPost,
     showProducts,
     addProduct,

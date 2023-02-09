@@ -266,14 +266,14 @@
                         location.reload();
                     }
                     document.getElementById(prodctId).value = response.data.qty;
-                    document.getElementById("cartPrice").innerHTML = `$ ${response.data.cartPrice}`;
-                    document.getElementById("SubcartPrice").innerHTML = `$ ${response.data.cartPrice}`;
-                    document.getElementById("totalPrice" + prodctId).innerHTML = ` $ ${response.data.totalPrice} `;
-                    // if (response.data.qty == 1) {
-                    //     document.getElementById("minusBtn" + prodctId).style.visibility = "hidden";
-                    // } else {
-                    //     document.getElementById("minusBtn" + prodctId).style.visibility = "visible";
-                    // }
+                    document.getElementById("cartPrice").innerHTML = `$ ${response.data.cartPrice}.00`;
+                    document.getElementById("SubcartPrice").innerHTML = `$ ${response.data.cartPrice}.00`;
+                    document.getElementById("totalPrice" + prodctId).innerHTML = ` $ ${response.data.totalPrice}.00 `;
+                    if (response.data.qty == 1) {
+                        document.getElementById("minusBtn" + prodctId).style.visibility = "hidden";
+                    } else {
+                        document.getElementById("minusBtn" + prodctId).style.visibility = "visible";
+                    }
                 });
             }
 

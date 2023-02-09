@@ -1,48 +1,50 @@
 $(document).ready(function () {
     "use strict";
 
+    axios({
+        url: "/admin/dashboardgraph",
+        method: "get",
+    }).then((res) => {
+        console.log(res.data.dailyprofits);
+        if (res.data.status) {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: "area",
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                stroke: {
+                    curve: "smooth",
+                },
+                series: [
+                    {
+                        name: "Sales",
+                        // data: [700, 400, 28, 1051, 2000],
+                        data: res.data.dailysales,
+                    },
+                    {
+                        name: "Profit",
+                        // data: [11, 32, 45, 32, 34, 52, 41],
+                        data: res.data.dailyprofits,
+                    },
+                ],
+                xaxis: {
+                    type: "datetime",
+                    categories: res.data.datetata,
+                },
+                tooltip: {
+                    x: {
+                        format: "dd/MM/yy HH:mm",
+                    },
+                },
+            };
+            var chart = new ApexCharts(document.querySelector("#apexchart1"), options);
+            chart.render();
+        }
+    });
     // apexchart1
-    var options = {
-        chart: {
-            height: 350,
-            type: "area",
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        stroke: {
-            curve: "smooth",
-        },
-        series: [
-            {
-                name: "series1",
-                data: [31, 40, 28, 51, 42, 109, 100],
-            },
-            {
-                name: "series2",
-                data: [11, 32, 45, 32, 34, 52, 41],
-            },
-        ],
-        xaxis: {
-            type: "datetime",
-            categories: [
-                "2018-09-19T00:00:00",
-                "2018-09-19T01:30:00",
-                "2018-09-19T02:30:00",
-                "2018-09-19T03:30:00",
-                "2018-09-19T04:30:00",
-                "2018-09-19T05:30:00",
-                "2018-09-19T06:30:00",
-            ],
-        },
-        tooltip: {
-            x: {
-                format: "dd/MM/yy HH:mm",
-            },
-        },
-    };
-    var chart = new ApexCharts(document.querySelector("#apexchart1"), options);
-    chart.render();
 
     // apexchart2
     var options = {
@@ -126,39 +128,67 @@ $(document).ready(function () {
     var chart = new ApexCharts(document.querySelector("#apexchart2"), options);
     chart.render();
 
-    // apexchart3
-    var options = {
-        series: [
-            {
-                name: "Series 1",
-                data: [80, 50, 30, 40, 100, 20],
-            },
-        ],
-        chart: {
-            height: 350,
-            type: "radar",
-        },
-        title: {
-            text: "Basic Radar Chart",
-        },
-        xaxis: {
-            categories: [
-                "January",
-                // "February",
-                "March",
-                // "April",
-                "May",
-                // "June",
-                "July",
-                // "August",
-                "September",
-                // "October",
-                "November",
-                // "December",
-            ],
-        },
-    };
+    axios({
+        method: "get",
+        url: "/admin/weekly",
+    }).then((res) => {
+        const month = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ];
+        const count = [];
+        res.data.salesRep.forEach((element) => {
+            count.push(element.count);
+        });
+        console.log(count);
+        if (res.data.status) {
+            var options = {
+                series: [
+                    {
+                        name: "Series 1",
+                        // data: [80, 50, 30, 40, 100, 20],
+                        data: count,
+                    },
+                ],
+                chart: {
+                    height: 350,
+                    type: "radar",
+                },
+                title: {
+                    text: "Basic Radar Chart",
+                },
+                xaxis: {
+                    // categories: [
+                    //     "January",
+                    //     // "February",
+                    //     "March",
+                    //     // "April",
+                    //     "May",
+                    //     // "June",
+                    //     "July",
+                    //     // "August",
+                    //     "September",
+                    //     // "October",
+                    //     "November",
+                    //     // "December",
+                    // ],
+                    categories: month,
+                },
+            };
 
-    var chart = new ApexCharts(document.querySelector("#apexchart3"), options);
-    chart.render();
+            var chart = new ApexCharts(document.querySelector("#apexchart3"), options);
+            chart.render();
+        }
+    });
+    // apexchart3
 });
