@@ -11,4 +11,11 @@ const bannerSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    url: {
+        type: String,
+    },
 });
+
+const bannerModel = mongoose.model("banner", bannerSchema);
+
+module.exports = bannerModel;

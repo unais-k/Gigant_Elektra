@@ -52,6 +52,7 @@ const {
     otpforgotverify,
     changePassword,
     otpPage,
+    search,
 } = require("../controller/userController");
 
 /* GET home page. */
@@ -66,6 +67,8 @@ router.get("/userRegister", userRegister);
 router.post("/userRegisterPost", userRegisterPost);
 
 router.get("/userProduct", userProduct);
+
+router.post("/search", search);
 
 // router.get("/productDetails", userProductDetails);
 

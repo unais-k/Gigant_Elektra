@@ -133,8 +133,7 @@
                                                 if
                                                 (cartItems.items[i].quantity
                                             >
-                                                1) { %> style="visibility: visible" <% } else { %> style="visibility:
-                                                hidden" <% } %> > -
+                                                1) { %> style="visibility: visible" <% } else { %> disabled <% } %> > -
                                             </button>
 
                                             <input
@@ -270,7 +269,7 @@
                     document.getElementById("SubcartPrice").innerHTML = `$ ${response.data.cartPrice}.00`;
                     document.getElementById("totalPrice" + prodctId).innerHTML = ` $ ${response.data.totalPrice}.00 `;
                     if (response.data.qty == 1) {
-                        document.getElementById("minusBtn" + prodctId).style.visibility = "hidden";
+                        document.getElementById("minusBtn" + prodctId).disabled = true;
                     } else {
                         document.getElementById("minusBtn" + prodctId).style.visibility = "visible";
                     }

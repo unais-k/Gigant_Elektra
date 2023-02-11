@@ -131,7 +131,15 @@
                                 <div class="inner-title">
                                     <h4 class="mb-0">My Orders</h4>
                                 </div>
-
+                                <% if (order==0) { %>
+                                <div class="row">
+                                    <h1>You havn't purchased anything</h1>
+                                    <p>purchase something</p>
+                                    <div>
+                                        <a class="btn btn-dark" href="/userProduct">Gp shop</a>
+                                    </div>
+                                </div>
+                                <% } else { %>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -205,7 +213,8 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- <a class="butn-style2 mt-3" href="#"><span>Show All Orders</span></a> -->
+
+                                <% } %>
                             </div>
                         </div>
                         <!-- end right panel -->

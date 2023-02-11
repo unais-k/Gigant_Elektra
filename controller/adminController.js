@@ -13,6 +13,7 @@ const adminModel = require("../models/adminSchema");
 const flash = require("connect-flash");
 const addressModel = require("../models/addressSchema");
 const { default: mongoose } = require("mongoose");
+const bannerModel = require("../models/bannerSchema");
 
 const adminLogin = (req, res) => {
     res.render("admin/adminLogin", { message: false });
@@ -225,8 +226,7 @@ const graph = async (req, res) => {
                 //     Day: { $dayOfMonth: "$createdAt" },
                 //     // $dateToString: { format: "%Y-%m-%d", date: "$createdAt" },
                 // },
-                _id: { date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } } },
-                count: { $sum: 1 },
+                _id: { date: { $dateToString: { format: "%Y-%m-%d", date: "$updatedAt" } } },
                 Total: { $sum: "$cartTotal" },
                 count: { $sum: 1 },
             },
@@ -420,6 +420,11 @@ const addProduct = async (req, res) => {
     // let productList = await productModel.find({});
     let categoryList = await categoryModel.find({});
     res.render("admin/addProducts", { categoryList, message: false });
+};
+
+const cateFind = async (req, res) => {
+    let asd = await categoryModel.findOne({ categoryname: req.body.value }, { Brand: 1, _id: 0 });
+    res.json(asd);
 };
 
 const addProductPost = async (req, res, next) => {
@@ -765,6 +770,24 @@ const banner = async (req, res) => {
     res.render("admin/banner");
 };
 
+const addbannerPost = async (req, res) => {
+    let details = req.body;
+    const create = await bannerModel
+        .create({
+            url: details.url,
+            description: details.description,
+            bannerImages: req.files,
+            title: details.title,
+        })
+        .then((re) => {
+            res.json({ succ: true });
+        });
+};
+
+const editBanner = async (req, res) => {
+    let details = req.body;
+};
+
 const logout = (req, res) => {
     req.session.adminLogin = null;
     res.redirect("/admin");
@@ -786,6 +809,7 @@ module.exports = {
     showProducts,
     addProduct,
     addProductPost,
+    cateFind,
     productDetails,
     deleteProduct,
     activateProduct,
@@ -808,5 +832,7 @@ module.exports = {
     paymentStatus,
     banner,
     addBanner,
+    addbannerPost,
+    editBanner,
     logout,
 };

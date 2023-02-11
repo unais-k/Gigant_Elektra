@@ -119,10 +119,10 @@
 
                                         <thead>
                                             <tr>
-                                                <th class="first"></th>
-                                                <th class="text-start text-uppercase font-weight-500">Product</th>
-                                                <th class="text-start text-uppercase font-weight-500">Sub Total</th>
-                                                <th class="text-start text-uppercase font-weight-500">Quantity</th>
+                                                <th class="text-center text-uppercase font-weight-500">Image</th>
+                                                <th class="text-center text-uppercase font-weight-500">Product</th>
+                                                <th class="text-start text-uppercase font-weight-500">Total</th>
+                                                <th class="text-center text-uppercase font-weight-500">Quantity</th>
                                                 <!-- <th class="text-center text-uppercase font-weight-500">Edit</th> -->
                                             </tr>
                                         </thead>
@@ -136,7 +136,7 @@
                                                             alt="..."
                                                     /></a>
                                                 </td>
-                                                <td class="text-start">
+                                                <td class="text-center">
                                                     <a href="#"><%=order.items[i].productId.productName%></a>
                                                     <!-- <span class="text-uppercase d-block">SKU: 290397</span>
                                                     <a href="#" class="display-32"><i class="fas fa-edit"></i> Edit</a> -->
@@ -147,24 +147,6 @@
                                             <% } %>
                                         </tbody>
                                     </table>
-                                </div>
-                                <div>
-                                    <div class="card mt-4">
-                                        <h5 class="card-header">Address</h5>
-                                        <div class="card-body">
-                                            <!-- <h5 class="card-title">Special title treatment</h5> -->
-                                            <p class="card-text">
-                                                <%=finalAddress.name%> <%=finalAddress.lastname%> <br /><%=
-                                                finalAddress.address%> <br /><%=finalAddress.city%>,
-                                                <%=finalAddress.country%>
-                                                <br />
-                                                Pin : <%=finalAddress.pincode%> <br />
-                                                Email : <%=finalAddress.email%> <br />
-                                                Mobile : <%=finalAddress.phone%> <br />
-                                            </p>
-                                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="buttons-set">
@@ -178,41 +160,34 @@
                             </div>
                         </div>
                         <!-- end left pannel section -->
-
                         <!-- right pannel section -->
                         <div class="col-lg-3 col-12 side-bar">
                             <div class="widget">
                                 <div class="widget-title">
+                                    <h5>Order Address</h5>
+                                </div>
+                                <div class="card-body text-lg">
+                                    <p class="text-gray-dark">
+                                        <%=finalAddress.name%> <%=finalAddress.lastname%> <br /><%= finalAddress.address%>
+                                        <br /><%=finalAddress.city%>, <%=finalAddress.country%>
+                                        <br />
+                                        <b>Pin</b> : <%=finalAddress.pincode%> <br />
+                                        <b>Email</b> : <%=finalAddress.email%> <br />
+                                        <b>Mobile</b> : <%=finalAddress.phone%> <br />
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="widget">
+                                <div class="widget-title">
                                     <h5>Order Summary</h5>
                                 </div>
-
                                 <table class="table classic">
                                     <tbody>
-                                        <!-- <tr>
-                                            <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark"><span>$</span>%=cart.cartPrice%>.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Shipping:</th>
-                                            <td class="text-gray-dark"><span>$</span>%=charge.charge%>.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total:</th>
-                                            <td class="text-lg text-gray-dark"><span>$</span>%=charge.adding%>.00</td>
-                                        </tr> -->
-                                        <!-- <tr>
-                                            <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark"><span>$</span><%=bill.cartPrice%>.00</td>
-                                        </tr> -->
                                         <tr>
                                             <th>Shipping:</th>
                                             <td id="ship" class="text-gray-dark"><span>$</span><%=charge.charge%>.00</td>
                                         </tr>
                                         <% if (discount) { %>
-                                        <!-- <tr>
-                                            <th>Shipping:</th>
-                                            <td id="ship" class="text-gray-dark"><span>$</span>%=charge.charge%>.00</td>
-                                        </tr> -->
                                         <tr>
                                             <th>Discount:</th>
                                             <td class="text-danger"><span>- $</span><%=discount.redeem%>.00</td>

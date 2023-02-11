@@ -89,6 +89,8 @@
                             type="text"
                             class="search-form_input form-control"
                             name="s"
+                            id="searchIc"
+                            onkeyup="searchL()"
                             autocomplete="off"
                             placeholder="Type & hit enter..."
                         />
@@ -129,11 +131,12 @@
                                 <li>
                                     <a href="#">Account</a>
                                     <ul>
-                                        <li><a href="/login">Login / Register</a></li>
-                                        <li><a href="password-recovery">Password Recovery</a></li>
-                                        <li><a href="/order">Orders List</a></li>
-                                        <li><a href="wishlist">Wishlist</a></li>
+                                        <li><a href="/profile">Login / Register</a></li>
+                                        <li><a href="/forgot_password">Password Recovery</a></li>
+                                        <li><a href="/wishlist">Wishlist</a></li>
                                         <li><a href="/profile">Profile Page</a></li>
+                                        <li><a href="/address">Contact Address</a></li>
+                                        <li><a href="/logout">Logout</a></li>
                                         <!-- <li><a href="address">Contact / Shipping Address</a></li>
                                         <li><a href="tickets">My Tickets</a></li>
                                         <li><a href="single-ticket">Single Ticket</a></li> -->
@@ -142,11 +145,9 @@
                                 <li>
                                     <a href="#">Mega menu</a>
                                     <ul>
-                                        <li><a href="login-register">Login / Register</a></li>
-                                        <li><a href="password-recovery">Password Recovery</a></li>
-                                        <li><a href="/order_view">Orders List</a></li>
+                                        <li><a href="/cart">My Cart</a></li>
                                         <li><a href="/wishlist">Wishlist</a></li>
-                                        <li><a href="/profile">Profile Page</a></li>
+                                        <li><a href="/order_view">Orders List</a></li>
                                         <!-- <li><a href="address">Contact / Shipping Address</a></li>
                                         <li><a href="tickets">My Tickets</a></li>
                                         <li><a href="single-ticket">Single Ticket</a></li> -->
@@ -155,7 +156,9 @@
                                 <li>
                                     <a href="#">Shop</a>
                                     <ul>
-                                        <li><a href="shop-categories">Shop Categories</a></li>
+                                        <li><a href="/userProduct">Shop Categories</a></li>
+                                        <li><a href="/userProduct">Shop Cart</a></li>
+                                        <li><a href="/checkout">Shop Checkout</a></li>
                                         <!-- <li><a href="shop-product-grid">Product Grid</a></li>
                                         <li><a href="shop-product-list">Product List</a></li>
                                         <li>
@@ -164,7 +167,7 @@
                                         <li>
                                             <a href="shop-product-full-four-coulmn">Product Four Coulmns</a>
                                         </li> -->
-                                        <li><a href="shop-product-detail">Product Detail</a></li>
+                                        <!-- <li><a href="shop-product-detail">Product Detail</a></li>
                                         <li><a href="shop-cart">Shop Cart</a></li>
                                         <li>
                                             <a href="shop-checkout-address">Shop Checkout</a>
@@ -175,7 +178,7 @@
                                                 <li><a href="shop-checkout-review">Review</a></li>
                                                 <li><a href="checkout-complete">Complete</a></li>
                                             </ul>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </li>
                             </ul>
@@ -185,12 +188,21 @@
                             <!-- attribute navigation -->
                             <div class="attr-nav">
                                 <ul>
+                                    <%if(user_details){%>
                                     <li>
                                         <a href="/cart"
                                             ><i class="fa-solid fa-bag-shopping"></i>
-                                            <span class="badge bg-primary">3</span></a
+                                            <span class="badge bg-primary"><%=cartcount%></span></a
                                         >
                                     </li>
+                                    <% } else { %>
+                                    <li>
+                                        <a href="/cart"
+                                            ><i class="fa-solid fa-bag-shopping"></i>
+                                            <span class="badge bg-primary">0</span></a
+                                        >
+                                    </li>
+                                    <%}%>
 
                                     <li class="search">
                                         <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>

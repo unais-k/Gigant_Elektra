@@ -45,6 +45,9 @@ const {
     weekly,
     sales,
     dailly,
+    cateFind,
+    addbannerPost,
+    editBanner,
 } = require("../controller/adminController");
 
 router.get("/", adminLogin);
@@ -68,6 +71,8 @@ router.get("/products", adminSession, showProducts);
 router.get("/addProducts", adminSession, addProduct);
 
 router.post("/addProductPost", adminSession, productPhoto, addProductPost);
+
+router.post("/catefind", adminSession, cateFind);
 
 router.get("/productDetails", adminSession, productDetails);
 
@@ -117,9 +122,13 @@ router.get("/order_details/:id", adminSession, orderDetails);
 
 router.post("/order_status_confirm", adminSession, paymentStatus);
 
-router.get("/banner", banner);
+router.get("/banner", adminSession, banner);
 
-router.get("/add_banner", addBanner);
+router.get("/add_banner", adminSession, addBanner);
+
+router.post("/addBannerPost", adminSession, addbannerPost);
+
+router.post("/edit_banner", adminSession, editBanner);
 
 router.get("/logout", logout);
 

@@ -149,7 +149,7 @@
                                                 <th>Product</th>
                                                 <th>Price</th>
                                                 <th>Brand</th>
-                                                <th>Add To Cart</th>
+                                                <!-- <th>Add To Cart</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -161,7 +161,7 @@
                                                     ></a>
                                                 </td>
                                                 <td>
-                                                    <a href="/productDetails/<%=wishlist.product._id%>"
+                                                    <a href="/productDetails?id=<%=wishlist.product._id%>"
                                                         ><img
                                                             style="width: 100px; height: 100px"
                                                             src="<%=wishlist.product.productImages[0]%>"
@@ -172,13 +172,13 @@
                                                 <td class="product-price"><span>$</span><%=wishlist.product.price%></td>
                                                 <td class="product-brand"><%=wishlist.product.brand%></td>
 
-                                                <td>
+                                                <!-- <td>
                                                     <a
                                                         onclick="addtocart('<%=wishlist.product._id%>')"
                                                         class="butn-style2 small"
                                                         >Add To Cart</a
                                                     >
-                                                </td>
+                                                </td> -->
                                             </tr>
                                             <%}%> <% } %>
                                         </tbody>
@@ -263,7 +263,6 @@
                                 showConfirmButton: false,
                                 timer: 1500,
                             });
-                            deleteItem(id);
                         } else {
                             if (result.data.status == true) {
                                 await Swal.fire({

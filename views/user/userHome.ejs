@@ -75,7 +75,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-9 col-md-7 d-none d-md-block">
+                            <div class="col-9 col-md-7 d-none d-md-block" style="pointer-events: none">
                                 <ul class="top-nav ps-0">
                                     <li><a href="#">Today's Deal</a></li>
                                     <li><a href="#">Customer Service</a></li>
@@ -139,13 +139,13 @@
                                 <ul class="text-center">
                                     <li class="d-inline-block d-lg-none">
                                         <a href="#" class="search-category">
-                                            <i class="ti-search"></i>
+                                            <i class="fa-solid fa-magnifying-glass"></i>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/wishlist" class="d-inline-block">
                                             <i class="fa-regular fa-heart"></i>
-                                            <span class="badge bg-primary">3</span>
+                                            <span class="badge bg-primary"><%=wishlistcount%></span>
                                         </a>
                                     </li>
                                     <%if(user_details){%>
@@ -156,16 +156,13 @@
                                     <li>
                                         <a href="/login"><i class="fa-regular fa-user"></i></a>
                                     </li>
-                                    <%}%> <%if( cart.items>0){%>
-                                    <li>
-                                        <a href="/cart"> <i class="fa-solid fa-bag-shopping"></i></a>
-                                    </li>
-
-                                    <% } else { %>
-                                    <li>
-                                        <a href="/cart"> <i class="fa-solid fa-bag-shopping"></i></a>
-                                    </li>
                                     <%}%>
+                                    <li>
+                                        <a href="/cart">
+                                            <i class="fa-solid fa-bag-shopping"></i>
+                                            <span class="badge bg-primary"><%=cartcount%></span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <!-- end attribute navigation -->
@@ -182,18 +179,18 @@
                                 <!-- menu area -->
                                 <ul class="navbar-nav" id="nav" style="display: none">
                                     <li>
-                                        <a href="#">Home</a>
+                                        <a href="/">Home</a>
                                     </li>
 
                                     <li>
                                         <a href="#">Account</a>
                                         <ul>
                                             <li><a href="/profile">Login / Register</a></li>
-                                            <li><a href="account-password-recovery">Password Recovery</a></li>
-                                            <li><a href="account-orders">Orders List</a></li>
-                                            <li><a href="account-wishlist">Wishlist</a></li>
-                                            <li><a href="account-profile">Profile Page</a></li>
-                                            <li><a href="account-address">Contact / Shipping Address</a></li>
+                                            <li><a href="/forgot_password">Password Recovery</a></li>
+                                            <li><a href="/wishlist">Wishlist</a></li>
+                                            <li><a href="/profile">Profile Page</a></li>
+                                            <li><a href="/address">Contact Address</a></li>
+                                            <li><a href="/logout">Logout</a></li>
                                             <!-- <li><a href="account-tickets">My Tickets</a></li>
                                             <li><a href="account-single-ticket">Single Ticket</a></li> -->
                                         </ul>
@@ -201,12 +198,12 @@
                                     <li>
                                         <a href="#">Mega menu</a>
                                         <ul>
-                                            <li><a href="login-register">Login / Register</a></li>
-                                            <li><a href="account-password-recovery">Password Recovery</a></li>
-                                            <li><a href="account-orders">Orders List</a></li>
+                                            <!-- <li><a href="/login">Login / Register</a></li> -->
+                                            <li><a href="/cart">My Cart</a></li>
                                             <li><a href="/wishlist">Wishlist</a></li>
-                                            <li><a href="account-profile">Profile Page</a></li>
-                                            <li><a href="account-address">Contact / Shipping Address</a></li>
+                                            <li><a href="/order_view">Orders List</a></li>
+                                            <!-- <li><a href="account-profile">Profile Page</a></li>
+                                            <li><a href="account-address">Contact / Shipping Address</a></li> -->
                                             <!-- <li><a href="account-tickets">My Tickets</a></li>
                                             <li><a href="account-single-ticket">Single Ticket</a></li> -->
                                         </ul>
@@ -215,22 +212,21 @@
                                     <li>
                                         <a href="#">Shop</a>
                                         <ul>
-                                            <li><a href="shop-categories">Shop Categories</a></li>
-                                            <li><a href="shop-product-grid">Product Grid</a></li>
+                                            <li><a href="/userProduct">Shop Categories</a></li>
+                                            <!-- <li><a href="shop-product-grid">Product Grid</a></li> -->
                                             <!-- <li><a href="shop-product-list">Product List</a></li>
                                             <li><a href="shop-product-full-three-coulmn">Product Three Coulmns</a></li>
-                                            <li><a href="shop-product-full-four-coulmn">Product Four Coulmns</a></li>
-                                            <li><a href="/productDetails/<%=productList._id%>">Product Detail</a></li> -->
-                                            <li><a href="shop-cart">Shop Cart</a></li>
+                                            <li><a href="shop-product-full-four-coulmn">Product Four Coulmns</a></li>-->
+                                            <li><a href="/userProduct">Shop Cart</a></li>
                                             <li>
-                                                <a href="shop-checkout-address">Shop Checkout</a>
-                                                <ul>
+                                                <a href="/checkout">Shop Checkout</a>
+                                                <!-- <ul>
                                                     <li><a href="shop-checkout-address">Address</a></li>
                                                     <li><a href="shop-checkout-shipping">Shipping</a></li>
                                                     <li><a href="shop-checkout-payment">Payment</a></li>
                                                     <li><a href="shop-checkout-review">Review</a></li>
                                                     <li><a href="checkout-complete">Complete</a></li>
-                                                </ul>
+                                                </ul> -->
                                             </li>
                                         </ul>
                                     </li>
@@ -1284,24 +1280,6 @@
                     console.log("eroor");
                 }
             }
-            // axios.get('/add_to_cart_home' +id  ).then((e)=>{
-            //     if(e.addtocart==true){
-            //         location.href = '/'
-            //         Swal.fire({
-            //             icon: "success",
-            //             title: "Product added to cart",
-            //             showConfirmButton: false,
-            //             timer: 700,
-            //         })
-            //     }else{
-            //         Swal.fire({
-            //     icon: "error",
-            //     title: "Oops...",
-            //     text: "Sorry, product already added",
-            // });
-            //     }
-            // })
-            // let response=axios.get('/add_to_cart_home'+id  )
         </script>
 
         <!-- jQuery -->

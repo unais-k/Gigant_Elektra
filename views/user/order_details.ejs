@@ -80,29 +80,8 @@
             <section class="md">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xl-12">
-                            <!-- <div class="process-steps mb-1-9 mb-lg-6"> -->
-                            <!-- <a class="step" href="shop-checkout-address"
-                                    ><i class="fa-sharp fa-solid fa-location-dot pe-2"></i>
-                                    <h4 class="step-title">1. Address</h4></a
-                                >
-                                <a class="step" href="shop-checkout-shipping"
-                                    ><i class="fa-sharp fa-solid fa-truck-fast"></i>
-                                    <h4 class="step-title">2. Shipping</h4></a
-                                >
-                                <a class="step" href="shop-checkout-payment"
-                                    ><i class="fa-sharp fa-solid fa-money-bill"></i>
-                                    <h4 class="step-title">3. Payment</h4></a
-                                > -->
-                            <!-- <a class="step active" href="#"
-                                    ><i class="fa-regular fa-comment"></i>
-                                    <h4 class="step-title">Order Details</h4></a
-                                > -->
-                            <!-- </div> -->
-                        </div>
-
-                        <!-- left pannel section -->
-                        <div class="col-lg-9 col-xl-12 ps-2-3 mb-1-9 mb-lg-0">
+                        <!-- new left and full -->
+                        <div class="col-lg-9 col-md-12 ps-2-3 mb-1-9 mb-lg-0">
                             <div class="common-block">
                                 <div class="inner-title">
                                     <h4 class="mb-0">Order Info</h4>
@@ -119,10 +98,10 @@
 
                                         <thead>
                                             <tr>
-                                                <th class="first"></th>
-                                                <th class="text-start text-uppercase font-weight-500">Product</th>
+                                                <th class="text-center text-uppercase font-weight-500">Image</th>
+                                                <th class="text-center text-uppercase font-weight-500">Name</th>
+                                                <th class="text-center text-uppercase font-weight-500">Sub Total</th>
                                                 <th class="text-center text-uppercase font-weight-500">Quantity</th>
-                                                <th class="text-center text-uppercase font-weight-500">Sub total</th>
                                                 <th class="text-center text-uppercase font-weight-500">Total</th>
                                                 <!-- <th class="text-center text-uppercase font-weight-500">Edit</th> -->
                                             </tr>
@@ -137,15 +116,15 @@
                                                             alt="..."
                                                     /></a>
                                                 </td>
-                                                <td class="text-start">
+                                                <td class="text-center">
                                                     <a href="#"><%=order.items[i].productId.productName%></a>
                                                     <!-- <span class="text-uppercase d-block">SKU: 290397</span>
-                                                    <a href="#" class="display-32"><i class="fas fa-edit"></i> Edit</a> -->
+                                                        <a href="#" class="display-32"><i class="fas fa-edit"></i> Edit</a> -->
                                                 </td>
-                                                <td class="product-remove text-center"><%=order.items[i].quantity%></td>
                                                 <td class="product-remove text-center">
                                                     $ <%=order.items[i].productId.price%>.00
                                                 </td>
+                                                <td class="text-center"><%=order.items[i].quantity%></td>
                                                 <td class="product-subtotal text-center">
                                                     $ <%=order.items[i].totalPrice%>.00
                                                 </td>
@@ -155,99 +134,56 @@
                                     </table>
                                 </div>
 
-                                <div class="row mt-5">
-                                    <div class="col-md-6">
-                                        <div class="card mt-4">
-                                            <h5 class="card-header">Address</h5>
-                                            <div class="card-body">
-                                                <p class="card-text">
-                                                    <%=finalAddress.name%> <%=finalAddress.lastname%> <br /><%=
-                                                    finalAddress.address%> <br /><%=finalAddress.city%>,
-                                                    <%=finalAddress.country%>
-                                                    <br />
-                                                    Pin : <%=finalAddress.pincode%> <br />
-                                                    Email : <%=finalAddress.email%> <br />
-                                                    Mobile : <%=finalAddress.phone%> <br />
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card mt-4">
-                                            <h5 class="card-header">Order Invoice</h5>
-                                            <div class="card-body">
-                                                <div class="col-md-6"></div>
-                                                <div class="col-md-6">
-                                                    <p>SUB TOTAL : $ <%=order.cartTotal%>.00</p>
-                                                    <p>SHIPPING : $ <%=order.delivery%>.00</p>
-                                                    <p>TOTAL : $ <%=order.total%>.00</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="buttons-set">
                                     <a href="/order_view" class="butn-style2 wide"
                                         ><i class="fas fa-arrow-left me-1"></i> Back</a
                                     >
                                     <a href="/" class="butn-style2 wide"
-                                        >Go to home <i class="fas fa-arrow-right ms-1"></i
+                                        >Go to Home <i class="fas fa-arrow-right ms-1"></i
                                     ></a>
                                 </div>
                             </div>
                         </div>
                         <!-- end left pannel section -->
-
                         <!-- right pannel section -->
-                        <!-- <div class="col-lg-3 col-12 side-bar">
+                        <div class="col-lg-3 col-12 side-bar">
+                            <div class="widget">
+                                <div class="widget-title">
+                                    <h5>Order Address</h5>
+                                </div>
+                                <div class="card-body text-lg">
+                                    <p class="text-gray-dark">
+                                        <%=finalAddress.name%> <%=finalAddress.lastname%> <br /><%= finalAddress.address%>
+                                        <br /><%=finalAddress.city%>, <%=finalAddress.country%>
+                                        <br />
+                                        <b>Pin</b> : <%=finalAddress.pincode%> <br />
+                                        <b>Email</b> : <%=finalAddress.email%> <br />
+                                        <b>Mobile</b> : <%=finalAddress.phone%> <br />
+                                    </p>
+                                </div>
+                            </div>
                             <div class="widget">
                                 <div class="widget-title">
                                     <h5>Order Summary</h5>
                                 </div>
-
                                 <table class="table classic">
                                     <tbody>
-                                         <tr>
-                                            <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark"><span>$</span>%=cart.cartPrice</td>
+                                        <tr>
+                                            <th>Cart Total:</th>
+                                            <td class="text-lg text-gray-dark"><span>$</span> <%=order.cartTotal%>.00</td>
                                         </tr>
                                         <tr>
                                             <th>Shipping:</th>
-                                            <td class="text-gray-dark"><span>$</span>%=charge.charge</td>
+                                            <td class="text-gray-dark"><span>$</span><%=order.delivery%>.00</td>
                                         </tr>
                                         <tr>
                                             <th>Total:</th>
-                                            <td class="text-lg text-gray-dark"><span>$</span>%=charge.adding</td>
-                                        </tr> ////
-                                        <tr>
-                                            <th>Cart Subtotal:</th>
-                                            <td class="text-gray-dark"><span>$</span>.cartPrice</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Shipping:</th>
-                                            <td id="ship" class="text-gray-dark"><span>$</span>ge.charge</td>
-                                        </tr>
-
-                                        
-                                        <tr>
-                                            <th>Discount:</th>
-                                            <td class="text-danger"><span>- $</span>t.redeem</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Total:</th>
-                                            <td id="total" class="text-lg text-gray-dark"><span>$</span>t.total</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th>Total:</th>
-                                            <td id="total" class="text-lg text-gray-dark"><span>$</span>ge.adding</td>
+                                            <td class="text-lg text-gray-dark"><span>$</span> <%=order.total%>.00</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                        </div> -->
-                        <!-- end right pannel section -->
+                        </div>
                     </div>
                 </div>
             </section>

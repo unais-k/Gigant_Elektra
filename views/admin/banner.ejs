@@ -124,10 +124,134 @@
                                                     <tr>
                                                         <th>asdfghjk</th>
                                                         <td>4</td>
-                                                        <td><img src="" alt="" /></td>
                                                         <td>Security CCTV</td>
                                                         <td>Security cctv</td>
                                                         <td>Electronics</td>
+                                                        <td>
+                                                            <!-- <a class="btn btn-dark" href="/admin/edit_banner?id=">Edit</a> -->
+                                                            <!-- Button trigger modal -->
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-dark"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#staticBackdrop"
+                                                            >
+                                                                Edit
+                                                            </button>
+
+                                                            <!-- Modal -->
+                                                            <div
+                                                                class="modal fade"
+                                                                id="staticBackdrop"
+                                                                data-bs-backdrop="static"
+                                                                data-bs-keyboard="false"
+                                                                tabindex="-1"
+                                                                aria-labelledby="staticBackdropLabel"
+                                                                aria-hidden="true"
+                                                            >
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h1
+                                                                                class="modal-title fs-5"
+                                                                                id="staticBackdropLabel"
+                                                                            >
+                                                                                Edit Banner
+                                                                            </h1>
+                                                                            <button
+                                                                                type="button"
+                                                                                class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"
+                                                                            ></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <!-- bodystarts -->
+                                                                            <form
+                                                                                id="form"
+                                                                                onsubmit="addBanner()"
+                                                                                enctype="multipart/form-data"
+                                                                            >
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12 mb-3">
+                                                                                        <label for="validationCustom01"
+                                                                                            >Title</label
+                                                                                        >
+                                                                                        <input
+                                                                                            type="text"
+                                                                                            class="form-control"
+                                                                                            name="title"
+                                                                                            id="validationCustom01"
+                                                                                            required
+                                                                                        />
+                                                                                        <div class="valid-feedback">
+                                                                                            Looks good!
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col-md-6 mb-3">
+                                                                                        <label for="validationCustom02"
+                                                                                            >URL</label
+                                                                                        >
+                                                                                        <input
+                                                                                            type="text"
+                                                                                            class="form-control"
+                                                                                            name="url"
+                                                                                            id="validationCustom02"
+                                                                                            required
+                                                                                        />
+                                                                                        <div class="valid-feedback">
+                                                                                            Looks good!
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-6 mb-3">
+                                                                                        <label for="validationCustom03"
+                                                                                            >Description</label
+                                                                                        >
+                                                                                        <input
+                                                                                            type="text"
+                                                                                            name="description"
+                                                                                            class="form-control"
+                                                                                            id="validationCustom03"
+                                                                                            required
+                                                                                        />
+                                                                                        <div class="valid-feedback">
+                                                                                            Looks good!
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="card-heading clearfix">
+                                                                                        <h4 class="card-title">Photos</h4>
+                                                                                    </div>
+                                                                                    <div class="col-md-12">
+                                                                                        <div>
+                                                                                            <input
+                                                                                                class="form-control form-control-lg"
+                                                                                                id="formFileLg"
+                                                                                                type="file"
+                                                                                                required
+                                                                                                accept="image/jpeg,image/gif,image/png,image/x-eps"
+                                                                                                name="bannerImages"
+                                                                                            />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="text-center m-3">
+                                                                                            <button
+                                                                                                type="submit"
+                                                                                                class="btn btn-primary"
+                                                                                            >
+                                                                                                SUBMIT
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                            <!-- body ends -->
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -152,6 +276,48 @@
 
         <!-- ALL JS INCLUDE
     ================================================== -->
+
+        <!-- axios cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js"></script>
+
+        <!-- sweet alert cdn -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener("mouseenter", Swal.stopTimer);
+                    toast.addEventListener("mouseleave", Swal.resumeTimer);
+                },
+            });
+            addBanner = async () => {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const formProps = await Object.fromEntries(formData);
+                console.log(formProps);
+                axios.post("/admin/edit_banner", formProps).then(async (e) => {
+                    if (e.data.succ) {
+                        await Toast.fire({
+                            icon: "success",
+                            title: "Banner added successfully",
+                        });
+                        document.getElementById("form").reset();
+                        // location.href = "/admin/addCoupon";
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong",
+                        });
+                    }
+                });
+            };
+        </script>
 
         <!-- jQuery -->
         <script src="/plugins/admin/jquery/jquery.min.js"></script>

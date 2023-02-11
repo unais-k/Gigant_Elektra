@@ -419,6 +419,62 @@
     </div>
 </div>
 
+//////////////////order page
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Date</th>
+                <th>Payment Status</th>
+                <th>Total</th>
+                <th>Actions</th>
+                <th>Details</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for( let i = 0; i < order.length; i++ ) { %> <% if (order[i].order_status == "pending") { %>
+
+            <tr>
+                <th><%=i+1%></th>
+                <td><%=order[i].updatedAt.toLocaleDateString()%></td>
+                <td><span class="fas fa-circle text-primary small mr-1 pe-2"></span><%=order[i].order_status%></td>
+                <td><span>$ </span><%=order[i].total%>.00</td>
+                <td>
+                    <a href="#" class="text-primary"><%=order[i].payment_method%></a>
+                </td>
+                <td>
+                    <a href="/order_details/<%=order[i]._id%>"><i class="fa-solid fa-eye pe-2"></i>View</a>
+                </td>
+                <td>
+                    <button onclick="cancelOrder('<%=order[i]._id%>')" class="btn btn-dark">Cancel</button>
+                </td>
+            </tr>
+            <% } else {%>
+            <tr>
+                <th><%=i+1%></th>
+                <td><%=order[i].updatedAt.toLocaleDateString()%></td>
+                <%if(order[i].order_status=="Completed"){%>
+                <td><span class="fas fa-circle text-success small mr-1 pe-2"></span><%=order[i].order_status%></td>
+                <%}else if(order[i].order_status=="Cancelled"){%>
+                <td><span class="fas fa-circle text-danger small mr-1 pe-2"></span><%=order[i].order_status%></td>
+                <%}else{%>
+                <td><span class="fas fa-circle text-primary small mr-1 pe-2"></span><%=order[i].order_status%></td>
+                <%}%>
+                <td><span>$ </span><%=order[i].total%>.00</td>
+                <td>
+                    <a href="#" class="text-primary"><%=order[i].payment_method%></a>
+                </td>
+                <td>
+                    <a href="/order_details/<%=order[i]._id%>"><i class="fa-solid fa-eye pe-2"></i>View</a>
+                </td>
+            </tr>
+            <% } %> <% } %>
+        </tbody>
+    </table>
+</div>
+
 ////////////////////////////////// exports.sessionCheckAxios = async (req, res, next) => { if (req.session.user_login) { if
 (await userId.findOne({ _id: req.session.user_login._id, block: false })) { console.log("Axios session is ready"); next(); }
 else { req.session.user_login = false; res.json = { response: "login" }; } } else { req.session.user_login = false; res.json
