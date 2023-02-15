@@ -188,7 +188,6 @@
                 }
                 if (validation) {
                     try {
-                        console.log(111);
                         axios.post("/userLogin", { username: username.value, password: password.value }).then((e) => {
                             if (!e.data.response) {
                                 form.submit();

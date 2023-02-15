@@ -19,7 +19,7 @@ const cartCount2 = (req, res, next) => {
     }
 };
 
-const wishlistCount = (req, res, next) => {
+const wishlistCount2 = (req, res, next) => {
     if (req.sessionx) {
         wishlistModel.find({ user: req.session.user_login._id }).then((data) => {
             if (data) {
@@ -37,7 +37,6 @@ const wishlistCount = (req, res, next) => {
 };
 
 const countCart = (req, res, next) => {
-    console.log(11111);
     if (req.session.user_login) {
         cartModel.findOne({ owner: req.session.user_login._id }).then((data) => {
             if (data) {
@@ -51,6 +50,28 @@ const countCart = (req, res, next) => {
                 }
             } else {
                 res.locals.count = 0;
+                next();
+            }
+        });
+    } else {
+        next();
+    }
+};
+
+const wishlistCount = (req, res, next) => {
+    if (req.session.user_login) {
+        wishlistModel.findOne({ user: req.session.user_login._id }).then((data) => {
+            if (data) {
+                if (data.items.length > 0) {
+                    let lengths = data.items.length;
+                    res.locals.wishlist = lengths;
+                    next();
+                } else {
+                    res.locals.wishlist = 0;
+                    next();
+                }
+            } else {
+                res.locals.wishlist = 0;
                 next();
             }
         });

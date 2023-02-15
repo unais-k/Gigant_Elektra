@@ -195,9 +195,10 @@
                                                     <div class="collapse" id="collapseExample1">
                                                         <div class="card card-body">
                                                             <!-- <form onsubmit="Edit('')" id="formsubmit"> -->
-                                                            <form method="post" id="first-array" novalidate="novalidate">
+                                                            <form method="post" id="first-array">
                                                                 <input
                                                                     type="text"
+                                                                    required
                                                                     value="<%=Address._id %>"
                                                                     name="id"
                                                                     hidden
@@ -208,6 +209,7 @@
                                                                             <label>First Name</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="name"
                                                                                 value="<%=Address.name %>"
@@ -221,6 +223,7 @@
                                                                             <label>Last Name</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="lastname"
                                                                                 value="<%=Address.lastname %>"
@@ -236,6 +239,7 @@
                                                                             <label>Email Address</label>
                                                                             <input
                                                                                 type="email"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="email"
                                                                                 value="<%=Address.email %>"
@@ -249,6 +253,7 @@
                                                                             <label>Phone</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="phone"
                                                                                 value="<%=Address.phone %>"
@@ -264,6 +269,7 @@
                                                                             <label>Address</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="address"
                                                                                 value="<%=Address.address %>"
@@ -277,6 +283,7 @@
                                                                             <label>Country</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="country"
                                                                                 value="<%=Address.country %>"
@@ -292,6 +299,7 @@
                                                                             <label>City / Town </label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="city"
                                                                                 value="<%=Address.city %>"
@@ -305,6 +313,7 @@
                                                                             <label>Pin Code</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="pincode"
                                                                                 value="<%=Address.pincode %>"
@@ -385,9 +394,10 @@
                                                     </p>
                                                     <div class="collapse" id="collapseExample<%=i%>">
                                                         <div class="card card-body">
-                                                            <form method="post" id="checkout-form" novalidate="novalidate">
+                                                            <form id="foorrrmm<%=Add.address[i]._id%>" method="post">
                                                                 <input
                                                                     type="text"
+                                                                    required
                                                                     value="<%=Add.address[i]._id%>"
                                                                     name="id"
                                                                     hidden
@@ -398,6 +408,7 @@
                                                                             <label>First Name</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="name"
                                                                                 value="<%=Add.address[i].name%>"
@@ -411,6 +422,7 @@
                                                                             <label>Last Name</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="lastname"
                                                                                 value="<%=Add.address[i].lastname %>"
@@ -426,6 +438,7 @@
                                                                             <label>Email Address</label>
                                                                             <input
                                                                                 type="email"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="email"
                                                                                 value="<%=Add.address[i].email %>"
@@ -439,6 +452,7 @@
                                                                             <label>Phone</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="phone"
                                                                                 value="<%=Add.address[i].phone %>"
@@ -454,6 +468,7 @@
                                                                             <label>Address</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="address"
                                                                                 value="<%=Add.address[i].address %>"
@@ -467,6 +482,7 @@
                                                                             <label>Country</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="country"
                                                                                 value="<%=Add.address[i].country %>"
@@ -482,6 +498,7 @@
                                                                             <label>City / Town </label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="city"
                                                                                 value="<%=Add.address[i].city %>"
@@ -495,6 +512,7 @@
                                                                             <label>Pin Code</label>
                                                                             <input
                                                                                 type="text"
+                                                                                required
                                                                                 class="form-control"
                                                                                 name="pincode"
                                                                                 value="<%=Add.address[i].pincode %>"
@@ -503,8 +521,12 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="">
-                                                                    <button type="submit" class="butn-style2 mt-4">
+                                                                <div>
+                                                                    <button
+                                                                        onclick="addressEdddd('<%=Add.address[i]._id%>')"
+                                                                        type="submit"
+                                                                        class="butn-style2 mt-4"
+                                                                    >
                                                                         Update
                                                                     </button>
                                                                 </div>
@@ -540,6 +562,7 @@
                                                         <label>First Name</label>
                                                         <input
                                                             type="text"
+                                                            required
                                                             class="form-control"
                                                             name="name"
                                                             placeholder="Your name here"
@@ -552,6 +575,7 @@
                                                         <label>Last Name</label>
                                                         <input
                                                             type="text"
+                                                            required
                                                             class="form-control"
                                                             name="lastname"
                                                             placeholder="Your last name here"
@@ -566,6 +590,7 @@
                                                         <label>Email Address</label>
                                                         <input
                                                             type="email"
+                                                            required
                                                             class="form-control"
                                                             name="email"
                                                             placeholder="Your email address here"
@@ -578,6 +603,7 @@
                                                         <label>Phone</label>
                                                         <input
                                                             type="text"
+                                                            required
                                                             class="form-control"
                                                             name="phone"
                                                             placeholder="Your phone number here"
@@ -592,6 +618,7 @@
                                                         <label>Address</label>
                                                         <input
                                                             type="text"
+                                                            required
                                                             class="form-control"
                                                             name="address"
                                                             placeholder="Your address  here"
@@ -602,7 +629,7 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Country</label>
-                                                        <select name="country" class="form-control form-select">
+                                                        <select required name="country" class="form-control form-select">
                                                             <option value="" selected="selected">Select a country</option>
                                                             <option value="INDIA">India</option>
                                                         </select>
@@ -616,6 +643,7 @@
                                                         <label>City / Town </label>
                                                         <input
                                                             type="text"
+                                                            required
                                                             class="form-control"
                                                             name="city"
                                                             placeholder="Your city name here"
@@ -628,6 +656,7 @@
                                                         <label>Pin Code</label>
                                                         <input
                                                             type="text"
+                                                            required
                                                             class="form-control"
                                                             name="pincode"
                                                             placeholder="Your pin code here"
@@ -655,18 +684,21 @@
                                     <h4 class="mb-0">Billing Address</h4>
                                 </div>
 
-                                <form id="newAddress" method="post" novalidate="novalidate">
+                                <form onclick="validateForm()" id="newAddress" method="post">
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>First Name</label>
                                                 <input
                                                     type="text"
+                                                    required
                                                     class="form-control"
+                                                    onkeyup="validateFirstname()"
                                                     name="name"
                                                     placeholder="Your name here"
                                                 />
                                             </div>
+                                            <span id="firstname-error" class="validation"></span>
                                         </div>
 
                                         <div class="col-sm-6">
@@ -674,11 +706,14 @@
                                                 <label>Last Name</label>
                                                 <input
                                                     type="text"
+                                                    required
                                                     class="form-control"
+                                                    onkeyup="validateLastname()"
                                                     name="lastname"
                                                     placeholder="Your last name here"
                                                 />
                                             </div>
+                                            <span id="lastname-error" class="validation"></span>
                                         </div>
                                     </div>
 
@@ -688,11 +723,14 @@
                                                 <label>Email Address</label>
                                                 <input
                                                     type="email"
+                                                    required
                                                     class="form-control"
+                                                    onkeyup="validateEmail()"
                                                     name="email"
                                                     placeholder="Your email address here"
                                                 />
                                             </div>
+                                            <span id="email-error" class="validation"></span>
                                         </div>
 
                                         <div class="col-sm-6">
@@ -700,11 +738,14 @@
                                                 <label>Phone</label>
                                                 <input
                                                     type="text"
+                                                    required
+                                                    onkeyup="validateMobilenumber()"
                                                     class="form-control"
                                                     name="phone"
                                                     placeholder="Your phone number here"
                                                 />
                                             </div>
+                                            <span id="mobilenumber-error" class="validation"></span>
                                         </div>
                                     </div>
 
@@ -714,6 +755,7 @@
                                                 <label>Address</label>
                                                 <input
                                                     type="text"
+                                                    required
                                                     class="form-control"
                                                     name="address"
                                                     placeholder="Your address  here"
@@ -729,6 +771,7 @@
                                                     <option value="INDIA">India</option>
                                                 </select>
                                             </div>
+                                            <span id="firstname-error" class="validation"></span>
                                         </div>
                                     </div>
 
@@ -738,6 +781,7 @@
                                                 <label>City / Town </label>
                                                 <input
                                                     type="text"
+                                                    required
                                                     class="form-control"
                                                     name="city"
                                                     placeholder="Your city name here"
@@ -750,6 +794,7 @@
                                                 <label>Pin Code</label>
                                                 <input
                                                     type="text"
+                                                    required
                                                     class="form-control"
                                                     name="pincode"
                                                     placeholder="Your pin code here"
@@ -761,6 +806,7 @@
                                     <div>
                                         <button type="submit" class="butn-style2 mt-4">Submit</button>
                                     </div>
+                                    <span id="submit-error" class="mt-5"></span>
                                 </form>
                             </div>
                             <%}%>
@@ -805,6 +851,123 @@
         <a href="#" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
 
         <!-- all js include start -->
+        <script>
+            let firstnameError = document.getElementById("firstname-error");
+            let lastnameError = document.getElementById("lastname-error");
+            let mobilenumberError = document.getElementById("mobilenumber-error");
+            let emailError = document.getElementById("email-error");
+            // let password1Error = document.getElementById("password1-error");
+            // let password2Error = document.getElementById("password2-error");
+            let submitError = document.getElementById("submit-error");
+            function validateFirstname() {
+                let firstname = document.getElementById("firstname").value;
+                if (firstname.length == 0) {
+                    firstnameError.innerHTML = "name is required";
+                    return false;
+                }
+                if (!firstname.match(/^[A-Za-z]*$/)) {
+                    firstnameError.innerHTML = "write first name";
+                    return false;
+                }
+                firstnameError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                return true;
+            }
+            function validateLastname() {
+                let lastname = document.getElementById("lastname").value;
+                if (lastname.length == 0) {
+                    lastnameError.innerHTML = "name is required";
+                    return false;
+                }
+                if (!lastname.match(/^[A-Za-z]*$/)) {
+                    lastnameError.innerHTML = "write last name";
+                    return false;
+                }
+                lastnameError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                return true;
+            }
+            function validateMobilenumber() {
+                let mobilenumber = document.getElementById("mobilenumber").value;
+                if (mobilenumber.length == 0) {
+                    mobilenumberError.innerHTML = "mobile no required";
+                    return false;
+                }
+                if (mobilenumber.length !== 10) {
+                    mobilenumberError.innerHTML = "mobile no should 10 digits";
+                    return false;
+                }
+                if (!mobilenumber.match(/^[0-9]{10}$/)) {
+                    mobilenumberError.innerHTML = "only digits please";
+                    return false;
+                }
+                mobilenumberError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                return true;
+            }
+            function validateEmail() {
+                let email = document.getElementById("email").value;
+                if (email.length == 0) {
+                    emailError.innerHTML = "complte email format is wrong";
+                    return false;
+                }
+                if (!email.match(/^[A-Za-z\._\-[0-9][@][A-Za-z][\.][a-z]{2,4}$/)) {
+                    emailError.innerHTML = "email invalid";
+                    return false;
+                }
+                emailError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                return true;
+            }
+            // function validatePassword1() {
+            //     let password1 = document.getElementById("password1").value;
+            //     if (password1.length == 0) {
+            //         password1Error.innerHTML = "password required";
+            //         return false;
+            //     }
+            //     if (password1.length !== 6) {
+            //         password1Error.innerHTML = "should 6 characters ";
+            //         return false;
+            //     }
+            //     if (!password1.match(/^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{6,}$/)) {
+            //         password1Error.innerHTML = "Atleat one character and one number";
+            //         return false;
+            //     }
+            //     password1Error.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            //     return true;
+            // }
+            // function validatePassword2() {
+            //     let password2 = document.getElementById("password2").value;
+            //     if (password2.length == 0) {
+            //         password2Error.innerHTML = "password required";
+            //         return false;
+            //     }
+            //     if (password2.length !== 6) {
+            //         password2Error.innerHTML = "password should 6 characters";
+            //         return false;
+            //     }
+            //     if (!password2.match(/^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{6,}$/)) {
+            //         password2Error.innerHTML = "Atleat one character and one number";
+            //         return false;
+            //     }
+            //     password2Error.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            //     return true;
+            // }
+            function validateForm() {
+                if (
+                    !validateFirstname() ||
+                    !validateLastname() ||
+                    !validateMobilenumber() ||
+                    !validateEmail()
+                    // !validatePassword1() ||
+                    // !validatePassword2()
+                ) {
+                    submitError.style.display = "block";
+                    submitError.innerHTML = "please correct form";
+                    setTimeout(function () {
+                        submitError.style.display = "none";
+                    }, 3000);
+                    return false;
+                }
+                return true;
+            }
+        </script>
 
         <script
             src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -874,19 +1037,43 @@
                     }
                 });
             });
-
-            $("#checkout-form").submit(() => {
+            async function addressEdddd(id) {
+                console.log(id);
                 event.preventDefault();
-                let response = axios({
+                let form = document.getElementById("foorrrmm" + id);
+                const formData = new FormData(form);
+                const formProps = await Object.fromEntries(formData);
+                axios({
                     url: "/edit_address",
                     method: "post",
-                    data: $("#checkout-form").serialize(),
-                }).then((response) => {
-                    if (response.status) {
-                        location.reload();
-                    }
-                });
-            });
+                    data: {
+                        id,
+                        formProps,
+                    },
+                })
+                    .then((result) => {
+                        console.log(111111111111111);
+                        if (result.data.status) {
+                            location.reload();
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+
+            // $("#checkout-form").submit(() => {
+            //     event.preventDefault();
+            //     let response = axios({
+            //         url: "/edit_address",
+            //         method: "post",
+            //         data: $("#checkout-form").serialize(),
+            //     }).then((response) => {
+            //         if (response.status) {
+            //             location.reload();
+            //         }
+            //     });
+            // });
 
             async function data() {
                 event.preventDefault();

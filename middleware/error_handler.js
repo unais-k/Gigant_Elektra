@@ -1,13 +1,25 @@
 // error handler
-const errorrs = function (err, req, res, next) {
-    // console.log(err, "error");
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get("env") === "development" ? err : {};
 
+const err = function (err, req, res, next) {
     // render the error page
-    res.status(err.status || 500);
-    // res.render("error");
+    // res.status(err.status || 500);
+    if (err.status == 404) {
+        if (err.admin) {
+            res.render("admin/404", { error: err.message });
+        } else {
+            res.render("user/404", { error: err.message });
+        }
+    } else {
+        if (err.status == 500) {
+            res.render("500", { error: "unfinded error" });
+        } else {
+            if (err.admin) {
+                res.render("admin/404", { error: "server down" });
+            } else {
+                res.render("user/404", { error: "server down" });
+            }
+        }
+    }
 };
 
-module.exports = errorrs;
+module.exports = { err };

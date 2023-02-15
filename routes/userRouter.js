@@ -37,7 +37,6 @@ const {
     checkoutReview,
     deleteWishlist,
     addToWishlist,
-    editingAddress,
     paymentPost,
     success,
     coponCheck,
@@ -93,8 +92,6 @@ router.get("/address", sessionCheck, personalAddress);
 router.post("/address_post", sessionCheck, personalAddressPost);
 
 router.post("/edit_address", sessionCheck, editAddress);
-
-// router.post("/editing_address/:id", sessionCheck, editingAddress);
 
 router.post("/address_first", sessionCheck, firstAddress);
 

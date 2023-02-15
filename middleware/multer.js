@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 
 const editProductStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const uploadPath = "./public/images/uploads";
+        const uploadPath = "./public";
         if (!fs.existsSync(uploadPath)) {
             fs.mkdirSync(uploadPath);
         }
@@ -55,7 +55,6 @@ const editPhoto = multer({
     limits: {
         fileSize: maxSize,
     },
-    fileFilter: fileFilter,
-}).single("imageName");
+}).array("bannerImages", 4);
 
 module.exports = { productPhoto, editPhoto };

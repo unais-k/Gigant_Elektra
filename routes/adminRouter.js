@@ -4,7 +4,7 @@ var router = express.Router();
 const categoryModel = require("../models/categorySchema");
 const userModel = require("../models/userSchema");
 const productModel = require("../models/productSchema");
-const { productPhoto } = require("../middleware/multer");
+const { productPhoto, editPhoto } = require("../middleware/multer");
 
 const { adminSession } = require("../middleware/auth");
 
@@ -122,13 +122,13 @@ router.get("/order_details/:id", adminSession, orderDetails);
 
 router.post("/order_status_confirm", adminSession, paymentStatus);
 
-router.get("/banner", adminSession, banner);
+router.get("/banner", banner);
 
-router.get("/add_banner", adminSession, addBanner);
+router.get("/add_banner", addBanner);
 
-router.post("/addBannerPost", adminSession, addbannerPost);
+router.post("/addBannerPost", editPhoto, addbannerPost);
 
-router.post("/edit_banner", adminSession, editBanner);
+router.post("/edit_banner", editPhoto, editBanner);
 
 router.get("/logout", logout);
 

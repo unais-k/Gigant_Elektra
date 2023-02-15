@@ -114,35 +114,42 @@
                                                 <thead class="bg-light">
                                                     <tr>
                                                         <th scope="col">ID</th>
-                                                        <th scope="col">Images</th>
                                                         <th scope="col">Title</th>
+                                                        <th scope="col">price</th>
                                                         <th scope="col">Description</th>
                                                         <th scope="col">URL</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <%for (let i = 0; i < banner.length; i++) {%>
+
                                                     <tr>
-                                                        <th>asdfghjk</th>
-                                                        <td>4</td>
-                                                        <td>Security CCTV</td>
-                                                        <td>Security cctv</td>
-                                                        <td>Electronics</td>
+                                                        <td><%=banner[i]._id.toString().substr(16)%></td>
+
+                                                        <td><%=banner[i].title%></td>
+                                                        <td>$<%=banner[i].price%>.00</td>
+                                                        <td><%=banner[i].description%></td>
+                                                        <td><%=banner[i].url%></td>
                                                         <td>
-                                                            <!-- <a class="btn btn-dark" href="/admin/edit_banner?id=">Edit</a> -->
-                                                            <!-- Button trigger modal -->
+                                                            <!-- <div id="modalund">
+                                                                <a
+                                                                    onclick="findBan('%=banner[i]._id%>')"
+                                                                    class="btn btn-dark"
+                                                                >
+                                                                    EDIT
+                                                                </a>
+                                                            </div> -->
                                                             <button
                                                                 type="button"
                                                                 class="btn btn-dark"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#staticBackdrop"
+                                                                data-bs-target="#staticBackdrop<%=i%>"
                                                             >
                                                                 Edit
                                                             </button>
-
-                                                            <!-- Modal -->
                                                             <div
                                                                 class="modal fade"
-                                                                id="staticBackdrop"
+                                                                id="staticBackdrop<%=i%>"
                                                                 data-bs-backdrop="static"
                                                                 data-bs-keyboard="false"
                                                                 tabindex="-1"
@@ -166,13 +173,19 @@
                                                                             ></button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <!-- bodystarts -->
                                                                             <form
                                                                                 id="form"
-                                                                                onsubmit="addBanner()"
+                                                                                action="/admin/edit_banner"
+                                                                                method="post"
                                                                                 enctype="multipart/form-data"
                                                                             >
                                                                                 <div class="row">
+                                                                                    <input
+                                                                                        type="text"
+                                                                                        value="<%=banner[i]._id%>"
+                                                                                        name="id"
+                                                                                        hidden
+                                                                                    />
                                                                                     <div class="col-md-12 mb-3">
                                                                                         <label for="validationCustom01"
                                                                                             >Title</label
@@ -181,6 +194,7 @@
                                                                                             type="text"
                                                                                             class="form-control"
                                                                                             name="title"
+                                                                                            value="<%=banner[i].title%>"
                                                                                             id="validationCustom01"
                                                                                             required
                                                                                         />
@@ -197,6 +211,23 @@
                                                                                             type="text"
                                                                                             class="form-control"
                                                                                             name="url"
+                                                                                            value="<%=banner[i].url%>"
+                                                                                            id="validationCustom02"
+                                                                                            required
+                                                                                        />
+                                                                                        <div class="valid-feedback">
+                                                                                            Looks good!
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-6 mb-3">
+                                                                                        <label for="validationCustom02"
+                                                                                            >Price</label
+                                                                                        >
+                                                                                        <input
+                                                                                            type="text"
+                                                                                            class="form-control"
+                                                                                            name="price"
+                                                                                            value="<%=banner[i].price%>"
                                                                                             id="validationCustom02"
                                                                                             required
                                                                                         />
@@ -212,6 +243,7 @@
                                                                                             type="text"
                                                                                             name="description"
                                                                                             class="form-control"
+                                                                                            value="<%=banner[i].description%>"
                                                                                             id="validationCustom03"
                                                                                             required
                                                                                         />
@@ -228,7 +260,6 @@
                                                                                                 class="form-control form-control-lg"
                                                                                                 id="formFileLg"
                                                                                                 type="file"
-                                                                                                required
                                                                                                 accept="image/jpeg,image/gif,image/png,image/x-eps"
                                                                                                 name="bannerImages"
                                                                                             />
@@ -246,13 +277,13 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </form>
-                                                                            <!-- body ends -->
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    <%}%>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -260,7 +291,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- end row -->
                     </div>
 
                     <div class="page-footer">
@@ -284,6 +314,35 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
+            function findBan(id) {
+                axios({
+                    method: "post",
+                    url: "/admin/findBanner",
+                    data: {
+                        id: id,
+                    },
+                })
+                    .then((result) => {
+                        if (result.data.succ) {
+                            let html = ``;
+
+                            document.getElementById("modalund").innerHTML = html;
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: `Something went wrong + ${result.data.response}`,
+                            });
+                            console.log("error");
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        </script>
+
+        <script>
             const Toast = Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -295,28 +354,28 @@
                     toast.addEventListener("mouseleave", Swal.resumeTimer);
                 },
             });
-            addBanner = async () => {
-                event.preventDefault();
-                const formData = new FormData(event.target);
-                const formProps = await Object.fromEntries(formData);
-                console.log(formProps);
-                axios.post("/admin/edit_banner", formProps).then(async (e) => {
-                    if (e.data.succ) {
-                        await Toast.fire({
-                            icon: "success",
-                            title: "Banner added successfully",
-                        });
-                        document.getElementById("form").reset();
-                        // location.href = "/admin/addCoupon";
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Something went wrong",
-                        });
-                    }
-                });
-            };
+            // addBanner = async () => {
+            //     event.preventDefault();
+            //     const formData = new FormData(event.target);
+            //     const formProps = await Object.fromEntries(formData);
+            //     console.log(formProps);
+            //     axios.post("/admin/edit_banner", formProps).then(async (e) => {
+            //         if (e.data.succ) {
+            //             await Toast.fire({
+            //                 icon: "success",
+            //                 title: "Banner added successfully",
+            //             });
+            //             document.getElementById("form").reset();
+            //             // location.href = "/admin/addCoupon";
+            //         } else {
+            //             Swal.fire({
+            //                 icon: "error",
+            //                 title: "Oops...",
+            //                 text: "Something went wrong",
+            //             });
+            //         }
+            //     });
+            // };
         </script>
 
         <!-- jQuery -->

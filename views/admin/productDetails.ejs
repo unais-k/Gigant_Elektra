@@ -77,12 +77,27 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-12 mb-3">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="validationCustom01">Product Id</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="validationCustom01"
+                                                    style="background-color: #fff"
+                                                    readonly
+                                                    placeholder="First name"
+                                                    value="<%=editProduct._id%>"
+                                                />
+                                                <div class="valid-feedback">Looks good!</div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
                                                 <label for="validationCustom01">Name</label>
                                                 <input
                                                     type="text"
                                                     class="form-control"
                                                     id="validationCustom01"
+                                                    style="background-color: #fff"
+                                                    readonly
                                                     placeholder="First name"
                                                     value="<%=editProduct.productName%>"
                                                 />
@@ -94,8 +109,10 @@
                                                     type="text"
                                                     class="form-control"
                                                     name="price"
+                                                    style="background-color: #fff"
+                                                    readonly
                                                     id="validationCustom02"
-                                                    value="<%=editProduct.price%>"
+                                                    value="$<%=editProduct.price%>.00"
                                                 />
                                                 <div class="valid-feedback">Looks good!</div>
                                             </div>
@@ -105,6 +122,8 @@
                                                     type="text"
                                                     name="details"
                                                     class="form-control"
+                                                    style="background-color: #fff"
+                                                    readonly
                                                     id="validationCustom03"
                                                     value="<%=editProduct.details%>"
                                                 />
@@ -116,6 +135,8 @@
                                                     type="text"
                                                     class="form-control"
                                                     name="vendor"
+                                                    style="background-color: #fff"
+                                                    readonly
                                                     id="validationCustom01"
                                                     value="<%=editProduct.brand%>"
                                                 />
@@ -127,6 +148,8 @@
                                                     type="text"
                                                     name="quantity"
                                                     class="form-control"
+                                                    style="background-color: #fff"
+                                                    readonly
                                                     id="validationCustom05"
                                                     value="<%=editProduct.quantity%>"
                                                 />
@@ -138,6 +161,8 @@
                                                     type="text"
                                                     class="form-control"
                                                     name="vendor"
+                                                    style="background-color: #fff"
+                                                    readonly
                                                     id="validationCustom01"
                                                     value="<%=editProduct.color%>"
                                                 />
@@ -148,6 +173,8 @@
                                                 <input
                                                     type="text"
                                                     class="form-control"
+                                                    style="background-color: #fff"
+                                                    readonly
                                                     name="vendor"
                                                     id="validationCustom01"
                                                     value="<%=editProduct.category%>"

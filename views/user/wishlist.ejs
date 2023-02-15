@@ -106,7 +106,7 @@
                                             >6</span
                                         ></a
                                     >
-                                    <a class="list-group-items" href="/profile/<%=user_details._id%>"
+                                    <a class="list-group-items" href="/profile?id=<%=user_details._id%>"
                                         ><i class="fa-regular fa-user pe-2"></i>Profile</a
                                     >
                                     <a class="list-group-items" href="/address"
@@ -161,12 +161,11 @@
                                                     ></a>
                                                 </td>
                                                 <td>
-                                                    <a href="/productDetails?id=<%=wishlist.product._id%>"
-                                                        ><img
-                                                            style="width: 100px; height: 100px"
-                                                            src="<%=wishlist.product.productImages[0]%>"
-                                                            alt="..."
-                                                    /></a>
+                                                    <img
+                                                        style="width: 100px; height: 100px"
+                                                        src="<%=wishlist.product.productImages[0]%>"
+                                                        alt="..."
+                                                    />
                                                 </td>
                                                 <td><a><%=wishlist.product.productName%></a></td>
                                                 <td class="product-price"><span>$</span><%=wishlist.product.price%></td>

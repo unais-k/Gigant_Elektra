@@ -444,127 +444,39 @@
                     <div class="inner-title">
                         <h3 class="mb-0">Related Products</h3>
                     </div>
-
                     <div class="product-grid-slide owl-carousel owl-theme">
+                        <% for( let i = 0; i < category.length; i++ ) { %>
+
                         <div class="product-grid">
                             <div class="product-img">
-                                <a href="shop-product-detail">
-                                    <div class="label-offer bg-red">Sale</div>
-                                    <img src="/images/user/products/product-grid/product-01.jpg" alt="..."
+                                <a href="/productDetails?id=<%=category[i]._id%>">
+                                    <!-- <div class="label-offer bg-red">Sale</div> -->
+                                    <img src="<%=category[i].productImages[0]%>" alt="..."
                                 /></a>
                             </div>
                             <div class="product-description">
-                                <h3><a href="shop-product-detail">Smart Digital Watch</a></h3>
+                                <h3><a href="shop-product-detail"><%=category[i].productName%></a></h3>
                                 <h4 class="price">
-                                    <span class="regular-price line-through">$99.00</span>
-                                    <span class="offer-price">$90.00</span>
+                                    <!-- <span class="regular-price line-through">$99.00</span> -->
+                                    <span class="offer-price">$<%=category[i].price%>.00</span>
                                 </h4>
                             </div>
                             <div class="product-buttons">
                                 <ul class="ps-0">
                                     <li>
-                                        <a href="#" class="btn-link" title="Add To Wishlist"
-                                            ><i class="far fa-heart"></i
-                                        ></a>
+                                        <a class="btn-link" onclick="addtowishlist('<%=category[i]._id%>')">
+                                            <span title="Add To Wishlist"><i class="far fa-heart"></i></span>
+                                        </a>
                                     </li>
-                                    <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-grid">
-                            <div class="product-img">
-                                <a href="shop-product-detail"
-                                    ><img src="/images/user/products/product-grid/product-02.jpg" alt="..."
-                                /></a>
-                            </div>
-                            <div class="product-description">
-                                <h3><a href="shop-product-detail">Desktop Speakers</a></h3>
-                                <h4 class="price">
-                                    <span class="offer-price">$29.00</span>
-                                </h4>
-                            </div>
-                            <div class="product-buttons">
-                                <ul class="ps-0">
                                     <li>
-                                        <a href="#" class="btn-link" title="Add To Wishlist"
-                                            ><i class="far fa-heart"></i
-                                        ></a>
+                                        <button class="butn-style2" onclick="addtocartShop('<%=category[i]._id%>')">
+                                            <span title="Add to Cart">Add to Cart</span>
+                                        </button>
                                     </li>
-                                    <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="product-grid">
-                            <div class="product-img">
-                                <a href="shop-product-detail">
-                                    <div class="label-offer left-align bg-primary">New</div>
-                                    <img src="/images/user/products/product-grid/product-03.jpg" alt="..."
-                                /></a>
-                            </div>
-                            <div class="product-description">
-                                <h3><a href="shop-product-detail">Wireless Controller</a></h3>
-                                <h4 class="price">
-                                    <span class="regular-price line-through">$57.00</span>
-                                    <span class="offer-price">$55.00</span>
-                                </h4>
-                            </div>
-                            <div class="product-buttons">
-                                <ul class="ps-0">
-                                    <li>
-                                        <a href="#" class="btn-link" title="Add To Wishlist"
-                                            ><i class="far fa-heart"></i
-                                        ></a>
-                                    </li>
-                                    <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-grid">
-                            <div class="product-img">
-                                <a href="shop-product-detail"
-                                    ><img src="/images/user/products/product-grid/product-04.jpg" alt="..."
-                                /></a>
-                            </div>
-                            <div class="product-description">
-                                <h3><a href="shop-product-detail">Wireless Headset</a></h3>
-                                <h4 class="price">
-                                    <span class="offer-price">$28.00</span>
-                                </h4>
-                            </div>
-                            <div class="product-buttons">
-                                <ul class="ps-0">
-                                    <li>
-                                        <a href="#" class="btn-link" title="Add To Wishlist"
-                                            ><i class="far fa-heart"></i
-                                        ></a>
-                                    </li>
-                                    <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product-grid">
-                            <div class="product-img">
-                                <a href="shop-product-detail"
-                                    ><img src="/images/user/products/product-grid/product-05.jpg" alt="..."
-                                /></a>
-                            </div>
-                            <div class="product-description">
-                                <h3><a href="shop-product-detail">Hp Wireless Printer</a></h3>
-                                <h4 class="price">
-                                    <span class="offer-price">$90.00</span>
-                                </h4>
-                            </div>
-                            <div class="product-buttons">
-                                <ul class="ps-0">
-                                    <li>
-                                        <a href="#" class="btn-link" title="Add To Wishlist"
-                                            ><i class="far fa-heart"></i
-                                        ></a>
-                                    </li>
-                                    <li><a href="#" class="butn-style2" title="Add to Cart">Add to Cart</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <% } %>
                     </div>
                     <!-- end related product -->
                 </div>

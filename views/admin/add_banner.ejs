@@ -82,14 +82,30 @@
                                         <h4 class="card-title">Product information</h4>
                                     </div>
                                     <div class="card-body">
-                                        <form id="form" onsubmit="addBanner()" enctype="multipart/form-data">
+                                        <form
+                                            id="form"
+                                            method="post"
+                                            action="/admin/addBannerPost"
+                                            enctype="multipart/form-data"
+                                        >
                                             <div class="row">
-                                                <div class="col-md-12 mb-3">
+                                                <div class="col-md-6 mb-3">
                                                     <label for="validationCustom01">Title</label>
                                                     <input
                                                         type="text"
                                                         class="form-control"
                                                         name="title"
+                                                        id="validationCustom01"
+                                                        required
+                                                    />
+                                                    <div class="valid-feedback">Looks good!</div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="validationCustom01">Price</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="price"
                                                         id="validationCustom01"
                                                         required
                                                     />
@@ -135,7 +151,9 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="text-center m-3">
-                                                        <button type="submit" class="btn btn-primary">SUBMIT</button>
+                                                        <button onclick="banner()" type="submit" class="btn btn-primary">
+                                                            SUBMIT
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,28 +201,40 @@
                     toast.addEventListener("mouseleave", Swal.resumeTimer);
                 },
             });
-            addBanner = async () => {
-                event.preventDefault();
-                const formData = new FormData(event.target);
-                const formProps = await Object.fromEntries(formData);
-                console.log(formProps);
-                axios.post("/admin/addBannerPost", formProps).then(async (e) => {
-                    if (e.data.succ) {
-                        await Toast.fire({
-                            icon: "success",
-                            title: "Coupen added successfully",
-                        });
-                        document.getElementById("form").reset();
-                        // location.href = "/admin/addCoupon";
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Something went wrong",
-                        });
-                    }
+
+            function banner() {
+                Toast.fire({
+                    icon: "success",
+                    title: "Banner added successfully",
                 });
-            };
+                // document.getElementById("form").reset();
+            }
+            // addBanner = async () => {
+            //     event.preventDefault();
+            //     const formData = new FormData(event.target);
+            //     const formProps = await Object.fromEntries(formData);
+            //     console.log(formProps);
+            //     axios
+            //         .post("/admin/addBannerPost", formProps, {
+            //             "Content-Type": `multipart/form-data`,
+            //         })
+            //         .then(async (e) => {
+            //             if (e.data.succ) {
+            //                 await Toast.fire({
+            //                     icon: "success",
+            //                     title: "Coupen added successfully",
+            //                 });
+            //                 document.getElementById("form").reset();
+            //                 // location.href = "/admin/addCoupon";
+            //             } else {
+            //                 Swal.fire({
+            //                     icon: "error",
+            //                     title: "Oops...",
+            //                     text: "Something went wrong",
+            //                 });
+            //             }
+            //         });
+            // };
         </script>
 
         <!-- popper -->

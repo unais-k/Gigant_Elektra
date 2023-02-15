@@ -110,7 +110,7 @@
                                             <% for( let i = 0; i < order.items.length; i++ ) { %>
                                             <tr>
                                                 <td class="product-thumbnail text-start">
-                                                    <a href="#"
+                                                    <a href="/productDetails?id=<%=order.items[i].productId._id%>"
                                                         ><img
                                                             src="<%=order.items[i].productId.productImages[0]%>"
                                                             alt="..."
